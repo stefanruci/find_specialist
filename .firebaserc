@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "findspecialist-a5e75": {
+      "hosting": {
+        "app": [
+          "findspecialist-a5e75"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "findspecialist-a5e75"
+  }
+}

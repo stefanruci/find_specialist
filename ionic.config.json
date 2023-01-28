@@ -1,0 +1,7 @@
+{
+  "name": "gjej_specialist",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
