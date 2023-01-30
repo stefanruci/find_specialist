@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Freelancer</ion-label>
+      <ion-radio slot="start" [(ngModel)]="userType" value="freelancer"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Client</ion-label>
+      <ion-radio slot="start" [(ngModel)]="userType" value="client"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="login()">Login</ion-button>
+</ion-content>
