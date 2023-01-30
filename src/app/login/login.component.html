@@ -1,27 +1,36 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header >
+  <ion-toolbar color="primary">
     <ion-title>
       Login
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+      <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text" [(ngModel)]="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Login as:</ion-label>
+          <ion-select [(ngModel)]="userType">
+            <ion-select-option value="freelancer">Freelancer</ion-select-option>
+            <ion-select-option value="client">Client</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+  <ion-button expand="full" (click)="login()">Log in</ion-button>
+  <ion-row> <ion-label class="login-q">Don't have an account? </ion-label>
+  <ion-button color="success" (click)="signUp()" size="small"> Register </ion-button>
 
-<ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label>Freelancer</ion-label>
-      <ion-radio slot="start" [(ngModel)]="userType" value="freelancer"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Client</ion-label>
-      <ion-radio slot="start" [(ngModel)]="userType" value="client"></ion-radio>
-    </ion-item>
-  </ion-list>
-
-  <ion-button expand="full" (click)="login()">Login</ion-button>
+</ion-row>
 </ion-content>

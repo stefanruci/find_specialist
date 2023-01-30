@@ -1,14 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { RegisterComponent } from '../register/register.component';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl:'./login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
-export class LoginComponent implements OnInit {
-    @Input() username: string='';
+export class RegisterComponent implements OnInit {
+
+
+ @Input() username: string='';
   @Input() password: string='';
   @Input() userType: string='';
 
@@ -20,24 +22,20 @@ export class LoginComponent implements OnInit {
   }
       
   
-  login() {
+ 
+  
+  register() {
     console.log(`Logging in as ${this.userType}`);
     // Perform the login logic here, using the selected user type
-  }
-
-  signUp() {
-    console.log(`Logging in as ${this.userType}`);
-    // Perform the login logic here, using the selected user type
-    this.openModal();
   }
 
   closeModal() {
     this.modalCtrl.dismiss();
 
 }
-async openModal() {
+async openLoginModal() {
   const modal = await this.modalCtrl.create({
-    component: RegisterComponent
+    component: LoginComponent
   });
   return await modal.present();
 }

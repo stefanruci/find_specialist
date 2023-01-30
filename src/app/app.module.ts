@@ -20,14 +20,17 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
 import {AngularFireModule} from'@angular/fire/compat';
 import {AngularFirestoreModule} from'@angular/fire/compat/firestore/';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,LoginComponent,RegisterComponent],
   imports: [BrowserModule,
      IonicModule.forRoot(),
       AppRoutingModule,
+      FormsModule ,
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule,
       // provideFirebaseApp(() => initializeApp(environment.firebase)),
