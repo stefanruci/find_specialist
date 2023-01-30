@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { LoginComponent } from '../login/login.component';
 
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   @Input() password: string='';
   @Input() userType: string='';
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController,private  rute:Router) { }
 
   ngOnInit() {
 
@@ -31,6 +32,8 @@ export class RegisterComponent implements OnInit {
 
   closeModal() {
     this.modalCtrl.dismiss();
+        this.rute.navigate(["/tabs/home"]);
+
 
 }
 async openLoginModal() {
