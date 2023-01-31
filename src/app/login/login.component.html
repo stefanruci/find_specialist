@@ -1,17 +1,25 @@
-<ion-header >
+<ion-header class="main-view">
   <ion-toolbar color="primary">
     <ion-title>
       Login
     </ion-title>
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" >
           <ion-button routerLink="/tabs/home" (click)="closeModal()">
             <ion-icon name="close"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content class="modal-content">
       <ion-list>
+
+          <ion-item>
+          <ion-label>Login as:</ion-label>
+          <ion-select [(ngModel)]="userType">
+            <ion-select-option value="freelancer">Freelancer</ion-select-option>
+            <ion-select-option value="client">Client</ion-select-option>
+          </ion-select>
+        </ion-item>
         <ion-item>
           <ion-label position="floating">Username</ion-label>
           <ion-input type="text" [(ngModel)]="username"></ion-input>
@@ -20,13 +28,7 @@
           <ion-label position="floating">Password</ion-label>
           <ion-input type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label>Login as:</ion-label>
-          <ion-select [(ngModel)]="userType">
-            <ion-select-option value="freelancer">Freelancer</ion-select-option>
-            <ion-select-option value="client">Client</ion-select-option>
-          </ion-select>
-        </ion-item>
+      
       </ion-list>
   <ion-button expand="full" (click)="login()">Log in</ion-button>
   <ion-row> <ion-label class="login-q">Don't have an account? </ion-label>

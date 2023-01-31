@@ -7,14 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
+import { SpecialistFeedListComponent } from 'src/app/specialist-feed-list/specialist-feed-list.component';
+import { ClientFeedListComponent } from 'src/app/client-feed-list/client-feed-list.component';
+import {SwiperModule} from 'swiper/angular';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HomePageRoutingModule,
-  ],
-  declarations: [HomePage]
+    declarations: [HomePage,SpecialistFeedListComponent,ClientFeedListComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        HomePageRoutingModule,
+        SwiperModule,
+       
+    ]
 })
 export class HomePageModule {}

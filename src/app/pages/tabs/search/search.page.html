@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>search</ion-title>
+        <ion-input  [(ngModel)]="searchWord" name="searchWord"  size="larger" type="text" placeholder="Search"  class="ion-padding"></ion-input>
+ <ion-icon name="search-outline"
+    slot="end"
+      size="large"
+      class="ion-padding" (click)="onSearch()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<!--todo : print searched data -->
 </ion-content>

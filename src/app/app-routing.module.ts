@@ -7,10 +7,7 @@ const routes: Routes = [
     redirectTo: 'tabs',
     pathMatch: 'full'
   },
-   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomeModule)
-  },
+ 
 
   {
     path: 'add-specialists',

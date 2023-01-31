@@ -7,3 +7,25 @@
 </ion-header> 
 <ion-content>
 </ion-content>
+
+
+<ion-row>
+  <swiper [config]="bannerConfig" class="banners">
+    <ng-template swiperSlide *ngFor="let banner of banners">
+      <img [src]="banner?.banner ">
+    </ng-template>
+  </swiper>
+</ion-row>
+
+  <ion-row >
+    <ion-label>Njoftimet e specialisteve </ion-label>
+    <ion-col size="12">
+      <app-client-feed-list>
+      </app-client-feed-list>
+    </ion-col>
+     <ion-col size="12">
+     <app-specialist-feed-list>
+     </app-specialist-feed-list>
+    </ion-col>
+  </ion-row>
+

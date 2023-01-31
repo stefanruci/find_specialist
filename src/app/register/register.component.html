@@ -12,7 +12,13 @@
     </ion-header>
     <ion-content>
       <ion-list>
-  
+   <ion-item>
+          <ion-label>Register  as:</ion-label>
+          <ion-select [(ngModel)]="userType">
+            <ion-select-option value="freelancer">Freelancer</ion-select-option>
+            <ion-select-option value="client">Client</ion-select-option>
+          </ion-select>
+          </ion-item>
           <ion-item>
       <ion-label position="floating">First name</ion-label>
       <ion-input type="text" required></ion-input>
@@ -37,13 +43,7 @@
       <ion-label position="floating"> Rewrite password</ion-label>
       <ion-input type="password" required></ion-input>
     </ion-item>
-
-          <ion-label>Register  as:</ion-label>
-          <ion-select [(ngModel)]="userType">
-            <ion-select-option value="freelancer">Freelancer</ion-select-option>
-            <ion-select-option value="client">Client</ion-select-option>
-          </ion-select>
-       
+  
       </ion-list>
   <ion-button color="success" expand="full" (click)="register()">register</ion-button>
   <ion-row> <ion-label class="register-q">Do you have an account? </ion-label>

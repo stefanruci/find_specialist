@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   @Input() password: string='';
   @Input() userType: string='';
 
-  constructor(private modalCtrl: ModalController,public rute:Router) { }
+  constructor(private modalCtrl: ModalController,private rute: NavController) { }
 
   ngOnInit() {
 
@@ -27,20 +27,23 @@ export class LoginComponent implements OnInit {
     // Perform the login logic here, using the selected user type
   }
 
-  signUp() {
+  async signUp() {
     console.log(`Logging in as ${this.userType}`);
     // Perform the login logic here, using the selected user type
+        await this.modalCtrl.dismiss();
     this.openModal();
   }
 
-  closeModal() {
-    this.modalCtrl.dismiss();
-    this.rute.navigate(["/tabs/home"]);
+  async closeModal() {
+    this.rute.navigateRoot(['tabs/home/']);
+    await this.modalCtrl.dismiss();
+   
 
 }
 async openModal() {
   const modal = await this.modalCtrl.create({
-    component: RegisterComponent
+    component: RegisterComponent,
+    cssClass: 'modal-large'
   });
   return await modal.present();
 }

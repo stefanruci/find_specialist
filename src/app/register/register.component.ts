@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { LoginComponent } from '../login/login.component';
 
 @Component({
@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   @Input() password: string='';
   @Input() userType: string='';
 
-  constructor(private modalCtrl: ModalController,private  rute:Router) { }
+  constructor(private modalCtrl: ModalController,private  rute: NavController) { }
 
   ngOnInit() {
 
@@ -30,15 +30,18 @@ export class RegisterComponent implements OnInit {
     // Perform the login logic here, using the selected user type
   }
 
-  closeModal() {
-    this.modalCtrl.dismiss();
-        this.rute.navigate(["/tabs/home"]);
+  async closeModal() {
+  this.rute.navigateRoot(['tabs/home/']);
+  await  this.modalCtrl.dismiss();
 
 
 }
 async openLoginModal() {
+ await this.modalCtrl.dismiss();
+
   const modal = await this.modalCtrl.create({
-    component: LoginComponent
+    component: LoginComponent,
+    cssClass: 'modal-large'
   });
   return await modal.present();
 }
