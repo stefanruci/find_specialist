@@ -5,11 +5,7 @@
    <ion-button size="small" slot="end" color="primary" (click)="openModal()">login</ion-button>
   </ion-toolbar>
 </ion-header> 
-<ion-content>
-</ion-content>
-
-
-<ion-row>
+<ion-row slot="top">
   <swiper [config]="bannerConfig" class="banners">
     <ng-template swiperSlide *ngFor="let banner of banners">
       <img [src]="banner?.banner ">
