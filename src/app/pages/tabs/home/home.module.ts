@@ -19,7 +19,6 @@ import {SwiperModule} from 'swiper/angular';
         IonicModule,
         HomePageRoutingModule,
         SwiperModule,
-       
     ]
 })
 export class HomePageModule {}

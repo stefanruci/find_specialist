@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Feed } from '../model/feed/feed.model';
 
 @Component({
   selector: 'app-client-feed-list',
@@ -6,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-feed-list.component.scss'],
 })
 export class ClientFeedListComponent implements OnInit {
-
+  clientFeedList:Feed[]=[]
+feed:Feed={
+id:'id',
+userName:"username",
+tittle:'tittle',
+pershkrim:'decr',
+address:'addr',
+time:new Date(),
+}
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.clientFeedList.push(this.feed)
+  }
 
 }

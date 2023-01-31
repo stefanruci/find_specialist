@@ -5,23 +5,32 @@
    <ion-button size="small" slot="end" color="primary" (click)="openModal()">login</ion-button>
   </ion-toolbar>
 </ion-header> 
-<ion-row slot="top">
+
+
+<ion-content>
+  <ion-grid class="content-grid">
+<ion-row  class="ion-padding home-banner">
   <swiper [config]="bannerConfig" class="banners">
     <ng-template swiperSlide *ngFor="let banner of banners">
-      <img [src]="banner?.banner ">
+      <img expand="full" [src]="banner?.banner ">
     </ng-template>
   </swiper>
-</ion-row>
 
-  <ion-row >
-    <ion-label>Njoftimet e specialisteve </ion-label>
-    <ion-col size="12">
-      <app-client-feed-list>
-      </app-client-feed-list>
-    </ion-col>
-     <ion-col size="12">
-     <app-specialist-feed-list>
+</ion-row>
+  <ion-row expand="full" class="feeds">
+    <ion-label>Gjej specialist </ion-label>
+     <app-specialist-feed-list >
      </app-specialist-feed-list>
-    </ion-col>
+   
   </ion-row>
 
+  <ion-row  class="feeds">
+    <ion-col size="12" >
+      <ion-content>
+      </ion-content>
+  <ion-label>Njoftimet e klienteve </ion-label>
+  <app-client-feed-list expand="full"></app-client-feed-list>
+  </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

@@ -23,12 +23,13 @@ async openModal() {
 
   ngOnInit() {
     this.banners=[
-      {banner:'url'},
-     {banner:'src'},
-      {banner:'src'},
-      {banner:'src'},
-      {banner:'src'},
-
+      {banner:'./assets/imgs/slider-imgs/1.png'},
+     {banner:'./assets/imgs/slider-imgs/2.png'},
+      {banner:'./assets/imgs/slider-imgs/3.png'},
+      {banner:'./assets/imgs/slider-imgs/4.png'},
+      {banner:'./assets/imgs/slider-imgs/5.png'},
+     {banner:'./assets/imgs/slider-imgs/6.png'},
+       {banner:'./assets/imgs/slider-imgs/7.png'},
     ];
   }
     ngAfterContentChecked(): void {
@@ -36,7 +37,9 @@ this.bannerConfig={
   slidesPerView:1.2,
   spaceBetween:10,
     centeredSlides:true,
-}  }
-
-
+    allowTouchMove:true,
+    effect:'slide',
+    loop:true,
+}  
+}
 }
