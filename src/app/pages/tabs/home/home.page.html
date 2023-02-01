@@ -1,36 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="warning">
-   <ion-icon name="briefcase-outline" size="large" slot="start">
-   </ion-icon> <ion-title size="10px"> GJEJ SPECIALIST </ion-title>
-   <ion-button size="small" slot="end" color="primary" (click)="openModal()">login</ion-button>
+    <ion-icon name="briefcase-outline" size="large" slot="start"> </ion-icon>
+    <ion-title size="10px"> GJEJ SPECIALIST </ion-title>
+    <ion-button size="small" slot="end" color="primary" (click)="openModal()"
+      >login</ion-button
+    >
   </ion-toolbar>
-</ion-header> 
-
+</ion-header>
 
 <ion-content>
   <ion-grid class="content-grid">
-<ion-row  class="ion-padding home-banner">
-  <swiper [config]="bannerConfig" class="banners">
-    <ng-template swiperSlide *ngFor="let banner of banners">
-      <img expand="full" [src]="banner?.banner ">
-    </ng-template>
-  </swiper>
+    <ion-row class="ion-padding home-banner">
+      		<!-- <swiper [loop]="true" [autoHeight]="true" [allowTouchMove]="true" 
+          [autoplay]="{ delay: 1000, disableOnInteraction: false }"
+          [speed]="1000" 
+          [pagination]="{ clickable: true }" [navigation]="false">
 
-</ion-row>
-  <ion-row expand="full" class="feeds">
-    <ion-label>Gjej specialist </ion-label>
-     <app-specialist-feed-list >
-     </app-specialist-feed-list>
-   
-  </ion-row>
+        <ng-template  ata-swiper-autoplay="1000" swiperSlide *ngFor="let banner of banners"  class="swiper-slide">
+          <img expand="full" [src]="banner?.banner " />
+        </ng-template>
 
-  <ion-row  class="feeds">
-    <ion-col size="12" >
-      <ion-content>
-      </ion-content>
-  <ion-label>Njoftimet e klienteve </ion-label>
-  <app-client-feed-list expand="full"></app-client-feed-list>
-  </ion-col>
-  </ion-row>
-</ion-grid>
+      </swiper> -->
+    </ion-row>
+    <ion-row expand="full" class="feeds">
+      <ion-label>Gjej specialist </ion-label>
+      <app-specialist-feed-list> </app-specialist-feed-list>
+    </ion-row>
+
+    <ion-row class="feeds">
+      <ion-col size="12">
+        <ion-content> </ion-content>
+        <ion-label>Njoftimet e klienteve </ion-label>
+        <app-client-feed-list expand="full"></app-client-feed-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

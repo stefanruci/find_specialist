@@ -1,16 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { IonicModule } from "@ionic/angular";
 
-import { HeaderNavComponent } from './header-nav.component';
+import { HeaderNavComponent } from "./header-nav.component";
 
-describe('HeaderNavComponent', () => {
+describe("HeaderNavComponent", () => {
   let component: HeaderNavComponent;
   let fixture: ComponentFixture<HeaderNavComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderNavComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [HeaderNavComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderNavComponent);
@@ -18,7 +18,7 @@ describe('HeaderNavComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { AddSpecialistsPageRoutingModule } from './add-specialists-routing.module';
+import { AddSpecialistsPageRoutingModule } from "./add-specialists-routing.module";
 
-import { AddSpecialistsPage } from './add-specialists.page';
+import { AddSpecialistsPage } from "./add-specialists.page";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
-    AddSpecialistsPageRoutingModule
+    AddSpecialistsPageRoutingModule,
   ],
-  declarations: [AddSpecialistsPage]
+  declarations: [AddSpecialistsPage],
 })
 export class AddSpecialistsPageModule {}

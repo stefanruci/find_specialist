@@ -7,12 +7,20 @@
 <ion-content class="ion-padding">
   <ion-item>
     <ion-label>username</ion-label>
-    <ion-input type="text" [(ngModel)]="specialist.name" placeholder="write username ">
+    <ion-input
+      type="text"
+      [(ngModel)]="specialist.name"
+      placeholder="write username "
+    >
     </ion-input>
   </ion-item>
   <ion-item>
     <ion-label>password</ion-label>
-    <ion-input type="text" [(ngModel)]="specialist.surname" placeholder="write password ">
+    <ion-input
+      type="text"
+      [(ngModel)]="specialist.surname"
+      placeholder="write password "
+    >
     </ion-input>
   </ion-item>
   <ion-item>
@@ -36,6 +44,6 @@
 
 <ion-content>
   <ion-item *ngFor="let specialist of specialistList"
-    >{{specialist.name}} {{specialist.surname}} 
+    >{{specialist.name}} {{specialist.surname}}
   </ion-item>
 </ion-content>

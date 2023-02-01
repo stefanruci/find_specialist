@@ -1,24 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { HomePageRoutingModule } from "./home-routing.module";
 
-import { HomePage } from './home.page';
-import { SpecialistFeedListComponent } from 'src/app/specialist-feed-list/specialist-feed-list.component';
-import { ClientFeedListComponent } from 'src/app/client-feed-list/client-feed-list.component';
-import {SwiperModule} from 'swiper/angular';
+import { HomePage } from "./home.page";
+import { SpecialistFeedListComponent } from "src/app/specialist-feed-list/specialist-feed-list.component";
+import { ClientFeedListComponent } from "src/app/client-feed-list/client-feed-list.component";
+
 
 @NgModule({
-    declarations: [HomePage,SpecialistFeedListComponent,ClientFeedListComponent],
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        HomePageRoutingModule,
-        SwiperModule,
-    ]
+  declarations: [
+    HomePage,
+    SpecialistFeedListComponent,
+    ClientFeedListComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HomePageRoutingModule,
+    SwiperModule,
+  ],
 })
 export class HomePageModule {}

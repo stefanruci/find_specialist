@@ -1,16 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { IonicModule } from "@ionic/angular";
 
-import { ClientFeedListComponent } from './client-feed-list.component';
+import { ClientFeedListComponent } from "./client-feed-list.component";
 
-describe('ClientFeedListComponent', () => {
+describe("ClientFeedListComponent", () => {
   let component: ClientFeedListComponent;
   let fixture: ComponentFixture<ClientFeedListComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClientFeedListComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ClientFeedListComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ClientFeedListComponent);
@@ -18,7 +18,7 @@ describe('ClientFeedListComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
