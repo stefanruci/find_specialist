@@ -11,17 +11,27 @@
 <ion-content>
   <ion-grid class="content-grid">
     <ion-row class="ion-padding home-banner">
-      		<!-- <swiper [loop]="true" [autoHeight]="true" [allowTouchMove]="true" 
-          [autoplay]="{ delay: 1000, disableOnInteraction: false }"
-          [speed]="1000" 
-          [pagination]="{ clickable: true }" [navigation]="false">
-
-        <ng-template  ata-swiper-autoplay="1000" swiperSlide *ngFor="let banner of banners"  class="swiper-slide">
+      <swiper
+        [loop]="true"
+        [autoHeight]="true"
+        [allowTouchMove]="true"
+        [autoplay]="true"
+        [autoplay]="{ delay: 700, disableOnInteraction: true }"
+        [autoplay]="{ delay: 2000, disableOnInteraction: false }"
+        [speed]="700"
+        [pagination]="{ clickable: true }"
+        [navigation]="false"
+      >
+        <ng-template
+          swiperSlide
+          *ngFor="let banner of banners"
+          class="swiper-slide"
+        >
           <img expand="full" [src]="banner?.banner " />
         </ng-template>
-
-      </swiper> -->
+      </swiper>
     </ion-row>
+
     <ion-row expand="full" class="feeds">
       <ion-label>Gjej specialist </ion-label>
       <app-specialist-feed-list> </app-specialist-feed-list>

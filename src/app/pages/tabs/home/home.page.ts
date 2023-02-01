@@ -1,7 +1,12 @@
-import { AfterContentChecked, Component, OnInit } from "@angular/core";
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnInit,
+} from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { LoginComponent } from "src/app/login/login.component";
-
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -12,6 +17,7 @@ import SwiperCore, {
   Autoplay,
   Thumbs,
   Controller,
+  SwiperOptions,
 } from "swiper";
 
 SwiperCore.use([
@@ -26,17 +32,21 @@ SwiperCore.use([
   Controller,
 ]);
 
-
 @Component({
   selector: "app-home",
   templateUrl: "./home.page.html",
   styleUrls: ["./home.page.scss"],
 })
-
 export class HomePage implements OnInit, AfterContentChecked {
-  // bannerConfig: SwiperOptions;
+  bannerConfig: SwiperOptions;
   banners: any[] = [];
-  constructor(private modalCtrl: ModalController) {}
+  store_types: any[] = [];
+  // bannerConfig: SwiperOptions;
+  constructor(
+    private modalCtrl: ModalController,
+    private cd: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {}
 
   async openModal() {
     const modal = await this.modalCtrl.create({
@@ -57,6 +67,11 @@ export class HomePage implements OnInit, AfterContentChecked {
       { banner: "./assets/imgs/slider-imgs/7.png" },
     ];
   }
-  ngAfterContentChecked(): void {
+  ngAfterContentChecked() {
+    this.bannerConfig = {
+      slidesPerView: 1.2,
+      spaceBetween: 10,
+      centeredSlides: true,
+    };
   }
 }

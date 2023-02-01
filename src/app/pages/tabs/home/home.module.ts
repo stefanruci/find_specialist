@@ -9,7 +9,7 @@ import { HomePageRoutingModule } from "./home-routing.module";
 import { HomePage } from "./home.page";
 import { SpecialistFeedListComponent } from "src/app/specialist-feed-list/specialist-feed-list.component";
 import { ClientFeedListComponent } from "src/app/client-feed-list/client-feed-list.component";
-
+import { SwiperModule } from "swiper/angular";
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { ClientFeedListComponent } from "src/app/client-feed-list/client-feed-li
     IonicModule,
     HomePageRoutingModule,
     SwiperModule,
+    
   ],
 })
 export class HomePageModule {}

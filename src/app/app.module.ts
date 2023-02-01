@@ -31,6 +31,7 @@ import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { LoginComponent } from "./login/login.component";
 import { FormsModule } from "@angular/forms";
 import { RegisterComponent } from "./register/register.component";
+import { SwiperModule } from "swiper/angular";
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [
@@ -40,6 +41,7 @@ import { RegisterComponent } from "./register/register.component";
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    SwiperModule,
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
