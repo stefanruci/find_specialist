@@ -1,13 +1,10 @@
-<ion-spinner
-  class="ion-text-center"
-  name="crescent"
-  *ngIf="isLoading"
-></ion-spinner>
+
+<ion-content>
 <ion-header>
   <ion-toolbar color="success">
     <ion-title> Register </ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/tabs/home" (click)="closeModal()">
+      <ion-button (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -29,11 +26,13 @@
     </ion-item>
 
     <ion-item>
+
+
       <ion-label position="floating">Last name</ion-label>
       <ion-input [(ngModel)]="user.lastName" type="text" required></ion-input>
     </ion-item>
 
-  <ion-item>
+    <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input [(ngModel)]="user.username" type="text" required></ion-input>
     </ion-item>
@@ -45,12 +44,37 @@
 
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input [(ngModel)]="user.password" type="password" required></ion-input>
+      <ion-input
+        (onchange)="isSamePass()"
+        [(ngModel)]="user.password"
+        type="password"
+        required
+      ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating"> Rewrite password</ion-label>
-      <ion-input [(ngModel)]="user.password" type="password" required></ion-input>
+      <ion-input
+        (onchange)="isSamePass()"
+        [(ngModel)]="reTypePassword"
+        type="password"
+        required
+      ></ion-input>
+      <br />
+    </ion-item>
+    <ion-item
+      *ngIf="user.password !== reTypePassword"
+      position="floating"
+      class="passdontmatch"
+    >
+      Error:Password dont match
+    </ion-item>
+    <ion-item
+      *ngIf="isSamePassword && reTypePassword.length !== 0"
+      position="floating"
+      class="passmatch"
+    >
+      [Info]:Password match 
     </ion-item>
   </ion-list>
   <ion-button color="success" expand="full" (click)="register()"
@@ -62,4 +86,5 @@
       Log in
     </ion-button>
   </ion-row>
+</ion-content>
 </ion-content>

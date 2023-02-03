@@ -10,16 +10,16 @@
 </ion-header>
 <ion-content class="modal-content">
   <ion-list>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label>Login as:</ion-label>
       <ion-select [(ngModel)]="userType">
         <ion-select-option value="freelancer">Freelancer</ion-select-option>
         <ion-select-option value="client">Client</ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
     <ion-item>
-      <ion-label position="floating">Username</ion-label>
-      <ion-input type="text" [(ngModel)]="username"></ion-input>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Password</ion-label>
@@ -27,8 +27,26 @@
     </ion-item>
   </ion-list>
   <ion-button expand="full" (click)="login()">Log in</ion-button>
+  <div style="height: 20"></div>
+  <br />
+  <br />
+  <ion-item class="ion-align-items-center">
+    <ion-button
+      color="danger"
+      style="text-align: center !important"
+      (click)="forgotPass()"
+      size="small"
+      fill="clear"
+    
+    >
+      Forgot password
+    </ion-button></ion-item
+  >
+
+  <br />
   <ion-row>
     <ion-label class="login-q">Don't have an account? </ion-label>
+
     <ion-button color="success" (click)="signUp()" size="small">
       Register
     </ion-button>

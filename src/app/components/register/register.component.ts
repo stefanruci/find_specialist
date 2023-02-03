@@ -5,16 +5,16 @@ import {
   ModalController,
   NavController,
 } from "@ionic/angular";
+import { User } from "src/app/model/user/user.model";
+import { AuthService } from "src/app/services/auth/auth.service";
 import { LoginComponent } from "../login/login.component";
-import { User } from "../model/user/user.model";
-import { AuthService } from "../services/auth/auth.service";
-
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
+  @Input() reTypePassword: string = "";
   isTypePassword: boolean = true;
   isLoading: boolean = false;
 
@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private rute: NavController,
     private router: Router,
     private authService: AuthService,
     private alertController: AlertController
@@ -40,16 +39,22 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {}
 
+  isSamePassword: boolean = true;
+
+  isSamePass() {
+    this.isSamePassword = this.user.password === this.reTypePassword;
+  }
   register() {
     this.isLoading = true;
     console.log(this.user.email, "is  emty");
     if (this.user.email != "") {
-      console.log(this.user.email ,'is not emty');
+      console.log(this.user.email, "is not emty");
 
       this.authService
         .register(this.user)
+
         .then((data: any) => {
-          this.router.navigateByUrl("/tabs/home");
+          this.router.navigateByUrl("./tabs/home");
           this.isLoading = false;
           this.user = {
             id: "",
@@ -62,6 +67,7 @@ export class RegisterComponent implements OnInit {
             location: "",
             profilePictureUrl: "",
           };
+          this.openLoginModal();
         })
         .catch((e) => {
           console.log(this.user);
@@ -71,9 +77,9 @@ export class RegisterComponent implements OnInit {
           this.isLoading = false;
           let msg: string = "Could not sign you up, please try again.";
           if (e.code == "auth/email-already-in-use") {
-            msg = e.message;
+            msg = "Email already in use ";
           }
-          this.showAlert(e);
+          this.showAlert(e.code);
         });
     }
 
@@ -86,7 +92,6 @@ export class RegisterComponent implements OnInit {
   }
   async openLoginModal() {
     await this.modalCtrl.dismiss();
-
     const modal = await this.modalCtrl.create({
       component: LoginComponent,
       cssClass: "modal-large",

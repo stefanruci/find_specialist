@@ -13,7 +13,8 @@ export class SpecialistServiceService {
  private specialistListReff =this.firestore.collection('specialist-list');
   specialists: Specialist[] =[];
 
-  constructor(private db : AngularFireDatabase,private firestore:AngularFirestore){
+  constructor(private db : AngularFireDatabase
+    ,private firestore:AngularFirestore){
 this.getSpecialists;
   }
 

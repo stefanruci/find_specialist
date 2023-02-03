@@ -1,12 +1,6 @@
-import {
-  AfterContentChecked,
-  ChangeDetectorRef,
-  Component,
-  NgZone,
-  OnInit,
-} from "@angular/core";
+import { AfterContentChecked, Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { LoginComponent } from "src/app/login/login.component";
+import { LoginComponent } from "src/app/components/login/login.component";
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -42,11 +36,7 @@ export class HomePage implements OnInit, AfterContentChecked {
   banners: any[] = [];
   store_types: any[] = [];
   // bannerConfig: SwiperOptions;
-  constructor(
-    private modalCtrl: ModalController,
-    private cd: ChangeDetectorRef,
-    private ngZone: NgZone
-  ) {}
+  constructor(private modalCtrl: ModalController) {}
 
   async openModal() {
     const modal = await this.modalCtrl.create({
