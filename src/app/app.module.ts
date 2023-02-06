@@ -33,6 +33,7 @@ import { SwiperModule } from "swiper/angular";
 import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { ForgotpasswordComponent } from "./components/forgotpassword/forgotpassword.component";
+import { EmptyScreenComponent } from "./components/empty-screen/empty-screen.component";
 @NgModule({
   declarations: [
     AppComponent,

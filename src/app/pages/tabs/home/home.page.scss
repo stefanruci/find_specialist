@@ -1,13 +1,18 @@
 ion-header{
-    ion-toolbar{
+    ion-toolbar{  
+
         ion-title{
             width: fit-content;
             font-size:large;
             margin-top: 10px;
             padding: 0px;
+
+
         }
         ion-icon{
               margin: 10px;
+                                    //    background-color: 	#ffcc00;
+
             }
          ion-button{
 margin-top: 10px;
@@ -36,3 +41,15 @@ app-specialist-feed-list{
 }
 
 
+*{
+    background-color: white;
+}
+ion-header *{
+                             background-color: 	#ffcc00;
+
+}
+.popover {
+                                 background-color: 	#ffcc00;
+                                 color: black;
+
+}

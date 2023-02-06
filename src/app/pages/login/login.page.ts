@@ -2,25 +2,23 @@ import { Component, OnInit } from "@angular/core";
 import { AngularFirestoreCollection } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import {
-  AlertController,
   ModalController,
   NavController,
+  AlertController,
 } from "@ionic/angular";
-import { map, Observable } from "rxjs";
-import { Action } from "rxjs/internal/scheduler/Action";
+import { Observable, async } from "rxjs";
+import { ForgotpasswordComponent } from "src/app/components/forgotpassword/forgotpassword.component";
+import { RegisterComponent } from "src/app/components/register/register.component";
+import { User } from "src/app/model/user/user.model";
 import { ApiService } from "src/app/services/api/api.service";
 import { AuthService } from "src/app/services/auth/auth.service";
-import { User } from "../../model/user/user.model";
-import { HomePage } from "../../pages/tabs/home/home.page";
-import { ForgotpasswordComponent } from "../forgotpassword/forgotpassword.component";
-import { RegisterComponent } from "../register/register.component";
 
 @Component({
   selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginPage implements OnInit {
   email: string = "";
   password: string = "";
 
@@ -51,8 +49,7 @@ export class LoginComponent implements OnInit {
       .then((data: any) => {
         this.isLogin = true;
         console.log("is login :", this.isLogin);
-        this.closeModal();
-        this.router.navigateByUrl(" ");
+        this.router.navigateByUrl("tabs");
       })
       .catch((e) => {
         console.log(e);

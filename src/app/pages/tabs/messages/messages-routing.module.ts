@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { AuthGuard } from "src/app/guards/auth/auth.guard";
 
-import { MessagesPage } from './messages.page';
+import { MessagesPage } from "./messages.page";
 
 const routes: Routes = [
   {
-    path: '',
-    component: MessagesPage
+    path: "",
+    canActivate: [AuthGuard],
+    component: MessagesPage,
   },
   {
-    path: 'message',
-    loadChildren: () => import('./message/message.module').then( m => m.MessagePageModule)
-  }
+    path: "message",
+    loadChildren: () =>
+      import("./message/message.module").then((m) => m.MessagePageModule),
+  },
 ];
 
 @NgModule({

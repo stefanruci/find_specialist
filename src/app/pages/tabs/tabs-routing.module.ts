@@ -9,6 +9,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: "",
+        redirectTo: "home",
+        pathMatch: "full",
+      },
+      {
         path: "home",
         loadChildren: () =>
           import("./home/home.module").then((m) => m.HomePageModule),
@@ -29,11 +34,6 @@ const routes: Routes = [
         path: "menu",
         loadChildren: () =>
           import("./menu/menu.module").then((m) => m.MenuPageModule),
-      },
-      {
-        path: "",
-        redirectTo: "home",
-        pathMatch: "full",
       },
     ],
   },

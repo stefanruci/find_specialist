@@ -1,6 +1,7 @@
 import { AfterContentChecked, Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { LoginComponent } from "src/app/components/login/login.component";
+import { AuthService } from "src/app/services/auth/auth.service";
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -36,15 +37,17 @@ export class HomePage implements OnInit, AfterContentChecked {
   banners: any[] = [];
   store_types: any[] = [];
   // bannerConfig: SwiperOptions;
-  constructor(private modalCtrl: ModalController) {}
 
-  async openModal() {
-    const modal = await this.modalCtrl.create({
-      component: LoginComponent,
-      cssClass: "modal-large",
-    });
-    return await modal.present();
-  }
+  isLogin: boolean = false;
+  constructor(private modalCtrl: ModalController, public auth: AuthService) {}
+
+  // async openModal() {
+  //   const modal = await this.modalCtrl.create({
+  //     component: LoginComponent,
+  //     cssClass: "modal-large",
+  //   });
+  //   return await modal.present();
+  // }
 
   ngOnInit() {
     this.banners = [
@@ -56,6 +59,7 @@ export class HomePage implements OnInit, AfterContentChecked {
       { banner: "./assets/imgs/slider-imgs/6.png" },
       { banner: "./assets/imgs/slider-imgs/7.png" },
     ];
+    this.isLogin = this.auth.isLogin;
   }
   ngAfterContentChecked() {
     this.bannerConfig = {
@@ -63,5 +67,9 @@ export class HomePage implements OnInit, AfterContentChecked {
       spaceBetween: 10,
       centeredSlides: true,
     };
+  }
+  logout() {
+    this.auth.logout();
+    console.log("loget uou", this.auth.isLogin);
   }
 }

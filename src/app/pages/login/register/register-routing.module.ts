@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 
-import { MenuPage } from './menu.page';
+import { RegisterPage } from './register.page';
 
 const routes: Routes = [
   {
-    path: "",
-    canActivate: [AuthGuard],
-    component: MenuPage,
-  },
+    path: '',
+    component: RegisterPage
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MenuPageRoutingModule {}
+export class RegisterPageRoutingModule {}

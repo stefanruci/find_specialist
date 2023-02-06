@@ -20,6 +20,7 @@ import { ApiService } from "../api/api.service";
 export class AuthService {
   public _uid = new BehaviorSubject<any>(null);
   correctUser: any;
+  isLogin: boolean = false;
 
   constructor(private auth: Auth, private apiService: ApiService) {}
 
@@ -30,8 +31,10 @@ export class AuthService {
 
       if ((await response).user) {
         this.setUserData((await response).user.uid);
+        this.isLogin = true;
       }
     } catch (e) {
+      this.isLogin = false;
       throw e;
     }
   }
@@ -49,6 +52,7 @@ export class AuthService {
   randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
   async register(user: User) {
     try {
       const registeredUser = await createUserWithEmailAndPassword(
@@ -104,16 +108,8 @@ export class AuthService {
   checkAuth(): Promise<any> {
     return new Promise((resolve, rejects) => {
       onAuthStateChanged(this.auth, (user) => {
-        console.log(user);
+        console.log("auth user: ", user);
         resolve(user);
-        // if(user){
-        //   this.setUserData(user.uid);
-        //    resolve(user);
-        // }
-        // else{
-        //   this.logout();
-        //   rejects(false);
-        // }
       });
     });
   }

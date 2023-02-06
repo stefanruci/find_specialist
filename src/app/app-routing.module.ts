@@ -6,7 +6,13 @@ const routes: Routes = [
     path: "",
     redirectTo: "tabs",
     pathMatch: "full",
-  },
+  } ,
+  {
+    path: "*",
+    redirectTo: "tabs",
+    pathMatch: "full",
+  }
+ ,
 
   {
     path: "add-specialists",
@@ -19,6 +25,11 @@ const routes: Routes = [
     path: "tabs",
     loadChildren: () =>
       import("./pages/tabs/tabs.module").then((m) => m.TabsPageModule),
+  },
+  {
+    path: "login",
+    loadChildren: () =>
+      import("./pages/login/login.module").then((m) => m.LoginPageModule),
   },
 ];
 

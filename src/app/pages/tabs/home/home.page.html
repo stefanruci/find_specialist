@@ -1,10 +1,33 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" color="warning">
   <ion-toolbar color="warning">
     <ion-icon name="briefcase-outline" size="large" slot="start"> </ion-icon>
     <ion-title size="10px"> GJEJ SPECIALIST </ion-title>
-    <ion-button size="small" slot="end" color="primary" (click)="openModal()"
+    <ion-button
+      *ngIf="this.auth.isLogin===false"
+      size="small"
+      slot="end"
+      color="primary"
+      routerLink="../../login"
       >login</ion-button
     >
+    <div slot="end" class="popover" *ngIf="this.auth.isLogin===true">
+      <ion-buttons slot="end">
+        <ion-button fill="clear" id="popover">
+          <ion-icon
+            slot="icon-only"
+            name="ellipsis-vertical-outline"
+            color="primary"
+          ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-popover #popover trigger="popover" triggerAction="click">
+        <ng-template>
+          <ion-content class="ion-padding ion-text-center" (click)="logout()">
+            <ion-label color="danger" (click)="logout()"> LOGOUT </ion-label>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +49,7 @@
           *ngFor="let banner of banners"
           class="swiper-slide"
         >
-          <img expand="full" [src]="banner?.banner " />
+          <img expand="full" [src]="banner?.banner" />
         </ng-template>
       </swiper>
     </ion-row>
