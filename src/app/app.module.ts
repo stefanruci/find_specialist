@@ -34,6 +34,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { ForgotpasswordComponent } from "./components/forgotpassword/forgotpassword.component";
 import { EmptyScreenComponent } from "./components/empty-screen/empty-screen.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { EmptyScreenComponent } from "./components/empty-screen/empty-screen.com
   ],
   imports: [
     BrowserModule,
+   
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
@@ -60,6 +62,7 @@ import { EmptyScreenComponent } from "./components/empty-screen/empty-screen.com
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    NgbModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -33,7 +33,9 @@ export class LoginPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private apiService: ApiService
-  ) {}
+  ) {
+   
+  }
 
   ngOnInit() {
     // this.getUserByEmail(this.email).subscribe(

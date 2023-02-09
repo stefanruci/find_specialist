@@ -1,5 +1,11 @@
-import { AfterContentChecked, Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import {
+  AfterContentChecked,
+  Component,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { Router } from "@angular/router";
+import { ModalController, Platform, PopoverController } from "@ionic/angular";
 import { LoginComponent } from "src/app/components/login/login.component";
 import { AuthService } from "src/app/services/auth/auth.service";
 import SwiperCore, {
@@ -33,13 +39,27 @@ SwiperCore.use([
   styleUrls: ["./home.page.scss"],
 })
 export class HomePage implements OnInit, AfterContentChecked {
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400,
+    slidesPerView: 3,
+    autoplay: true,
+    loop: true,
+  };
+  @ViewChild("popover") popover: PopoverController;
+
   bannerConfig: SwiperOptions;
   banners: any[] = [];
   store_types: any[] = [];
   // bannerConfig: SwiperOptions;
 
   isLogin: boolean = false;
-  constructor(private modalCtrl: ModalController, public auth: AuthService) {}
+  constructor(
+    private modalCtrl: ModalController,
+    public auth: AuthService,
+    private router: Router,
+    private platform: Platform
+  ) {}
 
   // async openModal() {
   //   const modal = await this.modalCtrl.create({
@@ -50,6 +70,9 @@ export class HomePage implements OnInit, AfterContentChecked {
   // }
 
   ngOnInit() {
+    if (this.platform.width() <= 700) {
+      this.slideOpts.slidesPerView = 1;
+    }
     this.banners = [
       { banner: "./assets/imgs/slider-imgs/1.png" },
       { banner: "./assets/imgs/slider-imgs/2.png" },
@@ -64,12 +87,15 @@ export class HomePage implements OnInit, AfterContentChecked {
   ngAfterContentChecked() {
     this.bannerConfig = {
       slidesPerView: 1.2,
-      spaceBetween: 10,
+      spaceBetween: 30,
       centeredSlides: true,
     };
   }
-  logout() {
-    this.auth.logout();
+  async logout() {
+    console.log("logout");
+    await this.auth.logout().then((e) => {
+      this.router.navigateByUrl("/login", { replaceUrl: true });
+    });
     console.log("loget uou", this.auth.isLogin);
   }
 }

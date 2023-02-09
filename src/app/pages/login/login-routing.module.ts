@@ -1,17 +1,21 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { LoginGuard } from "src/app/guards/login/login.guard";
 
-import { LoginPage } from './login.page';
+import { LoginPage } from "./login.page";
 
 const routes: Routes = [
   {
-    path: '',
-    component: LoginPage
+    path: "",
+    canActivate: [LoginGuard],
+
+    component: LoginPage,
   },
   {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  }
+    path: "register",
+    loadChildren: () =>
+      import("./register/register.module").then((m) => m.RegisterPageModule),
+  },
 ];
 
 @NgModule({

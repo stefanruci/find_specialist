@@ -1,13 +1,75 @@
 <ion-header>
   <ion-toolbar>
-        <ion-input  [(ngModel)]="searchWord" name="searchWord"  size="larger" type="text" placeholder="Search"  class="ion-padding"></ion-input>
- <ion-icon name="search-outline"
-    slot="end"
-      size="large"
-      class="ion-padding" (click)="onSearch()"></ion-icon>
+    <ion-input
+      [(ngModel)]="searchWord"
+      name="searchWord"
+      size="larger"
+      type="text"
+      placeholder="Search"
+      class="ion-padding"
+    ></ion-input>
+    <ion-button
+      slot="end"
+      fill="none"
+      size="small"
+      (click)="onSearch()"
+      style="width: 48px; height: 48px"
+    >
+      <ion-icon
+        name="search-outline"
+        slot="end"
+        size="large"
+        class="ion-padding"
+        style="width: 38px; height: 38px; margin: 0px; padding: 0px"
+      ></ion-icon
+    ></ion-button>
   </ion-toolbar>
+  <ion-segment
+    class="segm ion-text-center"
+    [value]="segment"
+    mode="md"
+    (ionChange)="onSegmentChanged($event)"
+  >
+    <ion-segment-button class="segm ion-text-center" value="S">
+      <ion-label>SPECIALIST</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="P" class="ion-text-center">
+      <ion-label class="ion-text-center">PUNEMARRES</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
-<ion-content>
-<!--todo : print searched data -->
+<ion-content color="light">
+  <ng-container *ngIf="segment === 'S'">
+    <ng-container>
+      <ion-avatar slot="start"> SPECIALIST </ion-avatar>
+      <ion-label>
+        <ion-label>SPECIALIST</ion-label>
+
+        <!-- {{getUser(user)?.name}} -->
+        <!-- <p>
+              <ion-text>
+                message
+              </ion-text>
+            </p> -->
+      </ion-label>
+      <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="segment === 'P' ">
+    <ng-container>
+      <ion-avatar slot="start"> PUNEMARRES </ion-avatar>
+      <ion-label>
+        <ion-label>PUNEMARRES</ion-label>
+
+        <!-- {{getUser(user)?.name}} -->
+        <!-- <p>
+              <ion-text>
+                message
+              </ion-text>
+            </p> -->
+      </ion-label>
+      <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
+    </ng-container>
+  </ng-container>
 </ion-content>

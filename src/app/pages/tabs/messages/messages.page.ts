@@ -11,7 +11,8 @@ import { ChatService } from "src/app/services/chat/chat.service";
   styleUrls: ["./messages.page.scss"],
 })
 export class MessagesPage implements OnInit {
-  @ViewChild("new_chat") modal: ModalController;
+  isCollapsed: boolean = true;
+
   @ViewChild("popover") popover: PopoverController;
   segment = "chats";
   open_new_chat = false;
@@ -53,9 +54,10 @@ export class MessagesPage implements OnInit {
     try {
       console.log("logout");
       this.popover.dismiss();
-      await this.chatService.auth.logout();
+      await this.chatService.auth.logout().then((e) => {
+        this.router.navigateByUrl("/login", { replaceUrl: true });
+      });
       // this.chatService.currentUserId = null;
-      this.router.navigateByUrl("/login", { replaceUrl: true });
     } catch (e) {
       console.log(e);
     }
@@ -78,30 +80,24 @@ export class MessagesPage implements OnInit {
 
   onWillDismiss(event: any) {}
 
-  cancel() {
-    this.modal.dismiss();
-    this.open_new_chat = false;
-  }
-
-  async startChat(item) {
-    try {
-      // this.global.showLoader();
-      // create chatroom
-      const room = await this.chatService.createChatRoom(item?.uid);
-      console.log("room: ", room);
-      this.cancel();
-      const navData: NavigationExtras = {
-        queryParams: {
-          name: item?.name,
-        },
-      };
-      this.router.navigate(["/", "home", "chats", room?.id], navData);
-      // this.global.hideLoader();
-    } catch (e) {
-      console.log(e);
-      // this.global.hideLoader();
-    }
-  }
+  // async startChat(item) {
+  //   try {
+  //     // this.global.showLoader();
+  //     // create chatroom
+  //     const room = await this.chatService.createChatRoom(item?.uid);
+  //     console.log("room: ", room);
+  //     const navData: NavigationExtras = {
+  //       queryParams: {
+  //         name: item?.name,
+  //       },
+  //     };
+  //     this.router.navigate(["/", "home", "chats", room?.id], navData);
+  //     // this.global.hideLoader();
+  //   } catch (e) {
+  //     console.log(e);
+  //     // this.global.hideLoader();
+  //   }
+  // }
 
   getChat(item) {
     (item?.user).pipe(take(1)).subscribe((user_data) => {

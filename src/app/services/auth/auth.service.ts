@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Auth, user } from "@angular/fire/auth";
+import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { rejects } from "assert";
 import { resolve } from "dns";
 import {
@@ -10,7 +11,7 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { BehaviorSubject, map } from "rxjs";
+import { BehaviorSubject, first, map, Observable } from "rxjs";
 import { User } from "src/app/model/user/user.model";
 import { ApiService } from "../api/api.service";
 
@@ -20,9 +21,29 @@ import { ApiService } from "../api/api.service";
 export class AuthService {
   public _uid = new BehaviorSubject<any>(null);
   correctUser: any;
+  correntUserId: string = "";
   isLogin: boolean = false;
+  constructor(
+    private auth: Auth,
+    private afAuth: AngularFireAuth,
+    private apiService: ApiService
+  ) {}
 
-  constructor(private auth: Auth, private apiService: ApiService) {}
+  getCorrentUser(): Observable<User> {
+    return this.apiService.getUserByEmail(this.auth.currentUser.email.trim());
+  }
+
+  getUserId(): string {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        // User is signed in.
+        console.log(user.uid);
+        this.correntUserId = user.uid.trim();
+      }
+    });
+
+    return this.correntUserId;
+  }
 
   async login(email: string, password: string): Promise<any> {
     try {
@@ -64,11 +85,14 @@ export class AuthService {
 
       const data = {
         id: registeredUser.user.uid,
-        name: user.name,
-        lastName: user.lastName,
-        username: user.username,
+        name: user.name.charAt(0).toUpperCase() + user.name.slice(1),
+        lastName:
+          user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1),
+        username:
+          user.username.charAt(0).toUpperCase() + user.username.slice(1),
         email: user.email,
-        userType: user.userType,
+        userType:
+          user.userType.charAt(0).toUpperCase() + user.userType.slice(1),
         profilePictureUrl:
           "https://i.avatar/" + this.randomIntFromInterval(200, 400),
       };
@@ -108,18 +132,22 @@ export class AuthService {
   checkAuth(): Promise<any> {
     return new Promise((resolve, rejects) => {
       onAuthStateChanged(this.auth, (user) => {
-        console.log("auth user: ", user);
+        // console.log("auth user: ", user);
         resolve(user);
       });
     });
   }
+
   async getUserData(id) {
     // return (await (this.apiService.collection('users').doc(id).get().toPromise())).data;
-    const docSnap = await this.apiService.getDocById("users/$(id)");
-    if (docSnap?.exists()) {
-      return docSnap.data;
-    } else {
-      throw "No such doc exist";
-    }
+    return await (
+      await this.apiService.getDocById("users/$(id)")
+    ).data.toString;
+    //   if (docSnap?.exists()) {
+    //     return docSnap.data;
+    //   } else {
+    //     throw "No such doc exist";
+    //   }
+    // }
   }
 }

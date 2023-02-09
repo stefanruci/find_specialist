@@ -54,7 +54,6 @@ export class RegisterPage implements OnInit {
 
         .then((data: any) => {
           this.router.navigateByUrl("./tabs/home");
-          this.isLoading = false;
           this.user = {
             id: "",
             name: "",
@@ -66,7 +65,6 @@ export class RegisterPage implements OnInit {
             location: "",
             profilePictureUrl: "",
           };
-          this.openLoginModal();
         })
         .catch((e) => {
           console.log(this.user);

@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-item *ngFor="let clientFeed of clientFeedList">
+  <ion-item *ngFor="let clientFeed of clientFeedList.slice(0, elementsToShow);">
     <ion-card (click)="onFeedClick(clientFeed)">
       <ion-card-header>
         <ion-card-title>{{ clientFeed.tittle }}</ion-card-title>

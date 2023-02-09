@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Feed } from "../../model/feed/feed.model";
 
 @Component({
@@ -16,9 +16,23 @@ export class ClientFeedListComponent implements OnInit {
     address: "addr",
     time: new Date(),
   };
+  @Input()
+  elementsToShow: number = this.clientFeedList.length;
+
   constructor() {}
 
   ngOnInit() {
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
+    this.clientFeedList.push(this.feed);
     this.clientFeedList.push(this.feed);
   }
   onFeedClick(clientFeed: Feed) {}
