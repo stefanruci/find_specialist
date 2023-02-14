@@ -24,9 +24,7 @@ modal-wrapper {
     }
 }
 
-.main-view {
-    background: transparent;
-}
+
 
 .overlay {
     position: fixed;
@@ -84,4 +82,26 @@ modal-wrapper {
     width: 400px;
     height: 800px;
     margin: auto auto auto auto;
+}
+ion-header  {
+
+ion-toolbar{
+    background: cadetblue;
+}
+    ion-buttons{
+        background: transparent;
+
+ion-button{
+    background: transparent;
+    ion-icon{
+        background: transparent;
+
+    }
+}
+    }
+
+}
+
+ion-header>*{
+    background-color: grey;
 }

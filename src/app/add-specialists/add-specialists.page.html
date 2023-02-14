@@ -1,49 +1,49 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>AddSpecialists</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>AddSpecialists</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-item>
-    <ion-label>username</ion-label>
-    <ion-input
-      type="text"
-      [(ngModel)]="specialist.name"
-      placeholder="write username "
+    <ion-item>
+        <ion-label>username</ion-label>
+        <ion-input
+                type="text"
+                [(ngModel)]="specialist.name"
+                placeholder="write username "
+        >
+        </ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>password</ion-label>
+        <ion-input
+                type="text"
+                [(ngModel)]="specialist.surname"
+                placeholder="write password "
+        >
+        </ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>email</ion-label>
+        <ion-input
+                [(ngModel)]="specialist.email"
+                type="email"
+                placeholder="write a email "
+        >
+        </ion-input>
+    </ion-item>
+    <ion-button
+            (click)="addSpecialist()"
+            expand="block"
+            fill="clear"
+            shape="round"
     >
-    </ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>password</ion-label>
-    <ion-input
-      type="text"
-      [(ngModel)]="specialist.surname"
-      placeholder="write password "
-    >
-    </ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>email</ion-label>
-    <ion-input
-      [(ngModel)]="specialist.email"
-      type="email"
-      placeholder="write a email "
-    >
-    </ion-input>
-  </ion-item>
-  <ion-button
-    (click)="addSpecialist()"
-    expand="block"
-    fill="clear"
-    shape="round"
-  >
-    add
-  </ion-button>
+        add
+    </ion-button>
 </ion-content>
 
 <ion-content>
-  <ion-item *ngFor="let specialist of specialistList"
+    <ion-item *ngFor="let specialist of specialistList"
     >{{specialist.name}} {{specialist.surname}}
-  </ion-item>
+    </ion-item>
 </ion-content>

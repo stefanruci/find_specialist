@@ -1,57 +1,59 @@
 <ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title> {{user.userType}}:{{user.name }} </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <ul class="list-unstyled">
-      <li>Informacioni personal</li>
-      <li>Siguria</li>
-      <li>te dhenat e organizates</li>
-      <br />
-      <br />
+    <ion-header>
+        <ion-toolbar>
+            <ion-title> {{user.userType}}:{{user.name }} </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+        <ul class="list-unstyled">
+            <li> Njoftimet e mia</li>
+            <li>Informacioni personal</li>
+            <li>Te dhenat e organizates</li>
+            <li>Siguria</li>
 
-      <ion-button color="danger" slot="bottom" (click)="logout()">
-        Log out
-      </ion-button>
-    </ul>
-  </ion-content>
+            <br/>
+            <br/>
+
+            <ion-button color="danger" slot="bottom" (click)="logout()">
+                Log out
+            </ion-button>
+        </ul>
+    </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <!-- <ion-icon
-      name="menu-outline"
-      slot="start"
-      size="large"
-      class="ion-padding"
-    ></ion-icon> -->
-      <ion-title>My Account</ion-title>
-      <ion-buttons slot="end">
-        <ion-button fill="clear" id="popover-button">
-          <ion-icon
-            slot="icon-only"
-            name="ellipsis-vertical-outline"
-          ></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-popover
-        #popover
-        trigger="popover-button"
-        triggerAction="click"
-        (click)="logout()"
-      >
-        <ng-template>
-          <ion-content class="ion-padding ion-text-center">
-            <ion-label color="danger"> LOGOUT </ion-label>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content> </ion-content>
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <!-- <ion-icon
+            name="menu-outline"
+            slot="start"
+            size="large"
+            class="ion-padding"
+          ></ion-icon> -->
+            <ion-title>My Account</ion-title>
+            <ion-buttons slot="end">
+                <ion-button fill="clear" id="popover-button">
+                    <ion-icon
+                            slot="icon-only"
+                            name="ellipsis-vertical-outline"
+                    ></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-popover
+                #popover
+                trigger="popover-button"
+                triggerAction="click"
+                (click)="logout()"
+            >
+                <ng-template>
+                    <ion-content class="ion-padding ion-text-center">
+                        <ion-label color="danger"> LOGOUT</ion-label>
+                    </ion-content>
+                </ng-template>
+            </ion-popover>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content></ion-content>
 </div>

@@ -1,102 +1,109 @@
-<ion-header [translucent]="true" color="warning">
-  <ion-toolbar color="warning">
-    <ion-icon name="briefcase-outline" size="large" slot="start"> </ion-icon>
-    <ion-title size="10px"> GJEJ SPECIALIST </ion-title>
-    <ion-button
-      *ngIf="this.auth.isLogin===false"
-      size="small"
-      slot="end"
-      color="primary"
-      routerLink="../../login"
-      >login</ion-button
-    >
-    <div slot="end" class="popover" *ngIf="this.auth.isLogin===true">
-      <ion-buttons>
-        <ion-button id="popover">
-          <ion-icon
-            slot="icon-only"
-            name="ellipsis-vertical-outline"
-            color="primary"
-          ></ion-icon>
-        </ion-button>
-      </ion-buttons>
+<ion-header>
+    <ion-toolbar>
+        <ion-icon name="briefcase-outline" size="large" slot="start"></ion-icon>
+        <ion-title size="10px"> GJEJ SPECIALIST</ion-title>
+        <ion-button
+                *ngIf="this.auth.isLogin===false"
+                size="small"
+                slot="end"
+                color="primary"
+                routerLink="../../login"
+        >login
+        </ion-button
+        >
+        <div slot="end" class="popover" *ngIf="this.auth.isLogin===true">
+            <ion-buttons size="small">
+                <ion-button id="popover">
 
-      <ion-popover #popover trigger="popover" triggerAction="click">
-        <ng-template>
-          <ion-content class="ion-padding ion-text-center" (click)="logout()">
-            <ion-label color="danger" (click)="logout()"> LOGOUT </ion-label>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-    </div>
-  </ion-toolbar>
+                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+
+            <ion-popover slot="end" #popover trigger="popover" triggerAction="click">
+                <ng-template>
+                    <ion-content class="ion-padding ion-text-center" (click)="logout()">
+                        <ion-label color="danger" (click)="logout()"> LOGOUT</ion-label>
+                    </ion-content>
+                </ng-template>
+            </ion-popover>
+        </div>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col expand="full" size="12">
-        <ion-grid class="content-grid home-banner">
-          <ion-row class="ion-padding ion-text-center">
-            <ion-slides [options]="slideOpts">
-              <ion-slide *ngFor="let banner of banners">
-                <img class="imgs" expand="full" [src]="banner?.banner" />
-              </ion-slide>
-            </ion-slides>
-          </ion-row>
-          <!-- <ion-row class="ion-padding home-banner ion-text-center">
-      <swiper
-        [loop]="true"
-        [autoHeight]="true"
-        [allowTouchMove]="true"
-        [autoplay]="{ delay: 700, disableOnInteraction: true }"
-        [speed]="700"
-        [pagination]="{ clickable: true }"
-        [navigation]="false"
-      >
-        <ng-template
-          swiperSlide
-          *ngFor="let banner of banners"
-          class="swiper-slide"
-        >
-          <img class="imgs home-banner" expand="full" [src]="banner?.banner" />
-        </ng-template>
-      </swiper>
-    </ion-row> -->
-        </ion-grid>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col expand="full" size="12">
-        <section style="display: block">
-          <div class="body">
-            <div class="grid text-center">
-              <div class="row">
-                <div
-                  class="col g-col-6 col-sm-12 col-sm-12 col-md-6 col-12 feeds"
-                >
-                  <ion-label>Gjej specialist </ion-label>
-                  <app-specialist-feed-list> </app-specialist-feed-list>
-                </div>
-                <div class="col g-col-6 col-sm-12 col-md-6 col-12 feeds">
-                  <ion-label>Njoftimet e klienteve </ion-label>
-                  <ion-button
-                    *ngIf="this.auth.isLogin===false"
-                    size="small"
-                    slot="end"
-                    color="primary"
-                    routerLink="../../login"
-                    >Shiko te gjithe</ion-button
-                  >
-                  <app-client-feed-list
-                    [elementsToShow]="10"
-                    expand="full"
-                  ></app-client-feed-list>
-                </div>
-              </div>
-            </div>
-          </div></section
-      ></ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid expand="full">
+        <ion-row>
+            <ion-col expand="full" size="12">
+                <ion-grid class="content-grid home-banner">
+                    <ion-row class="ion-padding ion-text-center">
+                        <ion-slides [options]="slideOpts">
+                            <ion-slide *ngFor="let banner of banners">
+                                <img class="imgs" expand="full" [src]="banner?.banner" alt="banner"/>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+        <ion-row class="justify-content-center align-content-center">
+            <ion-col expand="full" size="12">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="12" size-sm="12" class="border-1 shadow feed-col">
+                            <ion-button class="ion-padding ion-text-center add-feed-button" (click)="openAddFeedModal()"
+                                        *ngIf="auth.userType=='F'">
+                                Shto njoftim
+                            </ion-button>
+                            <h3 class="ion-padding ion-text-center ion-margin">
+                                Njoftime e specialisteve
+                            </h3>
+
+                            <br>
+
+
+                            <app-feed [elementsToShow]="10"
+                                      expand="full" class="  feeds ion-text-center  ">
+
+                            </app-feed>
+                            <ion-button
+                                    size="small"
+                                    color="primary"
+                                    routerLink="../"
+                                    fill="none"
+                            >
+                                Shiko te gjithe
+
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+
+                    <br/> <br/> <br/>
+                    <ion-row class="h-auto">
+                        <ion-col size="12" size-sm="12" class="h-auto ion-text-center shadow feed-col">
+                            <ion-button class="add-feed-button ion-padding ion-text-center "
+                                        (click)="openAddFeedModal()"
+                                        *ngIf="auth.userType=='P'">
+                                Shto njoftim
+                            </ion-button>
+                            <h3 class="ion-text-center  ion-padding">
+                                Njoftimet
+                                e klienteve
+                            </h3>
+
+
+                            <app-feed [elementsToShow]="10" class="feeds   ">
+                            </app-feed>
+                            <ion-button
+                                    fill="none"
+                                    size="small"
+                                    color="primary"
+                                    routerLink="../../"
+                            >Shiko te gjithe
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

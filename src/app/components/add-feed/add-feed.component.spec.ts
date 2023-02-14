@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SpecialistFeedListComponent } from './specialist-feed-list.component';
+import { AddFeedComponent } from './add-feed.component';
 
-describe('SpecialistFeedListComponent', () => {
-  let component: SpecialistFeedListComponent;
-  let fixture: ComponentFixture<SpecialistFeedListComponent>;
+describe('AddFeedComponent', () => {
+  let component: AddFeedComponent;
+  let fixture: ComponentFixture<AddFeedComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpecialistFeedListComponent ],
+      declarations: [ AddFeedComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SpecialistFeedListComponent);
+    fixture = TestBed.createComponent(AddFeedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

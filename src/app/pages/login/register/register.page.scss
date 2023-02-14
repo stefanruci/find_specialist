@@ -3,3 +3,22 @@
     height: 800px;
     margin: auto auto auto auto;
 }
+
+ion-header  {
+
+    ion-toolbar{
+        background: cadetblue;
+    }
+    ion-buttons{
+        background: transparent;
+
+        ion-button{
+            background: transparent;
+            ion-icon{
+                background: transparent;
+
+            }
+        }
+    }
+
+}

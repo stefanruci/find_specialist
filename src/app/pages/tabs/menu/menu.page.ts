@@ -29,7 +29,7 @@ export class MenuPage implements OnInit {
     profilePictureUrl: "",
   };
   ngOnInit() {
-    this.auth.getCorrentUser().subscribe((user) => {
+    this.auth.getCurrentUser().subscribe((user) => {
       if (user) {
         this.user = user;
       }
