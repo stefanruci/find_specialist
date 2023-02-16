@@ -43,5 +43,7 @@ export class FeedComponent implements OnInit {
     }
 
     onFeedClick(clientFeed: Feed) {
+
+
     }
 }

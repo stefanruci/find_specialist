@@ -1,7 +1,6 @@
-<ion-content class="ion-text-center  content-feed  shadow-sm  bg-white border-dark">
     <ion-grid>
         <ion-row class="justify-content-center content-feed align-content-center">
-            <ion-col size="12" *ngFor="let clientFeed of clientFeedList.slice(0, elementsToShow);"
+            <ion-col expand="full"  size="12" *ngFor="let clientFeed of clientFeedList.slice(0, elementsToShow);"
                      class=" feed-item  ">
                 <ion-card (click)="onFeedClick(clientFeed)" expand="full" class="ion-card">
                     <ion-card-header style="display: flex ;justify-content: space-between">
@@ -19,7 +18,10 @@
                         {{ clientFeed.pershkrim.slice(0, 100).concat('   ......')  }}
                     </ion-card-content>
                     <ion-card-content style="display:flex;justify-content: flex-end ;">
-                        <ion-button fill="none" style="color:blue " size="small"> Shiko me shume</ion-button>
+
+                        <ion-button fill="none" style="color:blue " size="small" (click)="onFeedClick(feed)"> Shiko me
+                            shume
+                        </ion-button>
 
                     </ion-card-content>
 
@@ -28,4 +30,3 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-</ion-content>

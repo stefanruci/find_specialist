@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Edito
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">Close</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label position="floating">Titulli</ion-label>
+            <ion-input [(ngModel)]="feed.tittle"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Vendodhja</ion-label>
+            <ion-input [(ngModel)]="feed.vendodhja"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Kompania</ion-label>
+            <ion-input [(ngModel)]="feed.kompania"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label position="floating">Pershkrim</ion-label>
+            <ion-textarea [(ngModel)]="feed.pershkrim"></ion-textarea>
+        </ion-item>
+        <ion-button expand="block" (click)="updateFeed()">Ruaj</ion-button>
+    </ion-list>
+</ion-content>

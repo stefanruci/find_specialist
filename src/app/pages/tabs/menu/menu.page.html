@@ -1,4 +1,4 @@
-<ion-menu contentId="main-content">
+<ion-menu menuId="myMenu" contentId="main-content" id="main-content1">
     <ion-header>
         <ion-toolbar>
             <ion-title> {{user.userType}}:{{user.name }} </ion-title>
@@ -6,10 +6,19 @@
     </ion-header>
     <ion-content class="ion-padding">
         <ul class="list-unstyled">
-            <li> Njoftimet e mia</li>
-            <li>Informacioni personal</li>
-            <li>Te dhenat e organizates</li>
-            <li>Siguria</li>
+            <ion-button fill="none" (click)="scrollToElement('njoftimet' )">
+                <li> Njoftimet e mia</li>
+            </ion-button>
+            <ion-button fill="none" (click)="scrollToElement('info-personal')">
+                <li>Informacioni personal</li>
+            </ion-button>
+            <ion-button fill="none" (click)="scrollToElement('organizata')">
+                <li>Te dhenat e organizates</li>
+            </ion-button>
+            <ion-button fill="none" (click)="scrollToElement('siguria')">
+                <li>Siguria</li>
+            </ion-button>
+
 
             <br/>
             <br/>
@@ -20,6 +29,8 @@
         </ul>
     </ion-content>
 </ion-menu>
+
+
 <div class="ion-page" id="main-content">
     <ion-header>
         <ion-toolbar>
@@ -55,5 +66,150 @@
             </ion-popover>
         </ion-toolbar>
     </ion-header>
-    <ion-content></ion-content>
+    <ion-content>
+        <ion-grid class="justify-content-center align-content-center" style="margin: auto auto;">
+            <ion-row>
+                <ion-col size-md="12">
+                    <ion-header id="njoftimet" size="large" class="ion-padding"> Njoftimet e mia</ion-header>
+                    <ion-grid expand="full">
+                        <ion-row class="justify-content-center ">
+                            <ion-col size="12" *ngFor="let feed of myFeeds;">
+                                <ion-card (click)="onFeedClick(feed)" expand="full" class="ion-card ion-text-center">
+                                    <ion-card-header style="display: flex ;justify-content: space-between">
+                                        <ion-card-subtitle class=" item ">
+                                            <ion-icon name="location-outline"></ion-icon>
+                                            <h6 [innerHTML]="feed.vendodhja"></h6>
+                                        </ion-card-subtitle>
+                                        <ion-card-subtitle class=" item " style="float: left">
+                                            <ion-icon name="person-circle-outline"></ion-icon>
+                                            {{ feed.userName }}</ion-card-subtitle>
+                                    </ion-card-header>
+
+                                    <ion-card-title>
+
+                                        <h6 [innerHTML]="feed.tittle"></h6>
+
+                                    </ion-card-title>
+
+                                    <ion-card-content>
+                                        <h6 [innerHTML]="feed.pershkrim.slice(0, 200).concat('   ......') "></h6>
+
+                                    </ion-card-content>
+                                    <ion-card-content style="display:flex;justify-content: flex-end ;">
+                                        <ion-button fill="none" style="color:blue " size="small"
+                                                    (click)="editFeed(feed)"> Edito
+                                        </ion-button>
+
+                                    </ion-card-content>
+
+                                    <ion-back-button></ion-back-button>
+                                </ion-card>
+                            </ion-col>
+                            <ion-button fill="none" style="color:blue " size="small"
+                                        (click)="addFeed()"> Shto njoftim
+                            </ion-button>
+                        </ion-row>
+                    </ion-grid>
+
+
+                </ion-col>
+
+            </ion-row>
+
+
+            <ion-row>
+                <ion-col>
+                    <ion-header id="info-personal" size="large" class="ion-padding ion-margin-bottom">Informacioni
+                        personal
+                    </ion-header>
+                    <ion-grid class="info-personal ion-text-center shadow ion-padding">
+                        <ion-item>
+                            <ion-label position="floating">Username</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="partialUserPersonalInfo.username"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Email</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="partialUserPersonalInfo.email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Emri</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="partialUserPersonalInfo.name"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Mbiemri</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="partialUserPersonalInfo.lastName"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Vendodhja</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="partialUserPersonalInfo.location"></ion-input>
+                        </ion-item>
+                        <ion-button *ngIf="isSaveButtonDisabled==true" [disabled]="isSaveButtonDisabled==false"
+                                    class=" ion-padding " id="edit-info"
+                                    color="primary" (click)="editInfo()">
+                            edit
+                        </ion-button>
+                        <ion-button [disabled]="isSaveButtonDisabled==true" class=" ion-padding " id="save-info"
+                                    color="primary"
+                                    (click)="saveInfo()">save
+                        </ion-button>
+                    </ion-grid>
+                </ion-col>
+
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-header id="organizata" size="large" class="ion-padding">Te dhenat e organizates
+                    </ion-header>
+
+
+                </ion-col>
+
+            </ion-row>
+
+            <ion-row>
+                <ion-col expand="full">
+                    <div id="siguria">
+                        <ion-header size="large" class="ion-padding">Siguria</ion-header>
+                    </div>
+
+                    <ion-button *ngIf=" isChangeButtonDisabled==false" class=" ion-padding " fill="none"
+                                color="primary"
+                                (click)="changePassButton()">Ndrysho kodin
+                    </ion-button>
+                    <div class="change-pass shadow ion-margin" *ngIf=" isChangeButtonDisabled==true">
+                        <ion-item>
+                            <ion-label position="floating">passwordi aktual</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="currentPass"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">passwordi i ri</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="newPass"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">rishkruaj passwordin e ri</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="retypedPass"></ion-input>
+                        </ion-item>
+
+                        <ion-button [disabled]="isSaveButtonDisabled==true" class=" ion-padding " id="save-info"
+                                    color="primary"
+                                    (click)="changePass()">Ndrysho kodin e hyrjes
+                        </ion-button>
+                    </div>
+                </ion-col>
+
+            </ion-row>
+
+        </ion-grid>
+
+
+    </ion-content>
 </div>

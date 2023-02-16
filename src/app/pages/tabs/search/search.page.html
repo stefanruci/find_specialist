@@ -1,75 +1,118 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-input
-      [(ngModel)]="searchWord"
-      name="searchWord"
-      size="larger"
-      type="text"
-      placeholder="Search"
-      class="ion-padding"
-    ></ion-input>
-    <ion-button
-      slot="end"
-      fill="none"
-      size="small"
-      (click)="onSearch()"
-      style="width: 48px; height: 48px"
+    <ion-toolbar>
+        <ion-input
+                [(ngModel)]="searchWord"
+                name="searchWord"
+                size="larger"
+                type="text"
+                placeholder="Search"
+                class="ion-padding"
+                (ionChange)="onSearch()"
+        ></ion-input>
+        <ion-button
+                slot="end"
+                fill="none"
+                size="small"
+                (click)="onSearch()"
+                style="width: 48px; height: 48px"
+        >
+            <ion-icon
+                    name="search-outline"
+                    slot="end"
+                    size="large"
+                    class="ion-padding"
+                    style="width: 38px; height: 38px; margin: 0px; padding: 0px"
+            ></ion-icon
+            >
+        </ion-button>
+    </ion-toolbar>
+    <ion-segment
+            class="segm  d-grid "
+            [value]="segment"
+            mode="md"
+            (ionChange)="onSegmentChanged($event)"
     >
-      <ion-icon
-        name="search-outline"
-        slot="end"
-        size="large"
-        class="ion-padding"
-        style="width: 38px; height: 38px; margin: 0px; padding: 0px"
-      ></ion-icon
-    ></ion-button>
-  </ion-toolbar>
-  <ion-segment
-    class="segm ion-text-center"
-    [value]="segment"
-    mode="md"
-    (ionChange)="onSegmentChanged($event)"
-  >
-    <ion-segment-button class="segm ion-text-center" value="S">
-      <ion-label>SPECIALIST</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="P" class="ion-text-center">
-      <ion-label class="ion-text-center">PUNEMARRES</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+<div class="row justify-content-center">
+        <ion-segment-button class="segm  col-6" value="F">
+            <ion-label class="">SPECIALIST</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="P" class="col-6 ion-text-center">
+            <ion-label class="">PUNEMARRES</ion-label>
+        </ion-segment-button>
+        </div>
+    </ion-segment>
 </ion-header>
 
-<ion-content color="light" class="ion-padding">
-  <ng-container *ngIf="segment === 'S'" class="ion-search">
-    <ng-container>
-      <ion-avatar slot="start"> SPECIALIST </ion-avatar>
-      <ion-label>
-        <ion-label>SPECIALIST</ion-label>
 
-        <!-- {{getUser(user)?.name}} -->
-        <!-- <p>
-              <ion-text>
-                message
-              </ion-text>
-            </p> -->
-      </ion-label>
-      <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="segment === 'P' ">
-    <ng-container>
-      <ion-avatar slot="start"> PUNEMARRES </ion-avatar>
-      <ion-label>
-        <ion-label>PUNEMARRES</ion-label>
+<ion-content color="light" class="ion-padding" *ngIf="searchWord.length>0">
+    <ion-grid class="d-flex">
+        <ion-row class="justify-content-center  align-content-center">
+            <ion-col size="7" *ngFor="let feed of searchedFeeds;"
+            >
+                <ion-card (click)="onFeedClick(feed)" expand="full" class="ion-card ion-text-center">
+                    <ion-card-header style="display: flex ;justify-content: space-between">
+                        <ion-card-subtitle class=" item ">
+                            <ion-icon name="location-outline"></ion-icon>
+                            <h6 [innerHTML]="feed.vendodhja | highlight:searchWord"></h6>
+                        </ion-card-subtitle>
+                        <ion-card-subtitle class=" item " style="float: left">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                            {{ feed.userName }}</ion-card-subtitle>
+                    </ion-card-header>
 
-        <!-- {{getUser(user)?.name}} -->
-        <!-- <p>
-              <ion-text>
-                message
-              </ion-text>
-            </p> -->
-      </ion-label>
-      <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
-    </ng-container>
-  </ng-container>
+                    <ion-card-title>
+
+                        <h6 [innerHTML]="feed.tittle | highlight:searchWord"></h6>
+
+                    </ion-card-title>
+
+                    <ion-card-content>
+                        <h6 [innerHTML]="feed.pershkrim.slice(0, 200).concat('   ......') | highlight:searchWord"></h6>
+
+                    </ion-card-content>
+                    <ion-card-content style="display:flex;justify-content: flex-end ;">
+                        <ion-button fill="none" style="color:blue " size="small" (click)="onFeedClick(feed)"> Shiko me
+                            shume
+                        </ion-button>
+
+                    </ion-card-content>
+
+                    <ion-back-button></ion-back-button>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!--    <ng-container *ngIf="segment === 'F'" class="ion-searchi">-->
+    <!--        <ng-container>-->
+    <!--            <ion-avatar slot="start"> SPECIALIST</ion-avatar>-->
+    <!--            <ion-label>-->
+    <!--                <ion-label>SPECIALIST</ion-label>-->
+
+    <!--                &lt;!&ndash; {{getUser(user)?.name}} &ndash;&gt;-->
+    <!--                &lt;!&ndash; <p>-->
+    <!--                      <ion-text>-->
+    <!--                        message-->
+    <!--                      </ion-text>-->
+    <!--                    </p> &ndash;&gt;-->
+    <!--            </ion-label>-->
+    <!--            &lt;!&ndash; <ion-text slot="end" color="medium">10:00 AM</ion-text> &ndash;&gt;-->
+    <!--        </ng-container>-->
+    <!--    </ng-container>-->
+
+    <!--    <ng-container *ngIf="segment === 'P' ">-->
+    <!--        <ng-container>-->
+    <!--            <ion-avatar slot="start"> PUNEMARRES</ion-avatar>-->
+    <!--            <ion-label>-->
+    <!--                <ion-label>PUNEMARRES</ion-label>-->
+
+    <!--                &lt;!&ndash; {{getUser(user)?.name}} &ndash;&gt;-->
+    <!--                &lt;!&ndash; <p>-->
+    <!--                      <ion-text>-->
+    <!--                        message-->
+    <!--                      </ion-text>-->
+    <!--                    </p> &ndash;&gt;-->
+    <!--            </ion-label>-->
+    <!--            &lt;!&ndash; <ion-text slot="end" color="medium">10:00 AM</ion-text> &ndash;&gt;-->
+    <!--        </ng-container>-->
+    <!--    </ng-container>-->
 </ion-content>

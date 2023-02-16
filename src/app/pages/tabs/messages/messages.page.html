@@ -1,76 +1,76 @@
 <ion-content>
-  <ion-header class="title-header">
-    <ion-toolbar color="primary">
-      <ion-icon
-        name="mail-outline"
-        slot="start"
-        size="large"
-        class="ion-padding"
-      ></ion-icon>
-      <ion-title>My Messages </ion-title>
-      <ion-buttons slot="end">
-        <ion-button fill="clear" id="popover">
-          <ion-icon
-            slot="icon-only"
-            name="ellipsis-vertical-outline"
-          ></ion-icon>
-        </ion-button>
-      </ion-buttons>
+    <ion-header class="title-header">
+        <ion-toolbar color="primary">
+            <ion-icon
+                    name="mail-outline"
+                    slot="start"
+                    size="large"
+                    class="ion-padding"
+            ></ion-icon>
+            <ion-title>My Messages</ion-title>
+            <ion-buttons slot="end">
+                <ion-button fill="clear" id="popover">
+                    <ion-icon
+                            slot="icon-only"
+                            name="ellipsis-vertical-outline"
+                    ></ion-icon>
+                </ion-button>
+            </ion-buttons>
 
-      <ion-content>
-        <ion-popover #popover trigger="popover" triggerAction="click">
-          <ng-template>
-            <ion-content class="ion-padding ion-text-center" (click)="logout()">
-              <ion-label color="danger"> LOGOUT </ion-label>
-            </ion-content>
-          </ng-template>
-        </ion-popover></ion-content
-      >
-    </ion-toolbar>
-    <ion-segment
-      [value]="segment"
-      mode="md"
-      (ionChange)="onSegmentChanged($event)"
-    >
-      <ion-segment-button value="chats">
-        <ion-label>Chats</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="contacts">
-        <ion-label>Contacts</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-header>
-  <ion-content color="light" *ngIf="isLogin===true">
-    <app-empty-screen *ngIf="(chatRooms | async)?.length === 0" [model]="model">
-    </app-empty-screen>
 
-    <ng-container *ngIf="segment === 'chats' && (chatRooms | async) as rooms">
-      <ion-list *ngIf="rooms?.length > 0">
-        <ion-list-header class="ion-padding-bottom" color="light">
-          RECENT CHATS
-        </ion-list-header>
-
-        <ion-item
-          *ngFor="let item of rooms"
-          (click)="getChat(item)"
-          [detail]="true"
+            <ion-popover #popover trigger="popover" triggerAction="click">
+                <ng-template>
+                    <ion-content class="ion-padding ion-text-center" (click)="logout()">
+                        <ion-label color="danger"> LOGOUT</ion-label>
+                    </ion-content>
+                </ng-template>
+            </ion-popover>
+            >
+        </ion-toolbar>
+        <ion-segment
+                [value]="segment"
+                mode="md"
+                (ionChange)="onSegmentChanged($event)"
         >
-          <ng-container *ngIf="(item?.user | async) as user">
-            <ion-avatar slot="start">
-              <img [src]="getUser(user)?.photo" />
-            </ion-avatar>
-            <ion-label>
-              {{getUser(user)?.name}}
-              <!-- <p>
-              <ion-text>
-                message
-              </ion-text>
-            </p> -->
-            </ion-label>
-            <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
-          </ng-container>
-        </ion-item>
-      </ion-list>
-    </ng-container>
-  </ion-content>
+            <ion-segment-button value="chats">
+                <ion-label>Chats</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="contacts">
+                <ion-label>Contacts</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-header>
+    <ion-content color="light" *ngIf="isLogin===true">
+        <app-empty-screen *ngIf="(chatRooms | async)?.length === 0" [model]="model">
+        </app-empty-screen>
+
+        <ng-container *ngIf="segment === 'chats' && (chatRooms | async) as rooms">
+            <ion-list *ngIf="rooms?.length > 0">
+                <ion-list-header class="ion-padding-bottom" color="light">
+                    RECENT CHATS
+                </ion-list-header>
+
+                <ion-item
+                        *ngFor="let item of rooms"
+                        (click)="getChat(item)"
+                        [detail]="true"
+                >
+                    <ng-container *ngIf="(item?.user | async) as user">
+                        <ion-avatar slot="start">
+                            <img [src]="getUser(user)?.photo"/>
+                        </ion-avatar>
+                        <ion-label>
+                            {{getUser(user)?.name}}
+                            <!-- <p>
+                            <ion-text>
+                              message
+                            </ion-text>
+                          </p> -->
+                        </ion-label>
+                        <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
+                    </ng-container>
+                </ion-item>
+            </ion-list>
+        </ng-container>
+    </ion-content>
 </ion-content>

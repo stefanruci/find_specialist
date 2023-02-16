@@ -19,11 +19,12 @@ export class ApiService {
 
     filterFeedData(feedType: string) {
         return this.db.collection<Feed>('feeds', (ref) =>
-            ref.where('feedType', "==", feedType)
+            ref.where("userType", "==", feedType.charAt(0).toUpperCase())
         )
             .snapshotChanges()
             .pipe(map(feeds => feeds
                 .map(feed => {
+                    console.log(feed)
                     return {
                         id: feed.payload.doc.id,
                         ...feed.payload.doc.data()
@@ -63,8 +64,8 @@ export class ApiService {
                         email: data.email,
                         userType: data.userType,
                         password: data.password,
-                        location: "",
-                        profilePictureUrl: "",
+                        location: data.location,
+                        profilePictureUrl: data.profilePictureUrl,
                     };
                     return user;
                 }),
@@ -166,4 +167,15 @@ export class ApiService {
         return this.feedsCollection.doc(id).get();
     }
 
+    updateUser(id: string, user: Partial<User>) {
+
+        return this.usersCollection.doc(id).update(user).then(() => {
+            console.log('User updated successfully!');
+        })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+    }
 }

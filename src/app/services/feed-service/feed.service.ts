@@ -21,7 +21,6 @@ export class FeedService {
         userName: "username",
         tittle: "tittle",
         pershkrim: "decr",
-        address: "addr",
         time: new Date(),
         userType: "type"
     };
