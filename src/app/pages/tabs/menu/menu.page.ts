@@ -9,6 +9,7 @@ import {Feed} from "../../../model/feed/feed.model";
 import {ApiService} from "../../../services/api/api.service";
 import {FeedUpdateModalPage} from "../../feed-update-modal/feed-update-modal.page";
 import {alert} from "ionicons/icons";
+import {RouterService} from "../../../services/routerService/router.service";
 
 
 @Component({
@@ -23,8 +24,9 @@ export class MenuPage implements OnInit {
     name: string = "Afrim";
     @ViewChild(IonContent) content: IonContent;
     editableFeed: Feed;
+    private passMatch: boolean;
 
-    constructor(private alertController: AlertController, private modalController: ModalController, private apiService: ApiService, private authService: AuthService, private router: Router, private route: ActivatedRoute, private menuController: MenuController) {
+    constructor(private routerService: RouterService, private alertController: AlertController, private modalController: ModalController, private apiService: ApiService, private authService: AuthService, private router: Router, private route: ActivatedRoute, private menuController: MenuController) {
         this.load();
 
     }
@@ -56,6 +58,7 @@ export class MenuPage implements OnInit {
     newPass: string;
     retypedPass: string;
     isChangeButtonDisabled: boolean = false;
+    isDeleted: boolean = false;
 
     ngOnInit() {
 
@@ -74,7 +77,8 @@ export class MenuPage implements OnInit {
             console.log("logout");
 
             await this.authService.logout().then((e) => {
-                this.router.navigateByUrl("/login", {replaceUrl: true});
+                this.routerService.navigate("/login");
+                // this.router.navigateByUrl("/login", {replaceUrl: true});
             });
             await this.popover.dismiss();
             // this.chatService.currentUserId = null;
@@ -162,8 +166,13 @@ export class MenuPage implements OnInit {
     }
 
     changePass() {
-        this.isChangeButtonDisabled = false;
-        this.showAlert("Pass changed")
+        if (this.passMatch) {
+            this.authService.changePass(this.newPass).then(res => {
+                this.isChangeButtonDisabled = false;
+                this.showAlert("Pass changed")
+            });
+        }
+
 
     }
 
@@ -179,5 +188,13 @@ export class MenuPage implements OnInit {
             buttons: ["OK"],
         });
         await alert.present();
+    }
+
+    deleteAccount() {
+        this.authService.deleteAccount(this.user).then(r => this.isDeleted = false);
+    }
+
+    deleteAccountP1() {
+        this.isDeleted = true;
     }
 }

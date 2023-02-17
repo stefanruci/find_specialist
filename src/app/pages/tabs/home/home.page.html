@@ -51,7 +51,8 @@
                         <ion-col size="12" class=" border-1 shadow feed-col">
                             <div class="head">
 
-                                <ion-button (click)="openAddFeedModal()" class="ion-margin-left ion-padding ion-text-center "
+                                <ion-button (click)="openAddFeedModal()"
+                                            class="ion-margin-left ion-padding ion-text-center "
                                             style="float: right;margin-left: 50px;border-radius: 50%"
                                             *ngIf="auth.userType=='F'"
                                             fill="none"
@@ -76,7 +77,7 @@
                             <br>
 
 
-                            <app-feed [elementsToShow]="10"
+                            <app-feed [elementsToShow]="10" [userType]="'F'"
                                       expand="full" class="  feeds ion-text-center  ">
 
                             </app-feed>
@@ -111,7 +112,7 @@
                                 Njoftimet e klienteve
                             </h3>
 
-                            <app-feed [elementsToShow]="10" class="feeds ">
+                            <app-feed [elementsToShow]="10" class="feeds " [userType]="'P'">
                             </app-feed>
                             <ion-button
                                     fill="none"

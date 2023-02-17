@@ -203,6 +203,12 @@ a.article:hover {
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
+
+  .ngb-alert {
+    justify-content: center;
+    width: fit-content;
+margin: 10px 0px 10px 0px;
+  }
   #sidebar {
     min-width: 80px;
     max-width: 80px;
@@ -271,7 +277,21 @@ a.article:hover {
     margin: auto auto;
     height: max-content;
   }
-
+  .ngb-alert {
+    width: 30%;
+display: block;
+  }
 }
+
+.passdontmatch {
+  color: red;
+}
+
+.passmatch {
+
+  color: green;
+}
+
+
 
 

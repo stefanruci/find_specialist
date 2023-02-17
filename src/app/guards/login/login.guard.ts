@@ -1,39 +1,34 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
+    CanActivate,
 } from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "src/app/services/auth/auth.service";
+import {AuthService} from "src/app/services/auth/auth.service";
+import {RouterService} from "../../services/routerService/router.service";
 
 @Injectable({
-  providedIn: "root",
+    providedIn: "root",
 })
 export class LoginGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
-
-  async canActivate(): Promise<boolean> {
-    try {
-      const user = await this.authService.checkAuth();
-      // const uid = this.authService.getId();
-      console.log(user);
-      if (!user) {
-        return true;
-      } else {
-        this.navigate("/tabs");
-        return false;
-      }
-    } catch (e) {
-      console.log(e);
-      this.navigate("/tabs");
-      return false;
+    constructor(private authService: AuthService, private routerService: RouterService) {
     }
-  }
 
-  navigate(url: any) {
-    this.router.navigateByUrl(url, { replaceUrl: true });
-  }
+    async canActivate(): Promise<boolean> {
+        try {
+            const user = await this.authService.checkAuth();
+            // const uid = this.authService.getId();
+            console.log(user);
+            if (!user) {
+                return true;
+            } else {
+                this.routerService.navigate("/tabs");
+
+                return false;
+            }
+        } catch (e) {
+            console.log(e);
+            this.routerService.navigate("/tabs");
+            return false;
+        }
+    }
+
 }

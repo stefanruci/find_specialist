@@ -8,18 +8,19 @@ import { MenuPageRoutingModule } from "./menu-routing.module";
 
 import { MenuPage } from "./menu.page";
 import { SidebarModule } from "ng-sidebar";
-import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlert, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
-  imports: [
-    CommonModule,
+    imports: [
+        CommonModule,
 
-    FormsModule,
-    IonicModule,
-    SidebarModule.forRoot(),
-    MenuPageRoutingModule,
-    NgbCollapseModule,
-  ],
+        FormsModule,
+        IonicModule,
+        SidebarModule.forRoot(),
+        MenuPageRoutingModule,
+        NgbCollapseModule,
+        NgbAlert,
+    ],
   declarations: [MenuPage],
 })
 export class MenuPageModule {}

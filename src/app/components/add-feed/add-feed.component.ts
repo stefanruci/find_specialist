@@ -4,6 +4,8 @@ import {ModalController} from "@ionic/angular";
 import {Feed} from "../../model/feed/feed.model";
 import {ApiService} from "../../services/api/api.service";
 import {AuthService} from "../../services/auth/auth.service";
+import {Router} from "@angular/router";
+import {RouterService} from "../../services/routerService/router.service";
 
 @Component({
     selector: 'app-add-feed',
@@ -23,7 +25,7 @@ export class AddFeedComponent implements OnInit {
 
     }
 
-    constructor(private modalCtrl: ModalController, private apiService: ApiService, private authService: AuthService
+    constructor(private routerService: RouterService, private modalCtrl: ModalController, private apiService: ApiService, private authService: AuthService
     ) {
     }
 
@@ -33,12 +35,19 @@ export class AddFeedComponent implements OnInit {
 
 
     addFeed() {
+        this.feed.id = this.randomIntFromInterval(10000, 200000).toString();
         this.feed.time = new Date();
         this.feed.userType = this.authService.userType;
         this.authService.getCurrentUser().subscribe(el => {
             this.feed.userName = el.username;
         });
-        this.apiService.addFeed(this.feed);
+        return this.apiService.addFeed(this.feed).then(r => {
+            this.routerService.navigate("/tabs/home").then(r => {
+            });
+
+        }).catch(error => {
+            console.error(error);
+        });
 
     }
 
@@ -46,4 +55,7 @@ export class AddFeedComponent implements OnInit {
         await this.modalCtrl.dismiss();
     }
 
+    randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 }

@@ -131,7 +131,7 @@ export class ApiService {
     }
 
     addFeed(feed: Feed) {
-        this.feedsCollection.doc(feed.id).set(feed).then(() => {
+        return this.feedsCollection.doc(feed.id).set(feed).then(() => {
             console.log('Feed updated successfully!');
         })
             .catch(error => {
@@ -152,13 +152,13 @@ export class ApiService {
     }
 
     deleteFeed(id: string) {
-        this.feedsCollection.doc(id).delete().then(() => {
+        return this.feedsCollection.doc(id).delete().then(() => {
             console.log('Feed updated successfully!');
         })
             .catch(error => {
                 console.error(error);
             });
-        ;
+
 
     }
 
@@ -177,5 +177,33 @@ export class ApiService {
             });
 
 
+    }
+
+    deleteUserData(user_id: string) {
+
+        return this.usersCollection.doc(user_id).delete().then(() => {
+            console.log('User deleted successfully!');
+
+        })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+    }
+
+
+    deleteUserFeeds(user: User) {
+        return this.filterFeedData(user.userType).subscribe(feeds => {
+            feeds.forEach(feed => {
+                if (feed.userName == user.username) {
+                    this.deleteFeed(feed.id).then(r => {
+                    }).catch((e) => {
+                        throw(e);
+                    });
+                }
+
+            })
+        })
     }
 }

@@ -14,6 +14,9 @@ import {
 import {BehaviorSubject, first, map, Observable} from "rxjs";
 import {User} from "src/app/model/user/user.model";
 import {ApiService} from "../api/api.service";
+import {AlertController} from "@ionic/angular";
+import {Router} from "@angular/router";
+import {RouterService} from "../routerService/router.service";
 
 @Injectable({
     providedIn: "root",
@@ -26,9 +29,11 @@ export class AuthService {
     isLogin: boolean;
 
     constructor(
+        private routerService: RouterService,
         private auth: Auth,
         private afAuth: AngularFireAuth,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private alertController: AlertController
     ) {
         this.checkAuth().then(res => {
             this.isLogin = true;
@@ -175,4 +180,57 @@ export class AuthService {
         //   }
         // }
     }
+
+    deleteAccount(user: User) {
+        return this.auth.currentUser.delete().then(r => {
+            console.log(user, "Deleted")
+            this.deleteUserData(user);
+            this.logout().then(r => {
+
+                this.routerService.navigate("/login");
+
+
+            });
+        }).catch(e => {
+            this.showAlert(e.code).then(r => {
+            });
+        })
+
+    }
+
+    async showAlert(msg) {
+        const alert = await this.alertController.create({
+            header: "Alert?",
+            cssClass: "custom-alert",
+            message: msg,
+            buttons: ["OK"],
+        });
+        await alert.present();
+    }
+
+    private deleteUserData(user: User) {
+
+        this.apiService.deleteUserData(user.id).then(r => {
+            this.isLogin = false;
+            this.userType = 'U';
+            this._uid.next(null);
+            this.correctUser = null;
+            this.apiService.deleteUserFeeds(user);
+
+        });
+    }
+
+    changePass(newPass: string) {
+        return this.afAuth.currentUser.then((user) => {
+            user.updatePassword(newPass)
+                .then(() => {
+                    console.log('Password changed successfully');
+                })
+                .catch((error) => {
+                    console.error('Error changing password:', error);
+                });
+        });
+    }
+
+
 }

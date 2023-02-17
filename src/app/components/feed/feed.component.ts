@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Feed} from "src/app/model/feed/feed.model";
+import {ApiService} from "../../services/api/api.service";
+import {FeedService} from "../../services/feed-service/feed.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "app-feed",
@@ -7,11 +10,11 @@ import {Feed} from "src/app/model/feed/feed.model";
     styleUrls: ["./feed.component.scss"],
 })
 export class FeedComponent implements OnInit {
-    clientFeedList: Feed[] = [];
+    FeedList: Feed[] = [];
     feed: Feed = {
         kompania: "kompania",
         vendodhja: "location",
-        userType: "type",
+        userType: "F",
         id: "id",
         userName: "username",
         tittle: "tittle",
@@ -20,30 +23,46 @@ export class FeedComponent implements OnInit {
         time: new Date()
     };
     @Input()
-    elementsToShow: number = this.clientFeedList.length;
+    elementsToShow: number = this.FeedList.length;
     @Input()
-    elementType: string = "";
+    userType: string = "";
 
-    constructor() {
+    constructor(
+        // private router: Router,
+        private apiService: ApiService,
+        private feedService: FeedService) {
     }
 
     ngOnInit() {
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
-        this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.push(this.feed);
+        // this.clientFeedList.forEach(feed => {
+        //     feed.id = this.randomIntFromInterval(10000, 200000).toString();
+        //     feed.userName = 'Punedhenes1997';
+        //     feed.userType='P'
+        //     this.apiService.addFeed(feed);
+        //
+        // })
+        this.FeedList = this.feedService.clientFeedList.concat(this.feedService.clientFeedList).filter(feed =>
+            feed.userType = this.userType
+        );
     }
 
     onFeedClick(clientFeed: Feed) {
 
+        // this.router.navigateByUrl("/home", {replaceUrl: true}).then(r => {});
 
     }
+
+    randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+
 }

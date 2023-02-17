@@ -6,12 +6,8 @@ const routes: Routes = [
         path: "",
         redirectTo: "tabs",
         pathMatch: "full",
-    },
-    {
-        path: "*",
-        redirectTo: "tabs",
-        pathMatch: "full",
     }
+
     ,
 
     {
@@ -31,10 +27,10 @@ const routes: Routes = [
         loadChildren: () =>
             import("./pages/login/login.module").then((m) => m.LoginPageModule),
     },
-  {
-    path: 'feed-update-modal',
-    loadChildren: () => import('./pages/feed-update-modal/feed-update-modal.module').then(m => m.FeedUpdateModalPageModule)
-  },
+    {
+        path: 'feed-update-modal',
+        loadChildren: () => import('./pages/feed-update-modal/feed-update-modal.module').then(m => m.FeedUpdateModalPageModule)
+    },
 
 ];
 

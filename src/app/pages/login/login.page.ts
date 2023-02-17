@@ -12,6 +12,7 @@ import {RegisterComponent} from "src/app/components/register/register.component"
 import {User} from "src/app/model/user/user.model";
 import {ApiService} from "src/app/services/api/api.service";
 import {AuthService} from "src/app/services/auth/auth.service";
+import {RouterService} from "../../services/routerService/router.service";
 
 @Component({
     selector: "app-login",
@@ -30,7 +31,7 @@ export class LoginPage implements OnInit {
         private modalCtrl: ModalController,
         private rute: NavController,
         private authService: AuthService,
-        private router: Router,
+        private routerService: RouterService,
         private alertController: AlertController,
         private apiService: ApiService
     ) {
@@ -43,8 +44,6 @@ export class LoginPage implements OnInit {
         //   (user) => (this.selectedUser = user)
         // );
     }
-
-
 
 
     users: Observable<User[]>;
@@ -60,7 +59,8 @@ export class LoginPage implements OnInit {
             .then((data: any) => {
                 this.isLogin = true;
                 console.log("is login :", this.isLogin);
-                this.router.navigateByUrl("tabs");
+                this.routerService.navigate("/tabs");
+
             })
             .catch((e) => {
                 console.log(e);

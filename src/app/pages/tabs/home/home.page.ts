@@ -21,6 +21,7 @@ import SwiperCore, {
     SwiperOptions,
 } from "swiper";
 import {AddFeedComponent} from "../../../components/add-feed/add-feed.component";
+import {RouterService} from "../../../services/routerService/router.service";
 
 SwiperCore.use([
     Navigation,
@@ -60,7 +61,7 @@ export class HomePage implements OnInit, AfterContentChecked {
     constructor(
         private modalCtrl: ModalController,
         public auth: AuthService,
-        private router: Router,
+        private routerService: RouterService,
         private platform: Platform
     ) {
     }
@@ -102,10 +103,10 @@ export class HomePage implements OnInit, AfterContentChecked {
         console.log("logout");
         await this.auth.logout().then((e) => {
 
-            this.router.navigateByUrl("/tabs/home", {replaceUrl: true});
+            this.routerService.navigate("/login");
             this.popover.dismiss();
         });
-        console.log("loget uou", this.auth.isLogin);
+        console.log("logged out", this.auth.isLogin);
     }
 
 
