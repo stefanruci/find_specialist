@@ -1,0 +1,108 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar  class="ion-text-center">
+      <ion-title> Register </ion-title>
+      <ion-buttons slot="end">
+        <ion-button routerLink="/tabs/home">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="content">
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Register as:</ion-label>
+          <ion-select [(ngModel)]="user.userType">
+            <ion-select-option value="Freelancer">Freelancer</ion-select-option>
+            <ion-select-option value="Punedhenes">Punedhenes</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">First name</ion-label>
+          <ion-input [(ngModel)]="user.name" type="text" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Last name</ion-label>
+          <ion-input
+            [(ngModel)]="user.lastName"
+            type="text"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input
+            [(ngModel)]="user.username"
+            type="text"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="user.email" type="text" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input
+            (onchange)="isSamePass()"
+            [(ngModel)]="user.password"
+            type="password"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating"> Rewrite password</ion-label>
+          <ion-input
+            (onchange)="isSamePass()"
+            [(ngModel)]="reTypePassword"
+            type="password"
+            required
+          ></ion-input>
+          <br />
+        </ion-item>
+        <ion-item
+          *ngIf="user.password !== reTypePassword"
+          position="floating"
+          class="passdontmatch"
+        >
+          Error:Password dont match
+        </ion-item>
+        <ion-item
+          *ngIf="isSamePassword && reTypePassword.length !== 0"
+          position="floating"
+          class="passmatch"
+        >
+          [Info]:Password match
+        </ion-item>
+      </ion-list>
+
+      <div class="reg-button ion-text-center">
+        <ion-button color="success" (click)="register()">register</ion-button>
+      </div>
+
+      <br />
+      <br />
+      <ion-row>
+        <ion-label class="register-q ion-padding"
+          >Do you have an account?
+        </ion-label>
+        <ion-button
+          class="ion-padding"
+          color="primary "
+          routerLink="/login"
+          size="small"
+        >
+          Log in
+        </ion-button>
+      </ion-row>
+    </ion-content>
+  </div>
+</ion-content>

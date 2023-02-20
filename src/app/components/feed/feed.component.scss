@@ -1,0 +1,36 @@
+.feed-item {
+  margin: auto auto;
+}
+
+content-feed {
+  padding: 0px;
+  margin: 0px;
+  border-radius: 10px;
+
+}
+
+ion-card {
+  margin: auto auto;
+  height: max-content;
+  width: 90%;
+
+}
+.item{
+  margin-top: 0px;
+}
+@media only screen and (min-height: 0px) and (max-width: 800px) {
+  ion-card {
+    margin: auto auto;
+    height: max-content;
+    width: 90%;
+
+  }
+  ion-row{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+  }
+
+
+}
+

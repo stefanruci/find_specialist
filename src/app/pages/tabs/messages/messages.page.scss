@@ -1,0 +1,20 @@
+.content-grid{
+    width: max-content;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+.container{
+    height: 500px;
+    width: 100%;
+}
+.in-item{
+    width: max-content;
+    height: max-content;
+}
+ion-row{
+height: fit-content;
+width: fit-content;
+}
+
+

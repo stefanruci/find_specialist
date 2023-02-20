@@ -1,0 +1,43 @@
+<ion-header class="main-view" color="primary">
+    <ion-toolbar>
+        <ion-title class="ion-text-center"> Shto Njoftim</ion-title>
+        <ion-buttons slot="end">
+            <ion-button routerLink="/tabs/home" (click)="closeModal()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="modal-content">
+    <ion-list>
+
+        <ion-item>
+            <ion-label position="floating">Titulli</ion-label>
+            <ion-input type="text" [(ngModel)]="feed.tittle"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Kompania (opsjonale)</ion-label>
+            <ion-input type="text" [(ngModel)]="feed.kompania"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Vendodhja</ion-label>
+            <ion-input type="text" [(ngModel)]="feed.vendodhja"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Pershkrim</ion-label>
+            <ion-input type="text" [(ngModel)]="feed.pershkrim"></ion-input>
+        </ion-item>
+
+    </ion-list>
+    <ion-button expand="none" (click)="addFeed()">Shto njoftim</ion-button>
+    <br/>
+    <br/>
+    <ion-item class="ion-align-items-center">
+
+    </ion-item
+    >
+
+    <br/>
+
+</ion-content>
+

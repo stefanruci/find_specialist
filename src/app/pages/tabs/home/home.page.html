@@ -1,0 +1,131 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-icon name="briefcase-outline" size="large" slot="start"></ion-icon>
+        <ion-title size="10px"> GJEJ SPECIALIST</ion-title>
+        <ion-button
+                *ngIf="this.auth.isLogin===false"
+                size="small"
+                slot="end"
+                color="primary"
+                routerLink="../../login"
+        >login
+        </ion-button>
+        <div slot="end" class="popover" *ngIf="this.auth.isLogin===true">
+            <ion-buttons size="small">
+                <ion-button id="popover">
+
+                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+
+            <ion-popover slot="end" #popover trigger="popover" triggerAction="click">
+                <ng-template>
+                    <ion-content class="ion-padding ion-text-center" (click)="logout()">
+                        <ion-label color="danger" (click)="logout()"> LOGOUT</ion-label>
+                    </ion-content>
+                </ng-template>
+            </ion-popover>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid expand="full">
+        <ion-row>
+            <ion-col expand="full" size="12">
+                <ion-grid class="content-grid home-banner">
+                    <ion-row class="ion-padding ion-text-center">
+                        <ion-slides [options]="slideOpts">
+                            <ion-slide *ngFor="let banner of banners">
+                                <img class="imgs" expand="full" [src]="banner?.banner" alt="banner"/>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+        <ion-row class="justify-content-center align-content-center">
+            <ion-col expand="full" size="12" class="ion-text-center">
+                <ion-grid [fixed]="true" class="d-block align-content-center">
+                    <ion-row class=" justify-content-center">
+                        <ion-col size="12" class=" border-1 shadow feed-col">
+                            <div class="head">
+
+                                <ion-button (click)="openAddFeedModal()"
+                                            class="ion-margin-left ion-padding ion-text-center "
+                                            style="float: right;margin-left: 50px;border-radius: 50%"
+                                            *ngIf="auth.userType=='F'"
+                                            fill="none"
+
+                                >
+                                    <ion-icon size="large" name="add-outline"
+                                    >
+                                    </ion-icon>
+                                    Shto njoftim
+                                </ion-button>
+
+                                <!--                                <ion-button color="primary"-->
+                                <!--                                            (click)="openAddFeedModal()"-->
+                                <!--                                            style="background-color: transparent;float: right;margin-right: 20px"-->
+                                <!--                                >-->
+                                <!--                                    Shto njoftim-->
+                                <!--                                </ion-button>-->
+                                <h3 class="ion-padding ion-text-center ion-margin">
+                                    Njoftimet e specialisteve
+                                </h3>
+                            </div>
+                            <br>
+
+
+                            <app-feed [elementsToShow]="10" [userType]="'F'"
+                                      expand="full" class="  feeds ion-text-center  ">
+
+                            </app-feed>
+                            <ion-button
+                                    size="small"
+                                    color="primary"
+                                    routerLink="../"
+                                    fill="none"
+                            >
+                                Shiko te gjithe
+
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+
+                    <br/> <br/> <br/>
+                    <ion-row class="h-auto">
+                        <ion-col size="12" size-sm="12" class="h-auto ion-text-center shadow feed-col">
+
+                            <ion-icon name="add-outline" class="add-feed-button ion-padding ion-text-center "
+                                      (click)="openAddFeedModal()"
+                                      style="float: right;margin-right: 20px"
+                                      *ngIf="auth.userType=='P'"> Shto njoftim
+                            </ion-icon>
+                            <!--                            <ion-button class="add-feed-button ion-padding ion-text-center "-->
+                            <!--                                        (click)="openAddFeedModal()"-->
+                            <!--                                        style="background-color: transparent;float: right;margin-right: 20px"-->
+                            <!--                                        *ngIf="auth.userType=='P'">-->
+                            <!--                                Shto njoftim-->
+                            <!--                            </ion-button>-->
+                            <h3 class="ion-text-center  ion-padding">
+                                Njoftimet e klienteve
+                            </h3>
+
+                            <app-feed [elementsToShow]="10" class="feeds " [userType]="'P'">
+                            </app-feed>
+                            <ion-button
+                                    fill="none"
+                                    size="small"
+                                    color="primary"
+                                    routerLink="../../"
+                            >
+                                Shiko te gjithe
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
