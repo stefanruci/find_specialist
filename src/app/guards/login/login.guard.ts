@@ -20,13 +20,13 @@ export class LoginGuard implements CanActivate {
             if (!user) {
                 return true;
             } else {
-                this.routerService.navigate("/tabs");
+                await this.routerService.navigate("./tabs/home");
 
                 return false;
             }
         } catch (e) {
             console.log(e);
-            this.routerService.navigate("/tabs");
+            await this.routerService.navigate("./tabs/home");
             return false;
         }
     }

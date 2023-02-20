@@ -40,7 +40,7 @@ SwiperCore.use([
     templateUrl: "./home.page.html",
     styleUrls: ["./home.page.scss"],
 })
-export class HomePage implements OnInit, AfterContentChecked {
+export class HomePage implements OnInit {
     slideOpts = {
         initialSlide: 1,
         speed: 400,
@@ -52,8 +52,7 @@ export class HomePage implements OnInit, AfterContentChecked {
 
     bannerConfig: SwiperOptions;
     banners: any[] = [];
-    store_types: any[] = [];
-    // bannerConfig: SwiperOptions;
+
 
     isLogin: boolean = false;
     userType: string;
@@ -66,13 +65,6 @@ export class HomePage implements OnInit, AfterContentChecked {
     ) {
     }
 
-    // async openModal() {
-    //   const modal = await this.modalCtrl.create({
-    //     component: LoginComponent,
-    //     cssClass: "modal-large",
-    //   });
-    //   return await modal.present();
-    // }
 
     ngOnInit() {
         if (this.platform.width() <= 700) {
@@ -91,18 +83,10 @@ export class HomePage implements OnInit, AfterContentChecked {
         this.userType = this.auth.userType;
     }
 
-    ngAfterContentChecked() {
-        this.bannerConfig = {
-            slidesPerView: 1.2,
-            spaceBetween: 30,
-            centeredSlides: true,
-        };
-    }
 
     async logout() {
         console.log("logout");
         await this.auth.logout().then((e) => {
-
             this.routerService.navigate("/login");
             this.popover.dismiss();
         });

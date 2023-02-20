@@ -42,8 +42,7 @@ export class AddFeedComponent implements OnInit {
             this.feed.userName = el.username;
         });
         return this.apiService.addFeed(this.feed).then(r => {
-            this.routerService.navigate("/tabs/home").then(r => {
-            });
+            this.routerService.navigate("/tabs/home")
 
         }).catch(error => {
             console.error(error);

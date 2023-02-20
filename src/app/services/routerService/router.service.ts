@@ -6,7 +6,9 @@ import {NavigationExtras, Router} from "@angular/router";
 })
 export class RouterService {
 
-    constructor(private router: Router) {
+    constructor(
+        private router: Router
+    ) {
     }
 
     navigate(url: any) {
@@ -17,6 +19,7 @@ export class RouterService {
     }
 
     navigateWithData(param: (string | any)[], navData: NavigationExtras) {
+
         return this.router.navigate(param, navData).then(r => {
         }).catch(error => {
         });

@@ -141,7 +141,7 @@ export class ApiService {
     }
 
     updateFeedFieldById(id: string, pFeed: Partial<Feed>) {
-        this.feedsCollection.doc(id).update(pFeed).then(() => {
+        return this.feedsCollection.doc(id).update(pFeed).then(() => {
             console.log('Feed updated successfully!');
         })
             .catch(error => {

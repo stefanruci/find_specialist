@@ -7,16 +7,7 @@ const routes: Routes = [
         redirectTo: "tabs",
         pathMatch: "full",
     }
-
     ,
-
-    {
-        path: "add-specialists",
-        loadChildren: () =>
-            import("./add-specialists/add-specialists.module").then(
-                (m) => m.AddSpecialistsPageModule
-            ),
-    },
     {
         path: "tabs",
         loadChildren: () =>

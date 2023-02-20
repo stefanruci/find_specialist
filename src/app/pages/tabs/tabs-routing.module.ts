@@ -22,8 +22,7 @@ const routes: Routes = [
             {
                 path: "messages",
                 loadChildren: () =>
-                    import("./messages/messages.module").then(
-                        (m) => m.MessagesPageModule
+                    import("./messages/messages.module").then((m) => m.MessagesPageModule
                     ),
             },
             {
@@ -37,10 +36,12 @@ const routes: Routes = [
         ],
     },
 
+
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports:
+        [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
 export class TabsPageRoutingModule {

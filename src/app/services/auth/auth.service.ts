@@ -22,6 +22,10 @@ import {RouterService} from "../routerService/router.service";
     providedIn: "root",
 })
 export class AuthService {
+    get apiService(): ApiService {
+        return this._apiService;
+    }
+
     public _uid = new BehaviorSubject<any>(null);
     correctUser: any;
     userType: string = 'U';
@@ -32,7 +36,7 @@ export class AuthService {
         private routerService: RouterService,
         private auth: Auth,
         private afAuth: AngularFireAuth,
-        private apiService: ApiService,
+        private _apiService: ApiService,
         private alertController: AlertController
     ) {
         this.checkAuth().then(res => {
@@ -48,7 +52,7 @@ export class AuthService {
     }
 
     getCurrentUser(): Observable<User> {
-        return this.apiService.getUserByEmail(this.auth.currentUser.email);
+        return this._apiService.getUserByEmail(this.auth.currentUser.email);
     }
 
     getUserId(): string {
@@ -122,7 +126,7 @@ export class AuthService {
             };
 
             //add data on the firebase db
-            await this.apiService.setDocument(
+            await this._apiService.setDocument(
                 "users/".concat(registeredUser.user.uid),
                 data
             );
@@ -171,7 +175,7 @@ export class AuthService {
         // return (await (this.apiService.collection('users').doc(id).get().toPromise())).data;
         ;
         await (
-            await this.apiService.getDocById("users/$(id)")
+            await this._apiService.getDocById("users/$(id)")
         ).data();
         //   if (docSnap?.exists()) {
         //     return docSnap.data;
@@ -210,12 +214,12 @@ export class AuthService {
 
     private deleteUserData(user: User) {
 
-        this.apiService.deleteUserData(user.id).then(r => {
+        this._apiService.deleteUserData(user.id).then(r => {
             this.isLogin = false;
             this.userType = 'U';
             this._uid.next(null);
             this.correctUser = null;
-            this.apiService.deleteUserFeeds(user);
+            this._apiService.deleteUserFeeds(user);
 
         });
     }

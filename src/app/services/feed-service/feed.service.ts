@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Feed} from "../../model/feed/feed.model";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {ApiService} from "../api/api.service";
-import {AuthService} from "../auth/auth.service";
+import {Injectable} from "@angular/core";
 import {User} from "../../model/user/user.model";
-import {first, map, Observable, of} from "rxjs";
+import {Feed} from "../../model/feed/feed.model";
+import {AuthService} from "../auth/auth.service";
+import {ApiService} from "../api/api.service";
+
 
 @Injectable({
     providedIn: 'root'
@@ -25,14 +24,13 @@ export class FeedService {
         userType: "type"
     };
 
-    constructor(private authService: AuthService,
-                private apiService: ApiService) {
+    constructor(private authService: AuthService,) {
         this.authService.getCurrentUser().subscribe(user => this.correntUser = user);
     }
 
     getSpecialistFeeds(): Feed[] {
         let feedList: Feed[];
-        this.apiService.filterFeedData('S').subscribe(list => {
+        this.authService.apiService.filterFeedData('S').subscribe(list => {
             feedList = list;
         });
         return feedList;
@@ -40,22 +38,26 @@ export class FeedService {
 
     getClientFeeds(): Feed[] {
         let feedList: Feed[];
-        this.apiService.filterFeedData('P').subscribe(list => {
+        this.authService.apiService.filterFeedData('P').subscribe(list => {
             feedList = list;
         });
         return feedList;
     }
 
+
     addFeed(feed: Feed) {
-        this.apiService.addFeed(feed);
+        this.authService.apiService.addFeed(feed).then(r => {
+        });
     }
 
     updateFeedFieldById(id: string, pFeed: Partial<Feed>) {
-        this.apiService.updateFeedFieldById(id, pFeed);
+        this.authService.apiService.updateFeedFieldById(id, pFeed).then(r => {
+        });
     }
 
     deleteFeed(id: string) {
-        this.apiService.deleteFeed(id);
+        this.authService.apiService.deleteFeed(id).then(r => {
+        });
 
     }
 
