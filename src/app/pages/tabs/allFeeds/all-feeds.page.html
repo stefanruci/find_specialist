@@ -1,0 +1,12 @@
+<ion-header class="bg-primary">
+    <ion-toolbar class="bg-transparent">
+        <ion-title *ngIf="userType=='F'" class="bg-transparent">Njoftimet e specielisteve</ion-title>
+        <ion-title *ngIf="userType=='P'" class="bg-transparent">Njoftimet e Punedhenesve</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-feed [userType]="userType"
+              expand="full" class=" ion-text-center  ">
+    </app-feed>
+</ion-content>

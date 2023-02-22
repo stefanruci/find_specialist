@@ -28,4 +28,9 @@ export class FeedUpdateModalPage implements OnInit {
     ngOnInit(): void {
     }
 
+    deleteFeed() {
+        return this.apiService.deleteFeed(this.feed.id).then(re => {
+            this.dismiss()
+        })
+    }
 }

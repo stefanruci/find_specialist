@@ -2,7 +2,14 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Feed} from "src/app/model/feed/feed.model";
 import {ApiService} from "../../services/api/api.service";
 import {FeedService} from "../../services/feed-service/feed.service";
-import {Router} from "@angular/router";
+import * as moment from "moment";
+import {RouterService} from "../../services/routerService/router.service";
+import {AddFeedComponent} from "../add-feed/add-feed.component";
+import {FeedUpdateModalPage} from "../../pages/feed-update-modal/feed-update-modal.page";
+import {ModalController} from "@ionic/angular";
+import {user} from "@angular/fire/auth";
+import {AuthService} from "../../services/auth/auth.service";
+import {User} from "../../model/user/user.model";
 
 @Component({
     selector: "app-feed",
@@ -10,7 +17,8 @@ import {Router} from "@angular/router";
     styleUrls: ["./feed.component.scss"],
 })
 export class FeedComponent implements OnInit {
-    FeedList: Feed[] = [];
+    feedListLen: any;
+    feedList: Feed[] = [];
     feed: Feed = {
         kompania: "kompania",
         vendodhja: "location",
@@ -20,49 +28,116 @@ export class FeedComponent implements OnInit {
         tittle: "tittle",
         pershkrim: " Here's a small text description for the card content. Nothing more,\n" +
             "                        nothing less.This will set the height of the \"my-component\" element to the height of its content or the height of its parent container, whichever is smaller. Again, this property can be used with any HTML element, including Ionic components.",
-        time: new Date()
+        time: new Date(),
     };
     @Input()
-    elementsToShow: number = this.FeedList.length;
+    elementsToShow: any = 0;
     @Input()
-    userType: string = "";
+    userType: string = "A";
+    private shfaq: boolean;
+
+    currentUser: User = {
+        email: "",
+        id: "",
+        lastName: "",
+        location: "",
+        name: "",
+        password: "",
+        pershkrim: "",
+        profilePictureUrl: "",
+        userType: "",
+        username: ""
+
+    };
 
     constructor(
         // private router: Router,
         private apiService: ApiService,
-        private feedService: FeedService) {
+        private feedService: FeedService,
+        private routerService: RouterService,
+        private modalController: ModalController,
+        private authService: AuthService) {
+
+
     }
 
     ngOnInit() {
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.push(this.feed);
-        // this.clientFeedList.forEach(feed => {
-        //     feed.id = this.randomIntFromInterval(10000, 200000).toString();
-        //     feed.userName = 'Punedhenes1997';
-        //     feed.userType='P'
-        //     this.apiService.addFeed(feed);
-        //
-        // })
-        this.FeedList = this.feedService.clientFeedList.concat(this.feedService.clientFeedList).filter(feed =>
-            feed.userType = this.userType
-        );
+        this.currentUser.username = sessionStorage.getItem('userName');
+        this.currentUser.userType = sessionStorage.getItem('userType');
+
+        this.feedService.userType = this.userType;
+        if (this.userType == 'F') {
+            this.feedService.userType = 'F';
+            this.feedService.setSpecialistFeeds()
+                .subscribe(list => {
+                    this.feedList = list;
+                    this.feedListLen
+                        = this.feedList.length;
+
+                    console.log(this.feedListLen)
+                })
+        } else if (this.userType == 'P') {
+            this.feedService.userType = 'P';
+            this.feedService.setClientFeeds()
+                .subscribe(list => {
+                    this.feedList = list;
+
+                    this.feedListLen = this.feedList.length.valueOf();
+                    console.log(this.feedListLen)
+
+                })
+
+
+        } else {
+            this.feedList = this.feedService.feedList;
+            this.feedList.concat(this.feedService.feedList);
+
+        }
+
+        setTimeout(() => {
+            // your code here
+            if (this.elementsToShow == 0) {
+                this.elementsToShow = this.feedList.length;
+            }
+        }, 1000);
+
+
     }
 
     onFeedClick(clientFeed: Feed) {
-
-        // this.router.navigateByUrl("/home", {replaceUrl: true}).then(r => {});
-
+        //
+        // // this.router.navigateByUrl("/tabs/  [routerLink]=\"['/../tabs/all-feeds' ,'P']\"\n", {replaceUrl: true}).then(r => {
+        // // });
+        // this.routerService.navigateWithData(['/../tabs/all-feeds', 'P'], clientFeed).then(r =>{
+        //
+        // })
     }
 
     randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
+    covertDate(date) {
+        return moment(date.toDate()).format("DD/MM");
+    }
 
+    async editFeed(feed: Feed) {
+        const modal = await this.modalController.create({
+            component: FeedUpdateModalPage,
+            componentProps: {
+                feed: feed,
+            },
+        });
+        await modal.present();
+    }
+
+    shfaqu(feed: Feed): boolean {
+
+        if (this.currentUser.username !== "") {
+            return feed.userName == this.currentUser.username && feed.userType == this.currentUser.userType;
+
+        } else {
+            return false;
+        }
+    }
 }

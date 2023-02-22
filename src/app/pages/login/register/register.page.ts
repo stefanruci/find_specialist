@@ -28,6 +28,8 @@ export class RegisterPage implements OnInit {
         userType: "",
         location: "",
         profilePictureUrl: "",
+        pershkrim: '',
+
     };
 
     constructor(
@@ -68,6 +70,8 @@ export class RegisterPage implements OnInit {
                         userType: "",
                         location: "",
                         profilePictureUrl: "",
+                        pershkrim: '',
+
                     };
                 })
                 .catch((e) => {

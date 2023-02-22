@@ -23,6 +23,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/feed-update-modal/feed-update-modal.module').then(m => m.FeedUpdateModalPageModule)
     },
 
+
 ];
 
 @NgModule({

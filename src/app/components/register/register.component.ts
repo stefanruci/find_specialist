@@ -30,6 +30,8 @@ export class RegisterComponent implements OnInit {
         userType: "",
         location: "",
         profilePictureUrl: "",
+        pershkrim: "data.pershkrim",
+
     };
 
     constructor(
@@ -72,6 +74,8 @@ export class RegisterComponent implements OnInit {
                         userType: "",
                         location: "",
                         profilePictureUrl: "",
+                        pershkrim: "data.pershkrim,"
+
                     };
                     this.openLoginModal();
                 })

@@ -4,17 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FreelancerFeedPageRoutingModule } from './freelancer-feed-routing.module';
+import { FeedDetailsPageRoutingModule } from './feed-details-routing.module';
 
-import { FreelancerFeedPage } from './freelancer-feed.page';
+import { FeedDetailsPage } from './feed-details.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FreelancerFeedPageRoutingModule
+    FeedDetailsPageRoutingModule,
+
   ],
-  declarations: [FreelancerFeedPage]
+  declarations: [FeedDetailsPage]
 })
-export class FreelancerFeedPageModule {}
+export class FeedDetailsPageModule {}

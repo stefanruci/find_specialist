@@ -19,7 +19,7 @@ export class ApiService {
 
     filterFeedData(feedType: string) {
         return this.db.collection<Feed>('feeds', (ref) =>
-            ref.where("userType", "==", feedType.charAt(0).toUpperCase())
+            ref.where("userType", "==", feedType.charAt(0).toUpperCase()).orderBy("time", "desc")
         )
             .snapshotChanges()
             .pipe(map(feeds => feeds
@@ -66,6 +66,7 @@ export class ApiService {
                         password: data.password,
                         location: data.location,
                         profilePictureUrl: data.profilePictureUrl,
+                        pershkrim: data.pershkrim,
                     };
                     return user;
                 }),

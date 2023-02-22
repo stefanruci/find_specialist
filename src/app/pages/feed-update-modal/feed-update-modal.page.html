@@ -27,8 +27,27 @@
 
         <ion-item>
             <ion-label position="floating">Pershkrim</ion-label>
-            <ion-textarea [(ngModel)]="feed.pershkrim"></ion-textarea>
+            <ion-textarea class="d-flex" [(ngModel)]="feed.pershkrim"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                <ion-icon name="call-outline"></ion-icon>
+                telefon
+            </ion-label>
+
+            <ion-input type="tel" [(ngModel)]="feed.tel"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+                WhatsApp
+            </ion-label>
+
+            <ion-input type="tel" [(ngModel)]="feed.whatsApp"></ion-input>
         </ion-item>
         <ion-button expand="block" (click)="updateFeed()">Ruaj</ion-button>
+        <ion-button color="danger" expand="none" (click)="dismiss()">Anullo</ion-button>
+        <ion-button color="danger" expand="none" (click)="deleteFeed()">Fshi</ion-button>
+
     </ion-list>
 </ion-content>

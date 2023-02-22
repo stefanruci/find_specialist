@@ -44,6 +44,8 @@ export class AuthService {
             this.getCurrentUser().subscribe(el => {
                 this.userType = el.userType.charAt(0).toUpperCase();
                 console.log(this.userType, '=usertype')
+
+
             })
         }).catch(e => {
             this.isLogin = false;
@@ -52,7 +54,9 @@ export class AuthService {
     }
 
     getCurrentUser(): Observable<User> {
-        return this._apiService.getUserByEmail(this.auth.currentUser.email);
+        if (this.isLogin == true) {
+            return this._apiService.getUserByEmail(this.auth.currentUser.email);
+        } else return null;
     }
 
     getUserId(): string {
@@ -69,7 +73,7 @@ export class AuthService {
 
     async login(email: string, password: string): Promise<any> {
         try {
-            const response = signInWithEmailAndPassword(this.auth, email, password);
+            const response = signInWithEmailAndPassword(this.auth, email, password)
             console.log(response);
 
             if ((await response).user) {
@@ -79,6 +83,8 @@ export class AuthService {
                 this.getCurrentUser().subscribe(el => {
                     this.userType = el.userType.charAt(0).toUpperCase();
                     console.log(this.userType, '=usertype')
+                    sessionStorage.setItem('userName', el.username);
+                    sessionStorage.setItem('userType', this.userType);
                 })
             }
         } catch (e) {
@@ -154,6 +160,9 @@ export class AuthService {
             this.isLogin = false;
             this.userType = 'U';
             this._uid.next(null);
+
+            sessionStorage.removeItem('userType');
+            sessionStorage.removeItem('userName');
         }).catch(err => {
             throw err;
         });

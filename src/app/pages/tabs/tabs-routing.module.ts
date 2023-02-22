@@ -33,8 +33,14 @@ const routes: Routes = [
                 path: "menu",
                 loadChildren: () => import("./menu/menu.module").then(m => m.MenuPageModule),
             },
+            {
+                path: 'all-feeds',
+                loadChildren: () => import('./allFeeds/all-feeds.module').then(m => m.AllFeedsPageModule)
+            },
         ],
     },
+
+
 
 
 ];

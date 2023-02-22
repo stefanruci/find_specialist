@@ -38,8 +38,12 @@ export class LoginPage implements OnInit {
 
     }
 
+    currentUser: User;
 
     ngOnInit() {
+
+
+
         // this.getUserByEmail(this.email).subscribe(
         //   (user) => (this.selectedUser = user)
         // );

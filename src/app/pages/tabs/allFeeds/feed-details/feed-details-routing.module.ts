@@ -1,0 +1,23 @@
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+
+import {FeedDetailsPage} from './feed-details.page';
+import {HomePage} from "../../home/home.page";
+
+const routes: Routes = [
+    {
+        path: '',
+        component: FeedDetailsPage
+    },
+    {
+        path: ':id',
+        loadChildren: () => import('./feed-details.module').then(m => m.FeedDetailsPageModule)
+    },
+];
+
+@NgModule({
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+})
+export class FeedDetailsPageRoutingModule {
+}

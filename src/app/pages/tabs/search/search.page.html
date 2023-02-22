@@ -32,22 +32,22 @@
             mode="md"
             (ionChange)="onSegmentChanged($event)"
     >
-<div class="row justify-content-center">
-        <ion-segment-button class="segm  col-6" value="F">
-            <ion-label class="">SPECIALIST</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="P" class="col-6 ion-text-center">
-            <ion-label class="">PUNEMARRES</ion-label>
-        </ion-segment-button>
+        <div class="row justify-content-center">
+            <ion-segment-button class="segm  col-6" value="F">
+                <ion-label class="">SPECIALIST</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="P" class="col-6 ion-text-center">
+                <ion-label class="">PUNEMARRES</ion-label>
+            </ion-segment-button>
         </div>
     </ion-segment>
 </ion-header>
 
 
 <ion-content color="light" class="ion-padding" *ngIf="searchWord.length>0">
-    <ion-grid class="d-flex">
-        <ion-row class="justify-content-center  align-content-center">
-            <ion-col size="7" *ngFor="let feed of searchedFeeds;"
+    <ion-grid class="d-flex" expand="full">
+        <ion-row expand="full" class="justify-content-center  align-content-center">
+            <ion-col size-xs="12" size-sm="12" size="7" size-md="12" *ngFor="let feed of searchedFeeds;"
             >
                 <ion-card (click)="onFeedClick(feed)" expand="full" class="ion-card ion-text-center">
                     <ion-card-header style="display: flex ;justify-content: space-between">
@@ -82,37 +82,5 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <!--    <ng-container *ngIf="segment === 'F'" class="ion-searchi">-->
-    <!--        <ng-container>-->
-    <!--            <ion-avatar slot="start"> SPECIALIST</ion-avatar>-->
-    <!--            <ion-label>-->
-    <!--                <ion-label>SPECIALIST</ion-label>-->
 
-    <!--                &lt;!&ndash; {{getUser(user)?.name}} &ndash;&gt;-->
-    <!--                &lt;!&ndash; <p>-->
-    <!--                      <ion-text>-->
-    <!--                        message-->
-    <!--                      </ion-text>-->
-    <!--                    </p> &ndash;&gt;-->
-    <!--            </ion-label>-->
-    <!--            &lt;!&ndash; <ion-text slot="end" color="medium">10:00 AM</ion-text> &ndash;&gt;-->
-    <!--        </ng-container>-->
-    <!--    </ng-container>-->
-
-    <!--    <ng-container *ngIf="segment === 'P' ">-->
-    <!--        <ng-container>-->
-    <!--            <ion-avatar slot="start"> PUNEMARRES</ion-avatar>-->
-    <!--            <ion-label>-->
-    <!--                <ion-label>PUNEMARRES</ion-label>-->
-
-    <!--                &lt;!&ndash; {{getUser(user)?.name}} &ndash;&gt;-->
-    <!--                &lt;!&ndash; <p>-->
-    <!--                      <ion-text>-->
-    <!--                        message-->
-    <!--                      </ion-text>-->
-    <!--                    </p> &ndash;&gt;-->
-    <!--            </ion-label>-->
-    <!--            &lt;!&ndash; <ion-text slot="end" color="medium">10:00 AM</ion-text> &ndash;&gt;-->
-    <!--        </ng-container>-->
-    <!--    </ng-container>-->
 </ion-content>

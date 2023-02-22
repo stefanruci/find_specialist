@@ -27,6 +27,9 @@ import {SidebarModule} from "ng-sidebar";
         SwiperModule,
         SidebarModule,
     ],
+    exports: [
+        FeedComponent
+    ]
 })
 export class HomePageModule {
 }

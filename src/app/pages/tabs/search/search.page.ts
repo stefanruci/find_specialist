@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Feed} from "../../../model/feed/feed.model";
 import {ApiService} from "../../../services/api/api.service";
+import firebase from "firebase/compat";
+import Timestamp = firebase.firestore.Timestamp;
+import {timestamp} from "rxjs";
 
 @Component({
     selector: 'app-search',
@@ -26,7 +29,7 @@ export class SearchPage implements OnInit {
         tittle: "tittle",
         pershkrim: " Here's a small text description for the card content. Nothing more,\n" +
             "                        nothing less.This will set the height of the \"my-component\" element to the height of its content or the height of its parent container, whichever is smaller. Again, this property can be used with any HTML element, including Ionic components.",
-        time: new Date()
+        time: timestamp().prototype,
     };
 
     constructor(private apiService: ApiService) {

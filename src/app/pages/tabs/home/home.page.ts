@@ -4,8 +4,8 @@ import {
     OnInit,
     ViewChild,
 } from "@angular/core";
-import {Router} from "@angular/router";
-import {ModalController, Platform, PopoverController} from "@ionic/angular";
+import {ActivationStart, Router, RouterOutlet} from "@angular/router";
+import {IonRouterOutlet, ModalController, Platform, PopoverController} from "@ionic/angular";
 import {LoginComponent} from "src/app/components/login/login.component";
 import {AuthService} from "src/app/services/auth/auth.service";
 import SwiperCore, {
@@ -22,6 +22,7 @@ import SwiperCore, {
 } from "swiper";
 import {AddFeedComponent} from "../../../components/add-feed/add-feed.component";
 import {RouterService} from "../../../services/routerService/router.service";
+import {FeedService} from "../../../services/feed-service/feed.service";
 
 SwiperCore.use([
     Navigation,
@@ -49,6 +50,9 @@ export class HomePage implements OnInit {
         loop: true,
     };
     @ViewChild("popover") popover: PopoverController;
+    @ViewChild(IonRouterOutlet) outlet: IonRouterOutlet;
+    @ViewChild(RouterOutlet) ngoOutlet: RouterOutlet;
+
 
     bannerConfig: SwiperOptions;
     banners: any[] = [];
@@ -61,12 +65,23 @@ export class HomePage implements OnInit {
         private modalCtrl: ModalController,
         public auth: AuthService,
         private routerService: RouterService,
-        private platform: Platform
+        private platform: Platform,
+        private router: Router,
     ) {
     }
 
 
     ngOnInit() {
+        this.router.events.subscribe(e => {
+            if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
+                this.outlet.deactivate();
+        });
+
+        this.router.events.subscribe(e => {
+            if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
+                this.ngoOutlet.deactivate();
+        });
+
         if (this.platform.width() <= 700) {
             this.slideOpts.slidesPerView = 1;
         }
@@ -100,5 +115,11 @@ export class HomePage implements OnInit {
             cssClass: "modal-medium",
         });
         return await modal.present();
+    }
+
+    seAll(usertype: string) {
+        //
+        // this.routerService.navigateWithData(["/",'tabs',''], usertype).then(r => {
+        // })
     }
 }

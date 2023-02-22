@@ -77,8 +77,12 @@
                                 <ion-card (click)="onFeedClick(feed)" expand="full" class="ion-card ion-text-center">
                                     <ion-card-header style="display: flex ;justify-content: space-between">
                                         <ion-card-subtitle class=" item ">
+
+                                            <ion-icon name="time-outline"></ion-icon>
+                                            " {{  covertDate(feed.time)  }}"
+                                            <br>
                                             <ion-icon name="location-outline"></ion-icon>
-                                            <h6 [innerHTML]="feed.vendodhja"></h6>
+                                            {{feed.vendodhja}}
                                         </ion-card-subtitle>
                                         <ion-card-subtitle class=" item " style="float: left">
                                             <ion-icon name="person-circle-outline"></ion-icon>
@@ -106,7 +110,7 @@
                                 </ion-card>
                             </ion-col>
                             <ion-button fill="none" style="color:blue " size="small"
-                                        (click)="addFeed()"> Shto njoftim
+                                        (click)="openAddFeedModal()"> Shto njoftim
                             </ion-button>
                         </ion-row>
                     </ion-grid>
@@ -148,6 +152,11 @@
                             <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
                                        [(ngModel)]="partialUserPersonalInfo.location"></ion-input>
                         </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Pershkrim</ion-label>
+                            <ion-input [readonly]="isSaveButtonDisabled==true" type="text"
+                                       [(ngModel)]="partialUserPersonalInfo.pershkrim"></ion-input>
+                        </ion-item>
                         <ion-button *ngIf="isSaveButtonDisabled==true" [disabled]="isSaveButtonDisabled==false"
                                     class=" ion-padding " id="edit-info"
                                     color="primary" (click)="editInfo()">
@@ -187,8 +196,8 @@
                     <ngb-alert *ngIf=" isChangeButtonDisabled==true" color="primary"
                                style="background-color: white"
                                class=" ngb-alert ion-text-center shadow ion-margin ion-padding">
-                        <ion-header  size="large" class="ion-padding ion-margin-bottom   ion-text-center">
-                         Ndysho kodin e hyrjes
+                        <ion-header size="large" class="ion-padding ion-margin-bottom   ion-text-center">
+                            Ndysho kodin e hyrjes
                         </ion-header>
                         <ion-item>
                             <ion-label position="floating">passwordi i ri</ion-label>
@@ -247,7 +256,7 @@
                                class="ngb-alert ion-text-center shadow ion-margin ion-padding">
 
 
-                        <ion-header  size="large" class="ion-padding ion-margin-bottom   ion-text-center text-danger">
+                        <ion-header size="large" class="ion-padding ion-margin-bottom   ion-text-center text-danger">
                             Fshi llogarine
                         </ion-header>
                         <p class=" shadow ion-padding ion-margin" style="color: red">Me fshirjen e llogarise do fshihen
@@ -257,13 +266,13 @@
                             bere .</p>
                         <label class="ion-padding ion-margin" expand="full">Deshiron te fshish llogarine ?</label>
                         <ion-button
-                                    color="danger"
-                                    (click)="deleteAccount()">Fshi llogarine
+                                color="danger"
+                                (click)="deleteAccount()">Fshi llogarine
                         </ion-button>
 
                         <ion-button
-                                    color="success"
-                                    (click)="this.isDeleted=false">Dil
+                                color="success"
+                                (click)="this.isDeleted=false">Dil
                         </ion-button>
                     </ngb-alert>
                 </ion-col>

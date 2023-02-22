@@ -10,6 +10,8 @@ import {ApiService} from "../../../services/api/api.service";
 import {FeedUpdateModalPage} from "../../feed-update-modal/feed-update-modal.page";
 import {alert} from "ionicons/icons";
 import {RouterService} from "../../../services/routerService/router.service";
+import * as moment from "moment/moment";
+import {AddFeedComponent} from "../../../components/add-feed/add-feed.component";
 
 
 @Component({
@@ -26,12 +28,21 @@ export class MenuPage implements OnInit {
     editableFeed: Feed;
     private passMatch: boolean;
 
-    constructor(private routerService: RouterService, private alertController: AlertController, private modalController: ModalController, private apiService: ApiService, private authService: AuthService, private router: Router, private route: ActivatedRoute, private menuController: MenuController) {
+    constructor(
+        private routerService: RouterService,
+        private alertController: AlertController,
+        private modalController: ModalController,
+        private apiService: ApiService,
+        private authService: AuthService,
+        private route: ActivatedRoute,
+        private menuController: MenuController,
+        private modalCtrl: ModalController,
+    ) {
         this.load();
 
     }
 
-    user: User = {
+    user: { profilePictureUrl: string; lastName: string; password: string; name: string; location: string; id: string; userType: string; email: string; username: string; pershkrim: string } = {
         id: "",
         name: "",
         lastName: "",
@@ -41,6 +52,7 @@ export class MenuPage implements OnInit {
         userType: "",
         location: "",
         profilePictureUrl: "",
+        pershkrim: '',
     };
     myFeeds: Feed[] = [];
     isSaveButtonDisabled: boolean = false;
@@ -53,6 +65,7 @@ export class MenuPage implements OnInit {
         userType: "",
         location: "",
         profilePictureUrl: "",
+        pershkrim: ''
     }
     currentPass: string;
     newPass: string;
@@ -132,6 +145,7 @@ export class MenuPage implements OnInit {
                     this.partialUserPersonalInfo.profilePictureUrl = user.profilePictureUrl;
                     this.partialUserPersonalInfo.username = user.username;
                     this.partialUserPersonalInfo.userType = user.userType;
+                    this.partialUserPersonalInfo.pershkrim = user.pershkrim;
                     console.log(this.partialUserPersonalInfo)
                 }
             });
@@ -148,9 +162,6 @@ export class MenuPage implements OnInit {
 
     }
 
-    addFeed() {
-
-    }
 
     saveInfo() {
 
@@ -196,5 +207,18 @@ export class MenuPage implements OnInit {
 
     deleteAccountP1() {
         this.isDeleted = true;
+    }
+
+    async openAddFeedModal() {
+        const modal = await this.modalCtrl.create({
+            component: AddFeedComponent,
+            cssClass: "modal-medium",
+        });
+        return await modal.present();
+    }
+
+    covertDate(date: any) {
+        return moment(date.toDate()).format("DD/MM");
+
     }
 }
