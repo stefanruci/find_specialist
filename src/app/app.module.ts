@@ -28,13 +28,11 @@ import {AddFeedComponent} from "./components/add-feed/add-feed.component";
 @NgModule({
     declarations: [
         AppComponent,
-        FeedComponent,
         AddFeedComponent,
 
     ],
     imports: [
         BrowserModule,
-
         IonicModule.forRoot(),
         AppRoutingModule,
         FormsModule,
@@ -62,7 +60,6 @@ import {AddFeedComponent} from "./components/add-feed/add-feed.component";
     ],
     bootstrap: [AppComponent],
     exports: [
-        FeedComponent
     ]
 })
 export class AppModule {

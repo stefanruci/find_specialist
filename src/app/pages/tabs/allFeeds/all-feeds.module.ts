@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { AllFeedsPageRoutingModule } from './all-feeds-routing.module';
 
 import { AllFeedsPage } from './all-feeds.page';
-import {HomePageModule} from "../home/home.module";
 
 @NgModule({
     imports: [
@@ -15,7 +14,6 @@ import {HomePageModule} from "../home/home.module";
         FormsModule,
         IonicModule,
         AllFeedsPageRoutingModule,
-        HomePageModule
     ],
   declarations: [AllFeedsPage]
 })

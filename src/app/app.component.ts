@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {DomController, IonRouterOutlet, Platform} from "@ionic/angular";
-import {ActivationStart, Router, RouterOutlet} from "@angular/router";
+import {DomController, Platform} from "@ionic/angular";
 
 
 @Component({

@@ -88,7 +88,7 @@ export class LoginPage implements OnInit {
     }
 
     async closeModal() {
-        this.rute.navigateRoot(["tabs/home/"]);
+        this.rute.navigateRoot(["tabs/landing-page"]);
         await this.modalCtrl.dismiss();
     }
 

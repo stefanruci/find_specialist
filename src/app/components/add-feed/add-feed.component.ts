@@ -57,7 +57,7 @@ export class AddFeedComponent implements OnInit {
         this.feed.time = moment(new Date());
 
         return this.apiService.addFeed(this.feed).then(r => {
-            this.closeModal().then(r => this.routerService.navigate("/tabs/home"));
+            this.closeModal().then(r => this.routerService.navigate("/tabs/landing-page"));
 
 
         }).catch(error => {

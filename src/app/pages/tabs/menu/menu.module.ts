@@ -14,7 +14,6 @@ import {MyFeedsComponent} from "../../../components/my-feeds/my-feeds.component"
 @NgModule({
     imports: [
         CommonModule,
-
         FormsModule,
         IonicModule,
         SidebarModule.forRoot(),

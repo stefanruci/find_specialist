@@ -10,14 +10,10 @@ const routes: Routes = [
         children: [
             {
                 path: "",
-                redirectTo: "home",
+                redirectTo: "landing-page",
                 pathMatch: "full",
             },
-            {
-                path: "home",
-                loadChildren: () =>
-                    import("./home/home.module").then((m) => m.HomePageModule),
-            },
+
 
             {
                 path: "messages",
@@ -40,6 +36,11 @@ const routes: Routes = [
             {
                 path: 'user-details',
                 loadChildren: () => import('./user-details/user-details.module').then(m => m.UserDetailsPageModule)
+            },
+
+            {
+                path: 'landing-page',
+                loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPagePageModule)
             },
         ],
     },
