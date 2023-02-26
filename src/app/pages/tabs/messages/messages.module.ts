@@ -8,7 +8,6 @@ import { MessagesPageRoutingModule } from "./messages-routing.module";
 
 import { MessagesPage } from "./messages.page";
 import { EmptyScreenComponent } from "src/app/components/empty-screen/empty-screen.component";
-import { LoginComponent } from "src/app/components/login/login.component";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({

@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {NavigationExtras, Router} from "@angular/router";
 import {ModalController, PopoverController} from "@ionic/angular";
 import {Observable, take} from "rxjs";
-import {LoginComponent} from "src/app/components/login/login.component";
 import {ChatService} from "src/app/services/chat/chat.service";
 import {RouterService} from "../../../services/routerService/router.service";
 
@@ -39,12 +38,8 @@ export class MessagesPage implements OnInit {
         this.isLogin = this.chatService.auth.isLogin;
     }
 
-    async openLoginModal() {
-        const modal = await this.modalCtrl.create({
-            component: LoginComponent,
-            cssClass: "modal-large",
-        });
-        return await modal.present();
+    openLoginModal() {
+        return this.routerService.navigate("/login");
     }
 
     getRooms() {

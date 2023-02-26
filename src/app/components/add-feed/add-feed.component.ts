@@ -1,11 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ForgotpasswordComponent} from "../forgotpassword/forgotpassword.component";
+import {ForgotPasswordComponent} from "../forgotpassword/forgot-password.component";
 import {ModalController} from "@ionic/angular";
 import {Feed} from "../../model/feed/feed.model";
 import {ApiService} from "../../services/api/api.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
 import {RouterService} from "../../services/routerService/router.service";
+import firebase from "firebase/compat";
+import Timestamp = firebase.firestore.Timestamp;
+import {timestamp} from "rxjs";
+import * as moment from "moment";
+
 
 @Component({
     selector: 'app-add-feed',
@@ -19,7 +24,7 @@ export class AddFeedComponent implements OnInit {
         vendodhja: "",
         pershkrim: "",
         tittle: "",
-        time: new Date(),
+        time:  moment(new Date()),
         userName: "",
         userType: ""
 
@@ -30,19 +35,30 @@ export class AddFeedComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.feed.id = this.randomIntFromInterval(10000, 200000).toString();
+        this.feed.userType = this.authService.userType;
+        this.authService.getCurrentUser().subscribe(el => {
+            if (el) {
+                console.log(el, 'el')
+                this.feed.userName = el.data().username.toString();
+                console.log(this.feed.userName, 'feed username')
+
+            }
+        });
+        setTimeout(() => {
+            // your code here
+
+        }, 50);
 
     }
 
 
     addFeed() {
-        this.feed.id = this.randomIntFromInterval(10000, 200000).toString();
-        this.feed.time = new Date();
-        this.feed.userType = this.authService.userType;
-        this.authService.getCurrentUser().subscribe(el => {
-            this.feed.userName = el.username;
-        });
+        this.feed.time = moment(new Date());
+
         return this.apiService.addFeed(this.feed).then(r => {
-            this.routerService.navigate("/tabs/home")
+            this.closeModal().then(r => this.routerService.navigate("/tabs/home"));
+
 
         }).catch(error => {
             console.error(error);
@@ -57,4 +73,6 @@ export class AddFeedComponent implements OnInit {
     randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
+
 }

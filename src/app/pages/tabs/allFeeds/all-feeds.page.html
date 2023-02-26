@@ -1,0 +1,26 @@
+<div *ngIf="validUserType===false" class="ion-text-center ion-padding ion-margin border-2 shadow h-100">
+    <h1 class="cloak__wrapper
+    cloak__container
+    cloak
+    info">404</h1>
+
+    <h2> We can't find that page</h2>
+    <p>We're fairly sure that page used to be here, but seems to have gone missing. We do apologise on it's behalf.</p>
+    <ion-button [routerLink]="['./../../../tabs']" target="_blank"> Home</ion-button>
+
+</div>
+
+<div *ngIf="validUserType===true">
+    <ion-header class="bg-primary">
+        <ion-toolbar class="bg-transparent">
+            <ion-title *ngIf="userType=='F'" class="bg-transparent">Njoftimet e specielisteve</ion-title>
+            <ion-title *ngIf="userType=='P'" class="bg-transparent">Njoftimet e Punedhenesve</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <app-feed [userType]="userType"
+                  expand="full" class=" ion-text-center  ">
+        </app-feed>
+    </ion-content>
+</div>

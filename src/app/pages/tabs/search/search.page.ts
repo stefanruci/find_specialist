@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Feed} from "../../../model/feed/feed.model";
 import {ApiService} from "../../../services/api/api.service";
+import firebase from "firebase/compat";
+import Timestamp = firebase.firestore.Timestamp;
+import {timestamp} from "rxjs";
+import moment from "moment/moment";
 
 @Component({
     selector: 'app-search',
@@ -26,7 +30,7 @@ export class SearchPage implements OnInit {
         tittle: "tittle",
         pershkrim: " Here's a small text description for the card content. Nothing more,\n" +
             "                        nothing less.This will set the height of the \"my-component\" element to the height of its content or the height of its parent container, whichever is smaller. Again, this property can be used with any HTML element, including Ionic components.",
-        time: new Date()
+        time: timestamp().prototype,
     };
 
     constructor(private apiService: ApiService) {
@@ -55,7 +59,7 @@ export class SearchPage implements OnInit {
             .subscribe(
                 (el) => {
                     this.searchedFeeds = el.filter(feed => feed.tittle.includes(this.searchWord) || feed.pershkrim.includes(this.searchWord) || feed.vendodhja.includes(this.searchWord));
-
+                    this.convertFeedsTime();
                 }
             )
 
@@ -64,6 +68,18 @@ export class SearchPage implements OnInit {
 
     onFeedClick(feed: Feed) {
 
+    }
+
+    convertFeedsTime() {
+        this.searchedFeeds.forEach(feed => {
+            feed.time = this.covertDateToMoment(feed.time);
+        })
+
+    }
+
+    private covertDateToMoment(time: any) {
+        return moment(time.toDate());
+        ;
     }
 
     randomIntFromInterval(min, max) {

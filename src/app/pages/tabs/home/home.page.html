@@ -64,12 +64,6 @@
                                     Shto njoftim
                                 </ion-button>
 
-                                <!--                                <ion-button color="primary"-->
-                                <!--                                            (click)="openAddFeedModal()"-->
-                                <!--                                            style="background-color: transparent;float: right;margin-right: 20px"-->
-                                <!--                                >-->
-                                <!--                                    Shto njoftim-->
-                                <!--                                </ion-button>-->
                                 <h3 class="ion-padding ion-text-center ion-margin">
                                     Njoftimet e specialisteve
                                 </h3>
@@ -84,41 +78,56 @@
                             <ion-button
                                     size="small"
                                     color="primary"
-                                    routerLink="../"
                                     fill="none"
-                            >
+                                    [routerLink]="['/../tabs/all-feeds' ,'F']"
+                                    (click)="seAll('F')">
                                 Shiko te gjithe
 
                             </ion-button>
                         </ion-col>
                     </ion-row>
 
+
                     <br/> <br/> <br/>
                     <ion-row class="h-auto">
-                        <ion-col size="12" size-sm="12" class="h-auto ion-text-center shadow feed-col">
+                        <ion-col size="12" class=" border-1 shadow feed-col">
 
-                            <ion-icon name="add-outline" class="add-feed-button ion-padding ion-text-center "
-                                      (click)="openAddFeedModal()"
-                                      style="float: right;margin-right: 20px"
-                                      *ngIf="auth.userType=='P'"> Shto njoftim
-                            </ion-icon>
-                            <!--                            <ion-button class="add-feed-button ion-padding ion-text-center "-->
-                            <!--                                        (click)="openAddFeedModal()"-->
-                            <!--                                        style="background-color: transparent;float: right;margin-right: 20px"-->
-                            <!--                                        *ngIf="auth.userType=='P'">-->
-                            <!--                                Shto njoftim-->
-                            <!--                            </ion-button>-->
-                            <h3 class="ion-text-center  ion-padding">
-                                Njoftimet e klienteve
-                            </h3>
 
+                            <div class="head">
+
+                                <ion-button
+                                        *ngIf="auth.userType=='P'"
+
+                                        (click)="openAddFeedModal()"
+                                            class="ion-margin-left ion-padding ion-text-center "
+                                            style="float: right;margin-left: 50px;border-radius: 50%"
+                                            fill="none"
+
+                                >
+                                    <ion-icon size="large" name="add-outline"
+                                    >
+                                    </ion-icon>
+                                    Shto njoftim
+                                </ion-button>
+
+                                <!--                                <ion-button color="primary"-->
+                                <!--                                            (click)="openAddFeedModal()"-->
+                                <!--                                            style="background-color: transparent;float: right;margin-right: 20px"-->
+                                <!--                                >-->
+                                <!--                                    Shto njoftim-->
+                                <!--                                </ion-button>-->
+                                <h3 class="ion-padding ion-text-center ion-margin">
+                                    Njoftimet e Punedhenesve
+                                </h3>
+                            </div>
                             <app-feed [elementsToShow]="10" class="feeds " [userType]="'P'">
                             </app-feed>
                             <ion-button
                                     fill="none"
                                     size="small"
                                     color="primary"
-                                    routerLink="../../"
+                                    [routerLink]="['/../tabs/all-feeds' ,'P']"
+                                    (click)="seAll('P')"
                             >
                                 Shiko te gjithe
                             </ion-button>

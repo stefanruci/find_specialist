@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ModalController, AlertController} from '@ionic/angular';
-import {LoginComponent} from 'src/app/components/login/login.component';
 import {User} from 'src/app/model/user/user.model';
 import {AuthService} from 'src/app/services/auth/auth.service';
 import {RouterService} from "../../../services/routerService/router.service";
@@ -28,6 +27,8 @@ export class RegisterPage implements OnInit {
         userType: "",
         location: "",
         profilePictureUrl: "",
+        pershkrim: '',
+
     };
 
     constructor(
@@ -68,6 +69,8 @@ export class RegisterPage implements OnInit {
                         userType: "",
                         location: "",
                         profilePictureUrl: "",
+                        pershkrim: '',
+
                     };
                 })
                 .catch((e) => {
@@ -88,17 +91,12 @@ export class RegisterPage implements OnInit {
     }
 
     async closeModal() {
-        this.routerService.navigate("/tabs/home");
+        await this.routerService.navigate("/tabs/home");
         await this.modalCtrl.dismiss();
     }
 
-    async openLoginModal() {
-        await this.modalCtrl.dismiss();
-        const modal = await this.modalCtrl.create({
-            component: LoginComponent,
-            cssClass: "modal-large",
-        });
-        return await modal.present();
+     openLoginModal() {
+        this.routerService.navigate("/login")
     }
 
     async showAlert(msg) {

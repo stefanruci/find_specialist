@@ -9,6 +9,7 @@ import { MenuPageRoutingModule } from "./menu-routing.module";
 import { MenuPage } from "./menu.page";
 import { SidebarModule } from "ng-sidebar";
 import {NgbAlert, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
+import {MyFeedsComponent} from "../../../components/my-feeds/my-feeds.component";
 
 @NgModule({
     imports: [
@@ -21,6 +22,6 @@ import {NgbAlert, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
         NgbCollapseModule,
         NgbAlert,
     ],
-  declarations: [MenuPage],
+    declarations: [MenuPage, MyFeedsComponent],
 })
 export class MenuPageModule {}

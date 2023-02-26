@@ -1,15 +1,14 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Observable} from "@firebase/util";
+
 import {AlertController, IonContent, MenuController, ModalController, PopoverController} from "@ionic/angular";
-import {map} from "rxjs";
 import {User} from "src/app/model/user/user.model";
 import {AuthService} from "src/app/services/auth/auth.service";
 import {Feed} from "../../../model/feed/feed.model";
 import {ApiService} from "../../../services/api/api.service";
 import {FeedUpdateModalPage} from "../../feed-update-modal/feed-update-modal.page";
-import {alert} from "ionicons/icons";
 import {RouterService} from "../../../services/routerService/router.service";
+import * as moment from "moment/moment";
+import {AddFeedComponent} from "../../../components/add-feed/add-feed.component";
 
 
 @Component({
@@ -26,21 +25,29 @@ export class MenuPage implements OnInit {
     editableFeed: Feed;
     private passMatch: boolean;
 
-    constructor(private routerService: RouterService, private alertController: AlertController, private modalController: ModalController, private apiService: ApiService, private authService: AuthService, private router: Router, private route: ActivatedRoute, private menuController: MenuController) {
-        this.load();
+    constructor(
+        private routerService: RouterService,
+        private alertController: AlertController,
+        private apiService: ApiService,
+        private authService: AuthService,
+        private menuController: MenuController,
+        private modalCtrl: ModalController,
+    ) {
 
     }
 
     user: User = {
-        id: "",
-        name: "",
-        lastName: "",
-        username: "",
         email: "",
-        password: "",
-        userType: "",
+        id: "",
+        lastName: "",
         location: "",
+        name: "",
+        password: "",
+        pershkrim: "",
         profilePictureUrl: "",
+        userType: "",
+        username: ""
+
     };
     myFeeds: Feed[] = [];
     isSaveButtonDisabled: boolean = false;
@@ -53,24 +60,37 @@ export class MenuPage implements OnInit {
         userType: "",
         location: "",
         profilePictureUrl: "",
+        pershkrim: ''
     }
     currentPass: string;
     newPass: string;
     retypedPass: string;
     isChangeButtonDisabled: boolean = false;
     isDeleted: boolean = false;
+    userLoaded: boolean = false;
 
     ngOnInit() {
+        this.authService.getCurrentUser().subscribe(
+            (user) => {
+                this.user = user.data();
+                console.log(this.user)
+                this.userLoaded = true;
+                this.partialUserPersonalInfo.id = user.data().id;
+                this.partialUserPersonalInfo.userType = user.data().userType;
+                this.partialUserPersonalInfo.username = user.data().username;
+                this.partialUserPersonalInfo.profilePictureUrl = user.data().profilePictureUrl;
+                this.partialUserPersonalInfo.email = user.data().email;
+                this.partialUserPersonalInfo.name = user.data().name;
+                this.partialUserPersonalInfo.pershkrim = user.data().pershkrim;
+                this.partialUserPersonalInfo.lastName = user.data().lastName;
+                this.partialUserPersonalInfo.location = user.data().location;
+
+            });
 
     }
 
-    setMyFeeds() {
-        this.apiService.filterFeedData(this.user.userType).subscribe((feeds) => {
-            this.myFeeds = feeds.filter(feed => feed.userName === this.user.username);
-        })
-        console.log(this.myFeeds);
 
-    }
+
 
     async logout() {
         try {
@@ -100,7 +120,7 @@ export class MenuPage implements OnInit {
 
     async editFeed(feed: Feed) {
         this.editableFeed = feed;
-        const modal = await this.modalController.create({
+        const modal = await this.modalCtrl.create({
             component: FeedUpdateModalPage,
             componentProps: {
                 feed: feed,
@@ -110,54 +130,37 @@ export class MenuPage implements OnInit {
     }
 
 
-    onFeedClick(feed
-                    :
-                    Feed
-    ) {
+    onFeedClick(feed: Feed) {
+        console.log("cliicked")
+        return this.routerService.navigate("tabs/all-feeds/feed-details/" + feed.id);
 
     }
 
 
     setUser() {
-        this.authService.getCurrentUser().subscribe(
+
+        this.authService._uid.subscribe(s => {
+            console.log(s,"menu")
+
+        })
+
+        return this.authService.getCurrentUser().subscribe(
             (user) => {
-                if (user) {
-                    console.log(user)
-                    this.user = user;
-                    this.partialUserPersonalInfo.name = user.name;
-                    this.partialUserPersonalInfo.id = user.id;
-                    this.partialUserPersonalInfo.location = user.location;
-                    this.partialUserPersonalInfo.lastName = user.lastName;
-                    this.partialUserPersonalInfo.email = user.email;
-                    this.partialUserPersonalInfo.profilePictureUrl = user.profilePictureUrl;
-                    this.partialUserPersonalInfo.username = user.username;
-                    this.partialUserPersonalInfo.userType = user.userType;
-                    console.log(this.partialUserPersonalInfo)
-                }
+                this.user = user.data();
+                console.log(this.user)
+
+
             });
-    }
-
-
-    load() {
-        this.setUser();
-        setTimeout(() => {
-            // your code here
-            this.setMyFeeds();
-
-        }, 1000);
 
     }
 
-    addFeed() {
-
-    }
 
     saveInfo() {
 
         this.apiService.updateUser(this.partialUserPersonalInfo.id, this.partialUserPersonalInfo).then(r => {
             this.isSaveButtonDisabled = true;
         });
-        this.load();
+        this.setUser()
     }
 
     editInfo() {
@@ -197,4 +200,44 @@ export class MenuPage implements OnInit {
     deleteAccountP1() {
         this.isDeleted = true;
     }
+
+    async openAddFeedModal() {
+        const modal = await this.modalCtrl.create({
+            component: AddFeedComponent,
+            cssClass: "modal-medium",
+        });
+        return await modal.present();
+    }
+
+    covertDate(date: any) {
+        return moment(date.toDate());
+
+    }
+
+    getUsername() {
+
+
+        return new Promise<string>((resolve, reject) => {
+            if (this.user && this.user.username) {
+                resolve(this.user.username);
+            } else {
+                reject(new Error('User type not available.'));
+            }
+        });
+    }
+
+
+    async getUserType(): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            if (this.user && this.user.userType) {
+                resolve(this.user.userType);
+            } else {
+                reject(new Error('User type not available.'));
+            }
+        });
+    }
 }
+
+
+
+

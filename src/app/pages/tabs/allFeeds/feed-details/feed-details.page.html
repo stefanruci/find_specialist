@@ -1,0 +1,81 @@
+<div *ngIf="validID==false" class="ion-text-center ion-padding ion-margin border-2 shadow h-90">
+    <h1 class="cloak__wrapper
+    cloak__container
+    cloak
+    info">404</h1>
+
+    <h2> We can't find that page</h2>
+    <p>We're fairly sure that page used to be here, but seems to have gone missing. We do apologise on it's behalf.</p>
+    <ion-button [routerLink]="['./../../../']" target="_blank"> Home</ion-button>
+
+</div>
+
+<ion-header *ngIf="validID==true">
+    <ion-toolbar>
+        <ion-title class="d-grid justify-content-between position-relative">
+
+
+            <ion-icon class="ion-padding-top" name="person-circle-outline"></ion-icon>
+            {{ feed.userName }}
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/../../tabs'] "
+
+            >
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+    <ion-grid *ngIf="validID==true " class="h-90 " >
+
+        <ion-row size="7" class="ion-text-center justify-content-center">
+            <ion-card expand="full" class="d-grid ion-card feed ">
+                <ion-card-header class="" style="display: flex ;justify-content: space-between">
+                    <ion-card-subtitle class=" item ">
+
+                        <ion-icon name="time-outline"></ion-icon>
+                        " {{  feed.time.format("DD/MM")}}"
+                        <br>
+                        <ion-icon name="location-outline"></ion-icon>
+                        {{ feed.vendodhja }}</ion-card-subtitle>
+                    <ion-card-subtitle class=" item " style="float: left">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        {{ feed.userName }}</ion-card-subtitle>
+                </ion-card-header>
+
+                <ion-card-title>{{ feed.tittle }}</ion-card-title>
+
+                <ion-card-content>
+                    {{ feed.pershkrim.slice(0, 100).concat('   ......')  }}
+                </ion-card-content>
+                <ion-card-content style="display:flex;justify-content: flex-end  ;align-content: flex-end">
+                    <ion-tab-button id="call">
+                        <ion-icon name="call-outline"></ion-icon>
+                        <ion-label>Telefono</ion-label>
+                    </ion-tab-button
+                    >
+
+                    <ion-tab-button id="whatsapp">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        <ion-label>WhatsUp</ion-label>
+                    </ion-tab-button
+                    >
+
+                    <ion-tab-button id="messages">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <ion-label>Dergo mesazh</ion-label>
+                    </ion-tab-button
+                    >
+
+                </ion-card-content>
+
+
+            </ion-card>
+        </ion-row>
+
+    </ion-grid>
+
+
+

@@ -7,12 +7,11 @@ import {
     AlertController,
 } from "@ionic/angular";
 import {Observable, async} from "rxjs";
-import {ForgotpasswordComponent} from "src/app/components/forgotpassword/forgotpassword.component";
-import {RegisterComponent} from "src/app/components/register/register.component";
 import {User} from "src/app/model/user/user.model";
 import {ApiService} from "src/app/services/api/api.service";
 import {AuthService} from "src/app/services/auth/auth.service";
 import {RouterService} from "../../services/routerService/router.service";
+import {ForgotPasswordComponent} from "../../components/forgotpassword/forgot-password.component";
 
 @Component({
     selector: "app-login",
@@ -38,8 +37,11 @@ export class LoginPage implements OnInit {
 
     }
 
+    currentUser: User;
 
     ngOnInit() {
+
+
         // this.getUserByEmail(this.email).subscribe(
         //   (user) => (this.selectedUser = user)
         // );
@@ -76,7 +78,7 @@ export class LoginPage implements OnInit {
 
     forgotPass() {
         console.log("this.forgotPass");
-        this.openPassModal();
+        this.openPassModal().then(r => {});
     }
 
     async signUp() {
@@ -90,17 +92,13 @@ export class LoginPage implements OnInit {
         await this.modalCtrl.dismiss();
     }
 
-    async openRegisterModal() {
-        const modal = await this.modalCtrl.create({
-            component: RegisterComponent,
-            cssClass: "modal-large",
-        });
-        return await modal.present();
+    openRegisterModal() {
+        this.routerService.navigate("/login/register")
     }
 
     async openPassModal() {
         const modal = await this.modalCtrl.create({
-            component: ForgotpasswordComponent,
+            component: ForgotPasswordComponent,
             cssClass: "modal-large",
         });
         return await modal.present();

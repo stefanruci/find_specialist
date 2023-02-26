@@ -1,12 +1,10 @@
 import {
-    AfterContentChecked,
     Component,
     OnInit,
     ViewChild,
 } from "@angular/core";
-import {Router} from "@angular/router";
-import {ModalController, Platform, PopoverController} from "@ionic/angular";
-import {LoginComponent} from "src/app/components/login/login.component";
+import {RouterOutlet} from "@angular/router";
+import {IonRouterOutlet, ModalController, Platform, PopoverController} from "@ionic/angular";
 import {AuthService} from "src/app/services/auth/auth.service";
 import SwiperCore, {
     Navigation,
@@ -49,6 +47,9 @@ export class HomePage implements OnInit {
         loop: true,
     };
     @ViewChild("popover") popover: PopoverController;
+    @ViewChild(IonRouterOutlet) outlet: IonRouterOutlet;
+    @ViewChild(RouterOutlet) ngoOutlet: RouterOutlet;
+
 
     bannerConfig: SwiperOptions;
     banners: any[] = [];
@@ -61,12 +62,14 @@ export class HomePage implements OnInit {
         private modalCtrl: ModalController,
         public auth: AuthService,
         private routerService: RouterService,
-        private platform: Platform
+        private platform: Platform,
     ) {
     }
 
 
     ngOnInit() {
+
+
         if (this.platform.width() <= 700) {
             this.slideOpts.slidesPerView = 1;
         }
@@ -100,5 +103,9 @@ export class HomePage implements OnInit {
             cssClass: "modal-medium",
         });
         return await modal.present();
+    }
+
+    seAll(usertype: string) {
+
     }
 }

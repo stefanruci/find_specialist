@@ -17,33 +17,45 @@ import {ApiService} from "../api/api.service";
 import {AlertController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {RouterService} from "../routerService/router.service";
+import {isLogin} from "ionic";
 
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
-    get apiService(): ApiService {
-        return this._apiService;
-    }
+
 
     public _uid = new BehaviorSubject<any>(null);
     correctUser: any;
     userType: string = 'U';
-    correntUserId: string = "";
+    currentUserId: string = "";
     isLogin: boolean;
 
     constructor(
         private routerService: RouterService,
         private auth: Auth,
         private afAuth: AngularFireAuth,
-        private _apiService: ApiService,
+        private apiService: ApiService,
         private alertController: AlertController
     ) {
+        if (this.isLogin == true) {
+
+            this.getCurrentUser().subscribe(el => {
+                this.userType = el.data().userType.charAt(0).toUpperCase();
+                console.log(this.userType, '=usertype')
+
+
+            })
+        }
+
+
         this.checkAuth().then(res => {
             this.isLogin = true;
             this.getCurrentUser().subscribe(el => {
-                this.userType = el.userType.charAt(0).toUpperCase();
+                this.userType = el.data().userType.charAt(0).toUpperCase();
                 console.log(this.userType, '=usertype')
+
+
             })
         }).catch(e => {
             this.isLogin = false;
@@ -51,8 +63,12 @@ export class AuthService {
 
     }
 
-    getCurrentUser(): Observable<User> {
-        return this._apiService.getUserByEmail(this.auth.currentUser.email);
+    getCurrentUser() {
+        this.getUserId()
+
+        console.log(this.currentUserId, "id on authService", this.auth.currentUser.uid);
+        return this.apiService.getUser(this.auth.currentUser.uid);
+
     }
 
     getUserId(): string {
@@ -60,16 +76,16 @@ export class AuthService {
             if (user) {
                 // User is signed in.
                 console.log(user.uid);
-                this.correntUserId = user.uid.trim();
+                this.currentUserId = user.uid;
             }
         });
 
-        return this.correntUserId;
+        return this.currentUserId;
     }
 
     async login(email: string, password: string): Promise<any> {
         try {
-            const response = signInWithEmailAndPassword(this.auth, email, password);
+            const response = signInWithEmailAndPassword(this.auth, email, password)
             console.log(response);
 
             if ((await response).user) {
@@ -77,8 +93,12 @@ export class AuthService {
                 this.isLogin = true;
                 this.correctUser = await this.getUserData(this._uid);
                 this.getCurrentUser().subscribe(el => {
-                    this.userType = el.userType.charAt(0).toUpperCase();
+                    this.userType = el.data().userType.charAt(0).toUpperCase();
                     console.log(this.userType, '=usertype')
+                    sessionStorage.setItem('userName', el.data().username);
+                    sessionStorage.setItem('userType', this.userType);
+                    this.currentUserId = el.data().id;
+
                 })
             }
         } catch (e) {
@@ -126,7 +146,7 @@ export class AuthService {
             };
 
             //add data on the firebase db
-            await this._apiService.setDocument(
+            await this.apiService.setDocument(
                 "users/".concat(registeredUser.user.uid),
                 data
             );
@@ -154,6 +174,8 @@ export class AuthService {
             this.isLogin = false;
             this.userType = 'U';
             this._uid.next(null);
+
+
         }).catch(err => {
             throw err;
         });
@@ -175,7 +197,7 @@ export class AuthService {
         // return (await (this.apiService.collection('users').doc(id).get().toPromise())).data;
         ;
         await (
-            await this._apiService.getDocById("users/$(id)")
+            await this.apiService.getDocById("users/$(id)")
         ).data();
         //   if (docSnap?.exists()) {
         //     return docSnap.data;
@@ -191,7 +213,8 @@ export class AuthService {
             this.deleteUserData(user);
             this.logout().then(r => {
 
-                this.routerService.navigate("/login");
+                this.routerService.navigate("/login").then(r => {
+                });
 
 
             });
@@ -201,7 +224,6 @@ export class AuthService {
         })
 
     }
-
     async showAlert(msg) {
         const alert = await this.alertController.create({
             header: "Alert?",
@@ -214,12 +236,12 @@ export class AuthService {
 
     private deleteUserData(user: User) {
 
-        this._apiService.deleteUserData(user.id).then(r => {
+        this.apiService.deleteUserData(user.id).then(r => {
             this.isLogin = false;
             this.userType = 'U';
             this._uid.next(null);
             this.correctUser = null;
-            this._apiService.deleteUserFeeds(user);
+            this.apiService.deleteUserFeeds(user);
 
         });
     }

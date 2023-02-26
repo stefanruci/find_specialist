@@ -1,34 +1,99 @@
-    <ion-grid>
-        <ion-row class="justify-content-center content-feed align-content-center">
-            <ion-col expand="full"  size="12" *ngFor="let clientFeed of FeedList.slice(0, elementsToShow);"
-                     class=" feed-item  ">
-                <ion-card (click)="onFeedClick(clientFeed)" expand="full" class="ion-card">
-                    <ion-card-header style="display: flex ;justify-content: space-between">
-                        <ion-card-subtitle class=" item ">
-                            <ion-icon name="location-outline"></ion-icon>
-                            {{ clientFeed.vendodhja }}</ion-card-subtitle>
-                        <ion-card-subtitle class=" item " style="float: left">
-                            <ion-icon name="person-circle-outline"></ion-icon>
-                            {{ clientFeed.userName }}</ion-card-subtitle>
-                    </ion-card-header>
+<ion-grid>
 
-                    <ion-card-title>{{ clientFeed.tittle }}</ion-card-title>
+    <ion-row *ngIf="feedListLen>=10" class="justify-content-center content-feed align-content-center">
+        <ion-col expand="full" size="12"
+                 *ngFor="let feed of feedList.slice(0, elementsToShow);"
+                 class=" feed-item  ">
+            <ion-card [routerLink]="['/../tabs/all-feeds/feed-details' ,feed.id] "
+                      (click)="onFeedClick(feed)" expand="full" class="ion-card">
+                <ion-card-header style="display: flex ;justify-content: space-between">
+                    <ion-card-subtitle class=" item ">
+                        <ion-icon name="time-outline"></ion-icon>
+                        " {{  feed.time.format("DD/MM") }}"
+                        <br>
 
-                    <ion-card-content>
-                        {{ clientFeed.pershkrim.slice(0, 100).concat('   ......')  }}
-                    </ion-card-content>
-                    <ion-card-content style="display:flex;justify-content: flex-end ;">
+                        <ion-icon name="location-outline"></ion-icon>
+                        {{ feed.vendodhja }}
+                    </ion-card-subtitle>
+                    <ion-card-subtitle class=" item " style="float: left">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        {{ feed.userName }}</ion-card-subtitle>
+                </ion-card-header>
 
-                        <ion-button fill="none" style="color:blue " size="small" (click)="onFeedClick(feed)"> Shiko me
-                            shume
-                        </ion-button>
+                <ion-card-title>{{ feed.tittle }}</ion-card-title>
+
+                <ion-card-content>
+                    {{ feed.pershkrim.slice(0, 100).concat('   ......')  }}
+                </ion-card-content>
+                <ion-card-content style="display:flex;justify-content: space-between ;">
+                    <ion-button *ngIf="appear(feed)" fill="none" style="color:blue " size="small"
+                                (click)="editFeed(feed)"> Edito
+                    </ion-button>
+                    <ion-button fill="none" style="color:blue " size="small"
+                                [routerLink]="['/../tabs/all-feeds/feed-details' ,feed.id] "
+                                (click)="onFeedClick(feed)"> Shiko me
+                        shume
+                    </ion-button>
+                </ion-card-content>
+                <ion-card-content style="display:flex;justify-content: flex-end ;">
 
 
+                </ion-card-content>
 
-                    </ion-card-content>
 
-                    <ion-back-button></ion-back-button>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+                <ion-back-button>
+
+
+                </ion-back-button>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="feedListLen<10" class="justify-content-center content-feed align-content-center">
+        <ion-col expand="full" size="12"
+                 *ngFor="let feed of feedList;"
+                 class=" feed-item  ">
+            <ion-card (click)="onFeedClick(feed)" expand="full" class="ion-card"
+                      [routerLink]="['/../tabs/all-feeds/feed-details' ,feed.id] "
+            >
+                <ion-card-header style="display: flex ;justify-content: space-between">
+                    <ion-card-subtitle class=" item ">
+
+                        <ion-icon name="time-outline"></ion-icon>
+                        " {{  feed.time.format("DD/MM")}}"
+                        <br>
+                        <ion-icon name="location-outline"></ion-icon>
+                        {{ feed.vendodhja }}</ion-card-subtitle>
+                    <ion-card-subtitle class=" item " style="float: left">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        {{ feed.userName }}</ion-card-subtitle>
+                </ion-card-header>
+
+                <ion-card-title>{{ feed.tittle }}</ion-card-title>
+
+                <ion-card-content>
+                    {{ feed.pershkrim.slice(0, 100).concat('   ......')  }}
+                </ion-card-content>
+                <ion-card-content style="display:flex;justify-content: space-between ;">
+                    <ion-button *ngIf="appear(feed)" fill="none" style="color:blue " size="small"
+                                (click)="editFeed(feed)"> Edito
+                    </ion-button>
+                    <ion-button fill="none" style="color:blue " size="small"
+                                [routerLink]="['/../tabs/all-feeds/feed-details' ,feed.id] "
+                                (click)="onFeedClick(feed)"> Shiko me
+                        shume
+                    </ion-button>
+                </ion-card-content>
+
+
+                <ion-back-button></ion-back-button>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="feedList.length===0"
+             class="justify-content-center content-feed align-content-center align-items-center ">
+        <label color="danger">Ska njoftime</label>
+
+    </ion-row>
+
+</ion-grid>

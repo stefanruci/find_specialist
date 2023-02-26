@@ -8,8 +8,8 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content class="modal-content">
-    <ion-list>
+<ion-content class="modal-content align-items-center justify-content-center">
+    <ion-list class="align-items-center justify-content-center ion-text-center">
 
         <ion-item>
             <ion-label position="floating">Titulli</ion-label>
@@ -27,9 +27,24 @@
             <ion-label position="floating">Pershkrim</ion-label>
             <ion-input type="text" [(ngModel)]="feed.pershkrim"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label position="floating">            <ion-icon name="call-outline"></ion-icon>
+                telefon</ion-label>
 
+            <ion-input type="tel" [(ngModel)]="feed.tel"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+                WhatsApp</ion-label>
+
+            <ion-input type="tel" [(ngModel)]="feed.whatsApp"></ion-input>
+        </ion-item>
+
+        <ion-button expand="none" class="ion-margin" (click)="addFeed()">Shto njoftim</ion-button>
+        <br>
+        <ion-button color="danger" expand="none" class="ion-margin" (click)="closeModal()">Anullo</ion-button>
     </ion-list>
-    <ion-button expand="none" (click)="addFeed()">Shto njoftim</ion-button>
     <br/>
     <br/>
     <ion-item class="ion-align-items-center">

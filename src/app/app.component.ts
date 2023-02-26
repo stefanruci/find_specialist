@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {DomController, Platform} from "@ionic/angular";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {DomController, IonRouterOutlet, Platform} from "@ionic/angular";
+import {ActivationStart, Router, RouterOutlet} from "@angular/router";
 
 
 @Component({
@@ -11,6 +12,7 @@ import {DomController, Platform} from "@ionic/angular";
 
 export class AppComponent implements OnInit {
     rootPage: string = 'HomePage';
+
 
     constructor(private platform: Platform, private domCtrl: DomController) {
     }
@@ -41,4 +43,6 @@ export class AppComponent implements OnInit {
         }
 
     }
+
+
 }
