@@ -58,7 +58,7 @@ export class RegisterPage implements OnInit {
                 .register(this.user)
 
                 .then((data: any) => {
-                    this.routerService.navigate("/tabs/home");
+                    this.routerService.navigate("/tabs/landing-page");
                     this.user = {
                         id: "",
                         name: "",
@@ -91,7 +91,7 @@ export class RegisterPage implements OnInit {
     }
 
     async closeModal() {
-        await this.routerService.navigate("/tabs/home");
+        await this.routerService.navigate("/tabs/landing-page");
         await this.modalCtrl.dismiss();
     }
 
