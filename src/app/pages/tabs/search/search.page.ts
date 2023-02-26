@@ -4,6 +4,7 @@ import {ApiService} from "../../../services/api/api.service";
 import firebase from "firebase/compat";
 import Timestamp = firebase.firestore.Timestamp;
 import {timestamp} from "rxjs";
+import moment from "moment/moment";
 
 @Component({
     selector: 'app-search',
@@ -58,7 +59,7 @@ export class SearchPage implements OnInit {
             .subscribe(
                 (el) => {
                     this.searchedFeeds = el.filter(feed => feed.tittle.includes(this.searchWord) || feed.pershkrim.includes(this.searchWord) || feed.vendodhja.includes(this.searchWord));
-
+                    this.convertFeedsTime();
                 }
             )
 
@@ -67,6 +68,18 @@ export class SearchPage implements OnInit {
 
     onFeedClick(feed: Feed) {
 
+    }
+
+    convertFeedsTime() {
+        this.searchedFeeds.forEach(feed => {
+            feed.time = this.covertDateToMoment(feed.time);
+        })
+
+    }
+
+    private covertDateToMoment(time: any) {
+        return moment(time.toDate());
+        ;
     }
 
     randomIntFromInterval(min, max) {

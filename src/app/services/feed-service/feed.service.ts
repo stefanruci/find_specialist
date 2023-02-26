@@ -63,18 +63,18 @@ export class FeedService {
         userName: "username",
         tittle: "tittle",
         pershkrim: "decr",
-        time: new Date(),
+        time: moment(new Date()),
         userType: "type"
     };
 
-    constructor(private _authService: AuthService) {
+    constructor(private _authService: AuthService, private apiService: ApiService) {
 
 
     }
 
     setSpecialistFeeds() {
         console.log(this._userType)
-        return this._authService.apiService.filterFeedData('F');
+        return this.apiService.filterFeedData('F');
         //     .subscribe(list => {
         //     console.log(list, "lista s")
         //     this._feedList = list;
@@ -87,7 +87,7 @@ export class FeedService {
     setClientFeeds() {
         console.log(this._userType)
 
-        return this._authService.apiService.filterFeedData('P');
+        return this.apiService.filterFeedData('P');
         //     .subscribe((list) => {
         //     console.log(list, "lista p")
         //     this._feedList = list;
@@ -100,17 +100,17 @@ export class FeedService {
 
 
     addFeed(feed: Feed) {
-        this._authService.apiService.addFeed(feed).then(r => {
+        this.apiService.addFeed(feed).then(r => {
         });
     }
 
     updateFeedFieldById(id: string, pFeed: Partial<Feed>) {
-        this._authService.apiService.updateFeedFieldById(id, pFeed).then(r => {
+        this.apiService.updateFeedFieldById(id, pFeed).then(r => {
         });
     }
 
     deleteFeed(id: string) {
-        this._authService.apiService.deleteFeed(id).then(r => {
+        this.apiService.deleteFeed(id).then(r => {
         });
 
     }
@@ -118,9 +118,11 @@ export class FeedService {
     covertDate(date) {
 
 
-        return moment(date.toDate()).format("DD/MM");
+        return moment(date.toDate());
 
     }
 
-
+    getCurrentUser() {
+        return this.authService.getCurrentUser();
+    }
 }

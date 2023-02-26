@@ -49,12 +49,23 @@
         <ion-row expand="full" class="justify-content-center  align-content-center">
             <ion-col size-xs="12" size-sm="12" size="7" size-md="12" *ngFor="let feed of searchedFeeds;"
             >
-                <ion-card (click)="onFeedClick(feed)" expand="full" class="ion-card ion-text-center">
+                <ion-card [routerLink]="['/../tabs/all-feeds/feed-details' ,feed.id] "
+                          (click)="onFeedClick(feed)" expand="full" class="ion-card ion-text-center">
                     <ion-card-header style="display: flex ;justify-content: space-between">
+
                         <ion-card-subtitle class=" item ">
+                            <ion-icon name="time-outline"></ion-icon>
+                            " {{  feed.time.format("DD/MM")  }}"
+                            <br>
+
                             <ion-icon name="location-outline"></ion-icon>
                             <h6 [innerHTML]="feed.vendodhja | highlight:searchWord"></h6>
                         </ion-card-subtitle>
+
+<!--                        <ion-card-subtitle class=" item ">-->
+<!--                            <ion-icon name="location-outline"></ion-icon>-->
+<!--                            <h6 [innerHTML]="feed.vendodhja | highlight:searchWord"></h6>-->
+<!--                        </ion-card-subtitle>-->
                         <ion-card-subtitle class=" item " style="float: left">
                             <ion-icon name="person-circle-outline"></ion-icon>
                             {{ feed.userName }}</ion-card-subtitle>

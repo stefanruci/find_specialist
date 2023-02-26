@@ -28,7 +28,7 @@ export class FeedComponent implements OnInit {
         tittle: "tittle",
         pershkrim: " Here's a small text description for the card content. Nothing more,\n" +
             "                        nothing less.This will set the height of the \"my-component\" element to the height of its content or the height of its parent container, whichever is smaller. Again, this property can be used with any HTML element, including Ionic components.",
-        time: new Date(),
+        time: moment(new Date()),
     };
     @Input()
     elementsToShow: any = 0;
@@ -51,7 +51,6 @@ export class FeedComponent implements OnInit {
     };
 
     constructor(
-        // private router: Router,
         private apiService: ApiService,
         private feedService: FeedService,
         private routerService: RouterService,
@@ -62,9 +61,6 @@ export class FeedComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentUser.username = sessionStorage.getItem('userName');
-        this.currentUser.userType = sessionStorage.getItem('userType');
-
         this.feedService.userType = this.userType;
         if (this.userType == 'F') {
             this.feedService.userType = 'F';
@@ -75,6 +71,7 @@ export class FeedComponent implements OnInit {
                         = this.feedList.length;
 
                     console.log(this.feedListLen)
+                    this.convertFeedsTime();
                 })
         } else if (this.userType == 'P') {
             this.feedService.userType = 'P';
@@ -84,7 +81,7 @@ export class FeedComponent implements OnInit {
 
                     this.feedListLen = this.feedList.length.valueOf();
                     console.log(this.feedListLen)
-
+                    this.convertFeedsTime();
                 })
 
 
@@ -99,8 +96,9 @@ export class FeedComponent implements OnInit {
             if (this.elementsToShow == 0) {
                 this.elementsToShow = this.feedList.length;
             }
-        }, 1000);
+        }, 50)
 
+        this.setUser()
 
     }
 
@@ -117,8 +115,11 @@ export class FeedComponent implements OnInit {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    covertDate(date) {
-        return moment(date.toDate()).format("DD/MM");
+    convertFeedsTime() {
+        this.feedList.forEach(feed => {
+            feed.time = this.covertDateToMoment(feed.time);
+        })
+
     }
 
     async editFeed(feed: Feed) {
@@ -131,13 +132,30 @@ export class FeedComponent implements OnInit {
         await modal.present();
     }
 
-    shfaqu(feed: Feed): boolean {
+    appear(feed: Feed): boolean {
+
 
         if (this.currentUser.username !== "") {
             return feed.userName == this.currentUser.username && feed.userType == this.currentUser.userType;
-
         } else {
             return false;
         }
     }
+
+    private covertDateToMoment(time: any) {
+        return moment(time.toDate());
+        ;
+    }
+
+
+    setUser() {
+
+        this.feedService.getCurrentUser().subscribe((user) => {
+
+                this.currentUser = user.data();
+                console.log(this.currentUser, "feed comp")
+            }
+        )
+    }
+
 }

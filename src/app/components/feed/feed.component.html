@@ -9,7 +9,7 @@
                 <ion-card-header style="display: flex ;justify-content: space-between">
                     <ion-card-subtitle class=" item ">
                         <ion-icon name="time-outline"></ion-icon>
-                        " {{  covertDate(feed.time)  }}"
+                        " {{  feed.time.format("DD/MM") }}"
                         <br>
 
                         <ion-icon name="location-outline"></ion-icon>
@@ -26,7 +26,7 @@
                     {{ feed.pershkrim.slice(0, 100).concat('   ......')  }}
                 </ion-card-content>
                 <ion-card-content style="display:flex;justify-content: space-between ;">
-                    <ion-button *ngIf="shfaqu(feed)" fill="none" style="color:blue " size="small"
+                    <ion-button *ngIf="appear(feed)" fill="none" style="color:blue " size="small"
                                 (click)="editFeed(feed)"> Edito
                     </ion-button>
                     <ion-button fill="none" style="color:blue " size="small"
@@ -60,7 +60,7 @@
                     <ion-card-subtitle class=" item ">
 
                         <ion-icon name="time-outline"></ion-icon>
-                        " {{  covertDate(feed.time)}}"
+                        " {{  feed.time.format("DD/MM")}}"
                         <br>
                         <ion-icon name="location-outline"></ion-icon>
                         {{ feed.vendodhja }}</ion-card-subtitle>
@@ -75,7 +75,7 @@
                     {{ feed.pershkrim.slice(0, 100).concat('   ......')  }}
                 </ion-card-content>
                 <ion-card-content style="display:flex;justify-content: space-between ;">
-                    <ion-button *ngIf="shfaqu(feed)" fill="none" style="color:blue " size="small"
+                    <ion-button *ngIf="appear(feed)" fill="none" style="color:blue " size="small"
                                 (click)="editFeed(feed)"> Edito
                     </ion-button>
                     <ion-button fill="none" style="color:blue " size="small"

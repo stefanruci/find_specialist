@@ -12,9 +12,6 @@ const routes: Routes = [
         path: ':user-type',
         component: AllFeedsPage
     },
-
-
-
     {
         path: 'feed-details',
         loadChildren: () => import('./feed-details/feed-details.module').then(m => m.FeedDetailsPageModule)

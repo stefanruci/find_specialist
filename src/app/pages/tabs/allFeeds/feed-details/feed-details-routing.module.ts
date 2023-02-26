@@ -11,6 +11,7 @@ const routes: Routes = [
     },
     {
         path: ':id',
+        pathMatch: "full",
         loadChildren: () => import('./feed-details.module').then(m => m.FeedDetailsPageModule)
     },
 ];

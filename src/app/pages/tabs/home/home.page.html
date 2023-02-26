@@ -64,12 +64,6 @@
                                     Shto njoftim
                                 </ion-button>
 
-                                <!--                                <ion-button color="primary"-->
-                                <!--                                            (click)="openAddFeedModal()"-->
-                                <!--                                            style="background-color: transparent;float: right;margin-right: 20px"-->
-                                <!--                                >-->
-                                <!--                                    Shto njoftim-->
-                                <!--                                </ion-button>-->
                                 <h3 class="ion-padding ion-text-center ion-margin">
                                     Njoftimet e specialisteve
                                 </h3>
@@ -101,7 +95,10 @@
 
                             <div class="head">
 
-                                <ion-button (click)="openAddFeedModal()"
+                                <ion-button
+                                        *ngIf="auth.userType=='P'"
+
+                                        (click)="openAddFeedModal()"
                                             class="ion-margin-left ion-padding ion-text-center "
                                             style="float: right;margin-left: 50px;border-radius: 50%"
                                             fill="none"

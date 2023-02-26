@@ -37,10 +37,12 @@ const routes: Routes = [
                 path: 'all-feeds',
                 loadChildren: () => import('./allFeeds/all-feeds.module').then(m => m.AllFeedsPageModule)
             },
+            {
+                path: 'user-details',
+                loadChildren: () => import('./user-details/user-details.module').then(m => m.UserDetailsPageModule)
+            },
         ],
     },
-
-
 
 
 ];

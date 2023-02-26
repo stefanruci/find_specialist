@@ -21,17 +21,16 @@ import {AngularFirestoreModule} from "@angular/fire/compat/firestore/";
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
 import {FormsModule} from "@angular/forms";
 import {SwiperModule} from "swiper/angular";
-import {LoginComponent} from "./components/login/login.component";
-import {RegisterComponent} from "./components/register/register.component";
-import {ForgotpasswordComponent} from "./components/forgotpassword/forgotpassword.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {FeedComponent} from "./components/feed/feed.component";
+import {AddFeedComponent} from "./components/add-feed/add-feed.component";
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
-        RegisterComponent,
-        ForgotpasswordComponent,
+        FeedComponent,
+        AddFeedComponent,
+
     ],
     imports: [
         BrowserModule,
@@ -62,7 +61,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         UserTrackingService,
     ],
     bootstrap: [AppComponent],
-    exports: []
+    exports: [
+        FeedComponent
+    ]
 })
 export class AppModule {
 }

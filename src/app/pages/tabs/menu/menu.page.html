@@ -69,46 +69,15 @@
     <ion-content>
         <ion-grid class="justify-content-center align-content-center" style="margin: auto auto;">
             <ion-row>
-                <ion-col size-md="12">
+                <ion-col *ngIf="userLoaded==true" size-md="12">
                     <ion-header id="njoftimet" size="large" class="ion-padding"> Njoftimet e mia</ion-header>
                     <ion-grid expand="full">
                         <ion-row class="justify-content-center ">
-                            <ion-col size="12" *ngFor="let feed of myFeeds;">
-                                <ion-card (click)="onFeedClick(feed)" expand="full" class="ion-card ion-text-center">
-                                    <ion-card-header style="display: flex ;justify-content: space-between">
-                                        <ion-card-subtitle class=" item ">
+                            <app-my-feeds [userType]="authService.userType.charAt(0)" [userName]="user.username">
 
-                                            <ion-icon name="time-outline"></ion-icon>
-                                            " {{  covertDate(feed.time)  }}"
-                                            <br>
-                                            <ion-icon name="location-outline"></ion-icon>
-                                            {{feed.vendodhja}}
-                                        </ion-card-subtitle>
-                                        <ion-card-subtitle class=" item " style="float: left">
-                                            <ion-icon name="person-circle-outline"></ion-icon>
-                                            {{ feed.userName }}</ion-card-subtitle>
-                                    </ion-card-header>
+                            </app-my-feeds>
 
-                                    <ion-card-title>
 
-                                        <h6 [innerHTML]="feed.tittle"></h6>
-
-                                    </ion-card-title>
-
-                                    <ion-card-content>
-                                        <h6 [innerHTML]="feed.pershkrim.slice(0, 200).concat('   ......') "></h6>
-
-                                    </ion-card-content>
-                                    <ion-card-content style="display:flex;justify-content: flex-end ;">
-                                        <ion-button fill="none" style="color:blue " size="small"
-                                                    (click)="editFeed(feed)"> Edito
-                                        </ion-button>
-
-                                    </ion-card-content>
-
-                                    <ion-back-button></ion-back-button>
-                                </ion-card>
-                            </ion-col>
                             <ion-button fill="none" style="color:blue " size="small"
                                         (click)="openAddFeedModal()"> Shto njoftim
                             </ion-button>
@@ -182,100 +151,104 @@
             <!--            </ion-row>-->
 
             <ion-row>
-                <ion-col expand="full">
-                    <div id="siguria">
+                <div class="h-90" id="siguria">
+
+                    <ion-col expand="full" class="h-100">
                         <ion-header size="large" class="ion-padding">Siguria</ion-header>
-                    </div>
-
-                    <ion-button *ngIf=" isChangeButtonDisabled==false" class=" ion-padding " fill="none"
-                                color="primary"
-                                (click)="changePassButton()">Ndrysho kodin
-                    </ion-button>
 
 
-                    <ngb-alert *ngIf=" isChangeButtonDisabled==true" color="primary"
-                               style="background-color: white"
-                               class=" ngb-alert ion-text-center shadow ion-margin ion-padding">
-                        <ion-header size="large" class="ion-padding ion-margin-bottom   ion-text-center">
-                            Ndysho kodin e hyrjes
-                        </ion-header>
-                        <ion-item>
-                            <ion-label position="floating">passwordi i ri</ion-label>
-                            <ion-input type="password"
-                                       [(ngModel)]="newPass">
-                            </ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label position="floating">rishkruaj passwordin e ri</ion-label>
-                            <ion-input type="password"
-                                       [(ngModel)]="retypedPass"></ion-input>
-                        </ion-item>
-                        <ion-item
-                                *ngIf="this.newPass !== this.retypedPass&&retypedPass.length>6"
-                                position="floating"
-                                class="passdontmatch"
-                        >
-                            Error:Password dont match
-                        </ion-item>
-                        <ion-item
-                                *ngIf="this.newPass ==this.retypedPass &&retypedPass.length>6"
-                                position="floating"
-                                class="passmatch"
-                        >
-                            [Info]:Password match
-                        </ion-item>
-                        <ion-item
-                                *ngIf="retypedPass.length<6"
-                                position="floating" class="passdontmatch"
-
-                        >
-                            [Error]:Passwordi duhet te jete te pakten 6 karaktere.
-                        </ion-item>
-
-                        <ion-button
-                                class=" ion-padding "
-                                (click)="changePass()">Ndrysho kodin e hyrjes
-                        </ion-button>
-                        <br>
-                        <ion-button
-                                color="success"
-                                class="ion-margin"
-                                (click)="this.isChangeButtonDisabled=false">Dil
-                        </ion-button>
-                    </ngb-alert>
-
-
-                </ion-col>
-                <ion-col size="12">
-
-                    <ion-button *ngIf="isDeleted==false" class=" ion-padding " fill="none"
-                                color="primary"
-                                (click)="deleteAccountP1()">Fshi llogarine
-                    </ion-button>
-                    <ngb-alert *ngIf="isDeleted==true" color="primary" style="background-color: white"
-                               class="ngb-alert ion-text-center shadow ion-margin ion-padding">
-
-
-                        <ion-header size="large" class="ion-padding ion-margin-bottom   ion-text-center text-danger">
-                            Fshi llogarine
-                        </ion-header>
-                        <p class=" shadow ion-padding ion-margin" style="color: red">Me fshirjen e llogarise do fshihen
-                            te gjitha te te
-                            dhenat e tua perfshire
-                            njoftimet qe ke
-                            bere .</p>
-                        <label class="ion-padding ion-margin" expand="full">Deshiron te fshish llogarine ?</label>
-                        <ion-button
-                                color="danger"
-                                (click)="deleteAccount()">Fshi llogarine
+                        <ion-button *ngIf=" isChangeButtonDisabled==false" class=" ion-padding " fill="none"
+                                    color="primary"
+                                    (click)="changePassButton()">Ndrysho kodin
                         </ion-button>
 
-                        <ion-button
-                                color="success"
-                                (click)="this.isDeleted=false">Dil
+
+                        <ngb-alert *ngIf=" isChangeButtonDisabled==true" color="primary"
+                                   style="background-color: white"
+                                   class=" ngb-alert ion-text-center shadow ion-margin ion-padding">
+                            <ion-header size="large" class="ion-padding ion-margin-bottom   ion-text-center">
+                                Ndysho kodin e hyrjes
+                            </ion-header>
+                            <ion-item>
+                                <ion-label position="floating">passwordi i ri</ion-label>
+                                <ion-input type="password"
+                                           [(ngModel)]="newPass">
+                                </ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">rishkruaj passwordin e ri</ion-label>
+                                <ion-input type="password"
+                                           [(ngModel)]="retypedPass"></ion-input>
+                            </ion-item>
+                            <ion-item
+                                    *ngIf="this.newPass !== this.retypedPass&&retypedPass.length>6"
+                                    position="floating"
+                                    class="passdontmatch"
+                            >
+                                Error:Password dont match
+                            </ion-item>
+                            <ion-item
+                                    *ngIf="this.newPass ==this.retypedPass &&retypedPass.length>6"
+                                    position="floating"
+                                    class="passmatch"
+                            >
+                                [Info]:Password match
+                            </ion-item>
+                            <ion-item
+                                    *ngIf="retypedPass.length<6"
+                                    position="floating" class="passdontmatch"
+
+                            >
+                                [Error]:Passwordi duhet te jete te pakten 6 karaktere.
+                            </ion-item>
+
+                            <ion-button
+                                    class=" ion-padding "
+                                    (click)="changePass()">Ndrysho kodin e hyrjes
+                            </ion-button>
+                            <br>
+                            <ion-button
+                                    color="success"
+                                    class="ion-margin"
+                                    (click)="this.isChangeButtonDisabled=false">Dil
+                            </ion-button>
+                        </ngb-alert>
+
+
+                    </ion-col>
+                    <ion-col size="12">
+
+                        <ion-button *ngIf="isDeleted==false" class=" ion-padding " fill="none"
+                                    color="primary"
+                                    (click)="deleteAccountP1()">Fshi llogarine
                         </ion-button>
-                    </ngb-alert>
-                </ion-col>
+                        <ngb-alert *ngIf="isDeleted==true" color="primary" style="background-color: white"
+                                   class="ngb-alert ion-text-center shadow ion-margin ion-padding">
+
+
+                            <ion-header size="large"
+                                        class="ion-padding ion-margin-bottom   ion-text-center text-danger">
+                                Fshi llogarine
+                            </ion-header>
+                            <p class=" shadow ion-padding ion-margin" style="color: red">Me fshirjen e llogarise do
+                                fshihen
+                                te gjitha te te
+                                dhenat e tua perfshire
+                                njoftimet qe ke
+                                bere .</p>
+                            <label class="ion-padding ion-margin" expand="full">Deshiron te fshish llogarine ?</label>
+                            <ion-button
+                                    color="danger"
+                                    (click)="deleteAccount()">Fshi llogarine
+                            </ion-button>
+
+                            <ion-button
+                                    color="success"
+                                    (click)="this.isDeleted=false">Dil
+                            </ion-button>
+                        </ngb-alert>
+                    </ion-col>
+                </div>
 
             </ion-row>
 

@@ -6,6 +6,7 @@ import {first, map, Observable} from "rxjs";
 import {User} from "src/app/model/user/user.model";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {Feed} from "../../model/feed/feed.model";
+import * as moment from "moment";
 
 @Injectable({
     providedIn: "root",
@@ -24,6 +25,7 @@ export class ApiService {
             .snapshotChanges()
             .pipe(map(feeds => feeds
                 .map(feed => {
+                    // feed.payload.doc.data().time = this.convertDate(feed.payload.doc.data().time);
                     console.log(feed)
                     return {
                         id: feed.payload.doc.id,
@@ -49,6 +51,7 @@ export class ApiService {
     }
 
     getUserByEmail(email: string): Observable<User> {
+
         console.log("Provided email", email);
         return this.getDocsByField("users", "email", email)
             .snapshotChanges()
@@ -154,7 +157,7 @@ export class ApiService {
 
     deleteFeed(id: string) {
         return this.feedsCollection.doc(id).delete().then(() => {
-            console.log('Feed updated successfully!');
+            console.log('Feed deleted successfully!');
         })
             .catch(error => {
                 console.error(error);
@@ -193,6 +196,20 @@ export class ApiService {
 
     }
 
+    getUser(user_id: string): any {
+
+        return this.usersCollection.doc(user_id).get();
+        //     .then(() => {
+        //     console.log('User deleted successfully!');
+        //
+        // })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
+
+
+    }
+
 
     deleteUserFeeds(user: User) {
         return this.filterFeedData(user.userType).subscribe(feeds => {
@@ -207,4 +224,6 @@ export class ApiService {
             })
         })
     }
+
+
 }

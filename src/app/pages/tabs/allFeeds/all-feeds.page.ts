@@ -9,14 +9,23 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./all-feeds.page.scss'],
 })
 export class AllFeedsPage implements OnInit {
-    @Input() userType: string;
+    @Input() userType: string="";
 
+    validUserType: boolean=true;
 
     constructor(private route: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.userType = this.route.snapshot.paramMap.get('user-type');
+
+        if (this.userType.length>0&&this.userType=="F"||this.userType=="P"){
+            this.validUserType=true
+        }
+        else {
+            this.validUserType=false
+
+        }
     }
 
 

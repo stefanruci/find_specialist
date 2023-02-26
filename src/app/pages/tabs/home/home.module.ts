@@ -9,17 +9,17 @@ import {HomePageRoutingModule} from "./home-routing.module";
 import {HomePage} from "./home.page";
 
 import {SwiperModule} from "swiper/angular";
-import {FeedComponent} from "../../../components/feed/feed.component";
-import {AddFeedComponent} from "../../../components/add-feed/add-feed.component";
+
 import {SidebarModule} from "ng-sidebar";
+import {AppModule} from "../../../app.module";
 
 @NgModule({
     declarations: [
         HomePage,
-        FeedComponent,
-        AddFeedComponent
+
     ],
     imports: [
+        AppModule,
         CommonModule,
         FormsModule,
         IonicModule,
@@ -27,9 +27,7 @@ import {SidebarModule} from "ng-sidebar";
         SwiperModule,
         SidebarModule,
     ],
-    exports: [
-        FeedComponent
-    ]
+    exports: []
 })
 export class HomePageModule {
 }
