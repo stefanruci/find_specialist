@@ -2,14 +2,12 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Feed} from "src/app/model/feed/feed.model";
 import {ApiService} from "../../services/api/api.service";
 import {FeedService} from "../../services/feed-service/feed.service";
-import * as moment from "moment";
 import {RouterService} from "../../services/routerService/router.service";
-import {AddFeedComponent} from "../add-feed/add-feed.component";
 import {FeedUpdateModalPage} from "../../pages/feed-update-modal/feed-update-modal.page";
 import {ModalController} from "@ionic/angular";
-import {user} from "@angular/fire/auth";
-import {AuthService} from "../../services/auth/auth.service";
 import {User} from "../../model/user/user.model";
+import {Timestamp} from "firebase/firestore";
+
 
 @Component({
     selector: "app-feed",
@@ -28,13 +26,16 @@ export class FeedComponent implements OnInit {
         tittle: "tittle",
         pershkrim: " Here's a small text description for the card content. Nothing more,\n" +
             "                        nothing less.This will set the height of the \"my-component\" element to the height of its content or the height of its parent container, whichever is smaller. Again, this property can be used with any HTML element, including Ionic components.",
-        time: moment(new Date()),
+        time: new Date(),
     };
     @Input()
     elementsToShow: any = 0;
     @Input()
     userType: string = "A";
-    private shfaq: boolean;
+    @Input()
+    userID: string = " ";
+    dataLoaded: boolean = false;
+
 
     currentUser: User = {
         email: "",
@@ -55,12 +56,15 @@ export class FeedComponent implements OnInit {
         private feedService: FeedService,
         private routerService: RouterService,
         private modalController: ModalController,
-        private authService: AuthService) {
+    ) {
 
 
     }
 
     ngOnInit() {
+
+
+        console.log(this.userID, "userid on feed")
         this.feedService.userType = this.userType;
         if (this.userType == 'F') {
             this.feedService.userType = 'F';
@@ -96,9 +100,14 @@ export class FeedComponent implements OnInit {
             if (this.elementsToShow == 0) {
                 this.elementsToShow = this.feedList.length;
             }
-        }, 50)
+        }, 1000)
 
-        this.setUser()
+        if (this.userID != "") {
+            this.setUser()
+
+        } else {
+            this.dataLoaded = true;
+        }
 
     }
 
@@ -117,7 +126,8 @@ export class FeedComponent implements OnInit {
 
     convertFeedsTime() {
         this.feedList.forEach(feed => {
-            feed.time = this.covertDateToMoment(feed.time);
+            feed.time = Timestamp.fromDate(feed.time).toDate();
+            console.log(feed.time, "Timestamps")
         })
 
     }
@@ -133,29 +143,33 @@ export class FeedComponent implements OnInit {
     }
 
     appear(feed: Feed): boolean {
+        if (this.currentUser.id != "") {
+            return feed.userName == this.currentUser.username && feed.userType == this.currentUser.userType.charAt(0);
 
-
-        if (this.currentUser.username !== "") {
-            return feed.userName == this.currentUser.username && feed.userType == this.currentUser.userType;
         } else {
             return false;
         }
+
     }
 
-    private covertDateToMoment(time: any) {
-        return moment(time.toDate());
-        ;
+    covertDateToDDMM(time: any): string {
+
+        // console.log(Timestamp.fromDate(time.toDate()).toDate(), "timestamp");
+        return this.feedService.covertDate(time);
+
+        // return  new Date(time.getSeconds()*1000+time.getMilliseconds()/1000).toLocaleDateString('en-GB', {day: '2-digit', month: '2-digit'});
     }
 
 
     setUser() {
-
-        this.feedService.getCurrentUser().subscribe((user) => {
-
+        return this.apiService.getUser(this.userID).subscribe((user) => {
                 this.currentUser = user.data();
+                this.dataLoaded = true;
                 console.log(this.currentUser, "feed comp")
+
             }
         )
     }
+
 
 }

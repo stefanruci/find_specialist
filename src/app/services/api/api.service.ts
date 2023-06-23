@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
-import {AngularFirestore,} from "@angular/fire/compat/firestore";
+import {AngularFirestore, QueryFn,} from "@angular/fire/compat/firestore";
 import {collectionData, doc, docData, Firestore, setDoc,} from "@angular/fire/firestore";
-import {addDoc, collection, getDoc, getDocs, orderBy, OrderByDirection, query,} from "firebase/firestore";
+import {addDoc, collection, getDoc, getDocs, orderBy, OrderByDirection, query, Timestamp} from "firebase/firestore";
 import {first, map, Observable} from "rxjs";
 import {User} from "src/app/model/user/user.model";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {Feed} from "../../model/feed/feed.model";
-import * as moment from "moment";
+
 
 @Injectable({
     providedIn: "root",
@@ -15,7 +15,7 @@ export class ApiService {
     private feedsCollection = this.db.collection<Feed>('feeds');
     private usersCollection = this.db.collection<User>('users');
 
-    constructor(private firestore: Firestore, private db: AngularFirestore, private fireDatabase: AngularFireDatabase) {
+    constructor(private firestore: Firestore, private db: AngularFirestore) {
     }
 
     filterFeedData(feedType: string) {
@@ -32,7 +32,6 @@ export class ApiService {
                         ...feed.payload.doc.data()
                     } as Feed
                 })));
-        // return this.fireDatabase.list('/feeds', ref => ref.orderByChild('feedType').equalTo(feedType)).valueChanges();
     }
 
     getDocById(path) {
@@ -48,6 +47,11 @@ export class ApiService {
         return this.db.collection(collectionName, (ref) =>
             ref.where(fieldName, "==", fieldValue)
         );
+    }
+
+    filterUserByField(fieldName: string, fieldValue: string): Observable<User[]> {
+        const queryFn: QueryFn = (ref) => ref.where(fieldName, '==', fieldValue);
+        return this.db.collection<User>('users', queryFn).valueChanges();
     }
 
     getUserByEmail(email: string): Observable<User> {
@@ -135,7 +139,26 @@ export class ApiService {
     }
 
     addFeed(feed: Feed) {
-        return this.feedsCollection.doc(feed.id).set(feed).then(() => {
+
+        const timestamp = Timestamp.now();
+
+
+        const data: any = {
+            id: feed.id,
+            kompania: feed.kompania,
+            pershkrim: feed.pershkrim,
+            tel: feed.tel,
+            time: feed.time,
+            tittle: feed.tittle,
+            userName: feed.userName,
+            userType: feed.userType,
+            vendodhja: feed.vendodhja,
+            whatsApp: feed.whatsApp
+
+        }
+        console.log(feed, "add Feed method")
+
+        return this.feedsCollection.doc(feed.id).set(data).then(() => {
             console.log('Feed updated successfully!');
         })
             .catch(error => {
@@ -167,7 +190,7 @@ export class ApiService {
     }
 
     getFeed(id: string) {
-        // return this.feedsCollection.doc(id).get();
+// this.feedsCollection;
         return this.feedsCollection.doc(id).get();
     }
 

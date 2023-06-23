@@ -1,15 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ForgotPasswordComponent} from "../forgotpassword/forgot-password.component";
+import {Component, OnInit} from '@angular/core';
 import {ModalController} from "@ionic/angular";
 import {Feed} from "../../model/feed/feed.model";
 import {ApiService} from "../../services/api/api.service";
 import {AuthService} from "../../services/auth/auth.service";
-import {Router} from "@angular/router";
 import {RouterService} from "../../services/routerService/router.service";
-import firebase from "firebase/compat";
-import Timestamp = firebase.firestore.Timestamp;
-import {timestamp} from "rxjs";
-import * as moment from "moment";
 
 
 @Component({
@@ -19,14 +13,17 @@ import * as moment from "moment";
 })
 export class AddFeedComponent implements OnInit {
     feed: Feed = {
+        tel: "",
+        userType: "",
+        whatsApp: "",
         id: "",
         kompania: "",
         vendodhja: "",
         pershkrim: "",
         tittle: "",
-        time:  moment(new Date()),
-        userName: "",
-        userType: ""
+        time:new Date(),
+        userName: ""
+
 
     }
 
@@ -54,7 +51,7 @@ export class AddFeedComponent implements OnInit {
 
 
     addFeed() {
-        this.feed.time = moment(new Date());
+        this.feed.time =new Date();
 
         return this.apiService.addFeed(this.feed).then(r => {
             this.closeModal().then(r => this.routerService.navigate("/tabs/landing-page"));

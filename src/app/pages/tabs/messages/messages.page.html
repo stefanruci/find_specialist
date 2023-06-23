@@ -1,19 +1,18 @@
-<ion-content>
-    <ion-header class="title-header">
-        <ion-toolbar color="primary">
+<div class="header d-flex">
+
+    <ion-header>
+        <div expand="full" class="toolbar d-flex justify-content-between ">
             <ion-icon
                     name="mail-outline"
                     slot="start"
-                    size="large"
-                    class="ion-padding"
-            ></ion-icon>
-            <ion-title>My Messages</ion-title>
-            <ion-buttons slot="end">
+                    class="p-0 m-0">
+            </ion-icon>
+
+            <h3 class="w-75 ion-padding-top"> Mesazhet</h3>
+
+            <ion-buttons class="">
                 <ion-button fill="clear" id="popover">
-                    <ion-icon
-                            slot="icon-only"
-                            name="ellipsis-vertical-outline"
-                    ></ion-icon>
+                    <ion-icon name="log-out-outline" size="small"></ion-icon>
                 </ion-button>
             </ion-buttons>
 
@@ -25,9 +24,10 @@
                     </ion-content>
                 </ng-template>
             </ion-popover>
-            >
-        </ion-toolbar>
+
+        </div>
         <ion-segment
+                class="segment-wrapper"
                 [value]="segment"
                 mode="md"
                 (ionChange)="onSegmentChanged($event)"
@@ -40,37 +40,39 @@
             </ion-segment-button>
         </ion-segment>
     </ion-header>
-    <ion-content color="light" *ngIf="isLogin===true">
-        <app-empty-screen *ngIf="(chatRooms | async)?.length === 0" [model]="model">
-        </app-empty-screen>
+</div>
 
-        <ng-container *ngIf="segment === 'chats' && (chatRooms | async) as rooms">
-            <ion-list *ngIf="rooms?.length > 0">
-                <ion-list-header class="ion-padding-bottom" color="light">
-                    RECENT CHATS
-                </ion-list-header>
 
-                <ion-item
-                        *ngFor="let item of rooms"
-                        (click)="getChat(item)"
-                        [detail]="true"
-                >
-                    <ng-container *ngIf="(item?.user | async) as user">
-                        <ion-avatar slot="start">
-                            <img [src]="getUser(user)?.photo"/>
-                        </ion-avatar>
-                        <ion-label>
-                            {{getUser(user)?.name}}
-                            <!-- <p>
-                            <ion-text>
-                              message
-                            </ion-text>
-                          </p> -->
-                        </ion-label>
-                        <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
-                    </ng-container>
-                </ion-item>
-            </ion-list>
-        </ng-container>
-    </ion-content>
+<ion-content color="light" *ngIf="isLogin===true">
+    <app-empty-screen *ngIf="(chatRooms | async)?.length === 0" [model]="model">
+    </app-empty-screen>
+
+    <ng-container *ngIf="segment === 'chats' && (chatRooms | async) as rooms">
+        <ion-list *ngIf="rooms?.length > 0">
+            <ion-list-header class="ion-padding-bottom" color="light">
+                RECENT CHATS
+            </ion-list-header>
+
+            <ion-item
+                    *ngFor="let item of rooms"
+                    (click)="getChat(item)"
+                    [detail]="true"
+            >
+                <ng-container *ngIf="(item?.user | async) as user">
+                    <ion-avatar slot="start">
+                        <img [src]="getUser(user)?.photo"/>
+                    </ion-avatar>
+                    <ion-label>
+                        {{getUser(user)?.name}}
+                        <!-- <p>
+                        <ion-text>
+                          message
+                        </ion-text>
+                      </p> -->
+                    </ion-label>
+                    <!-- <ion-text slot="end" color="medium">10:00 AM</ion-text> -->
+                </ng-container>
+            </ion-item>
+        </ion-list>
+    </ng-container>
 </ion-content>

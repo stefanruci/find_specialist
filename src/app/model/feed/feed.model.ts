@@ -1,4 +1,3 @@
-import {Moment} from "moment";
 
 
 export interface Feed {
@@ -6,7 +5,7 @@ export interface Feed {
     userName: string;
     tittle: string;
     pershkrim: string;
-    time: Moment;
+    time: Date;
     userType: string;
     vendodhja: string;
     kompania?: string;

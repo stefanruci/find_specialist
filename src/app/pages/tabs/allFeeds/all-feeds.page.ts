@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FeedService} from "../../../services/feed-service/feed.service";
-import {Feed} from "../../../model/feed/feed.model";
 import {ActivatedRoute} from "@angular/router";
+import {User} from "../../../model/user/user.model";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
     selector: 'app-all-feeds',
@@ -9,23 +9,52 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./all-feeds.page.scss'],
 })
 export class AllFeedsPage implements OnInit {
-    @Input() userType: string="";
+    @Input() userType: string = "";
 
-    validUserType: boolean=true;
+    validUserType: boolean = true;
 
-    constructor(private route: ActivatedRoute) {
+
+    @Input()
+    userId: string = "";
+    private currentUser: User;
+
+    constructor(private route: ActivatedRoute, private authService: AuthService) {
+
     }
 
     ngOnInit() {
         this.userType = this.route.snapshot.paramMap.get('user-type');
 
-        if (this.userType.length>0&&this.userType=="F"||this.userType=="P"){
-            this.validUserType=true
-        }
-        else {
-            this.validUserType=false
+        if (this.userType.length > 0 && this.userType == "F" || this.userType == "P") {
+            if (this.authService.isLogin == true) {
+                this.authService.getCurrentUser().subscribe(
+                    (user) => {
+                        this.currentUser = user.data();
+                        this.userId = user.data().id;
+                    }, error => {
+                        console.error(error);
+                    }, () => {
+                        console.log(this.currentUser, "loading page on allFeeds")
+
+                    });
+                setTimeout(()=>{
+                    this.validUserType = true
+
+                },2000)
+
+            } else {
+                this.validUserType = true
+
+            }
+
+
+        } else {
+
+            this.validUserType = false
 
         }
+
+
     }
 
 

@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { AllFeedsPageRoutingModule } from './all-feeds-routing.module';
+import {AllFeedsPageRoutingModule} from './all-feeds-routing.module';
 
-import { AllFeedsPage } from './all-feeds.page';
+import {AllFeedsPage} from './all-feeds.page';
+import {LandingPagePageModule} from "../landing-page/landing-page.module";
 
 @NgModule({
     imports: [
@@ -14,7 +15,9 @@ import { AllFeedsPage } from './all-feeds.page';
         FormsModule,
         IonicModule,
         AllFeedsPageRoutingModule,
+        LandingPagePageModule,
     ],
-  declarations: [AllFeedsPage]
+    declarations: [AllFeedsPage]
 })
-export class AllFeedsPageModule {}
+export class AllFeedsPageModule {
+}

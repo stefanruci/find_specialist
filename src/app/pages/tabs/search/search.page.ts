@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Feed} from "../../../model/feed/feed.model";
 import {ApiService} from "../../../services/api/api.service";
-import firebase from "firebase/compat";
-import Timestamp = firebase.firestore.Timestamp;
 import {timestamp} from "rxjs";
-import moment from "moment/moment";
+import moment from "moment";
 
 @Component({
     selector: 'app-search',
@@ -52,6 +50,7 @@ export class SearchPage implements OnInit {
     onSegmentChanged(event: any) {
         console.log(event);
         this.segment = event.detail.value;
+        this.searchWord = '';
     }
 
     getSearchedFeeds() {
@@ -66,20 +65,17 @@ export class SearchPage implements OnInit {
 
     }
 
-    onFeedClick(feed: Feed) {
-
-    }
 
     convertFeedsTime() {
         this.searchedFeeds.forEach(feed => {
-            feed.time = this.covertDateToMoment(feed.time);
+            feed.time = feed.time;
         })
 
     }
 
     private covertDateToMoment(time: any) {
         return moment(time.toDate());
-        ;
+
     }
 
     randomIntFromInterval(min, max) {

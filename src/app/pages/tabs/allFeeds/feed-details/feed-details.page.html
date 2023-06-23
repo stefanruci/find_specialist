@@ -12,6 +12,8 @@
 
 <ion-header *ngIf="validID==true">
     <ion-toolbar>
+
+        <ion-back-button></ion-back-button>
         <ion-title class="d-grid justify-content-between position-relative">
 
 
@@ -19,8 +21,7 @@
             {{ feed.userName }}
         </ion-title>
         <ion-buttons slot="end">
-            <ion-button [routerLink]="['/../../tabs'] "
-
+            <ion-button routerLink="./../../../tabs"
             >
                 <ion-icon name="close"></ion-icon>
             </ion-button>
@@ -28,54 +29,58 @@
     </ion-toolbar>
 </ion-header>
 
-    <ion-grid *ngIf="validID==true " class="h-90 " >
-
-        <ion-row size="7" class="ion-text-center justify-content-center">
-            <ion-card expand="full" class="d-grid ion-card feed ">
-                <ion-card-header class="" style="display: flex ;justify-content: space-between">
-                    <ion-card-subtitle class=" item ">
-
-                        <ion-icon name="time-outline"></ion-icon>
-                        " {{  feed.time.format("DD/MM")}}"
-                        <br>
-                        <ion-icon name="location-outline"></ion-icon>
-                        {{ feed.vendodhja }}</ion-card-subtitle>
-                    <ion-card-subtitle class=" item " style="float: left">
-                        <ion-icon name="person-circle-outline"></ion-icon>
-                        {{ feed.userName }}</ion-card-subtitle>
-                </ion-card-header>
-
-                <ion-card-title>{{ feed.tittle }}</ion-card-title>
-
-                <ion-card-content>
-                    {{ feed.pershkrim.slice(0, 100).concat('   ......')  }}
-                </ion-card-content>
-                <ion-card-content style="display:flex;justify-content: flex-end  ;align-content: flex-end">
-                    <ion-tab-button id="call">
-                        <ion-icon name="call-outline"></ion-icon>
-                        <ion-label>Telefono</ion-label>
-                    </ion-tab-button
-                    >
-
-                    <ion-tab-button id="whatsapp">
-                        <ion-icon name="logo-whatsapp"></ion-icon>
-                        <ion-label>WhatsUp</ion-label>
-                    </ion-tab-button
-                    >
-
-                    <ion-tab-button id="messages">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <ion-label>Dergo mesazh</ion-label>
-                    </ion-tab-button
-                    >
-
-                </ion-card-content>
+<ion-grid *ngIf="validID==true " class="h-90 ">
 
 
-            </ion-card>
-        </ion-row>
+    <ion-row size="7" class="ion-text-center justify-content-center">
+        <ion-card expand="full" class="d-grid ion-card feed ">
+            <ion-card-header class="" style="display: flex ;justify-content: space-between">
+                <ion-card-subtitle class=" item ">
 
-    </ion-grid>
+                    <ion-icon name="time-outline"></ion-icon>
+                    " {{  convertDate(feed.time)}}"
+                    <br>
+                </ion-card-subtitle>
+                <ion-card-subtitle class=" item " style="float: left">
+                    <ion-icon name="location-outline"></ion-icon>
+                    {{ feed.vendodhja }}</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-title>{{ feed.tittle }}</ion-card-title>
+
+            <ion-card-content class="h-auto">
+                <ion-content>{{ feed.pershkrim  }} </ion-content>
+            </ion-card-content>
+            <ion-card-content style="display:flex;justify-content: flex-end  ;align-content: flex-end">
+                <ion-tab-button href="tel:{{feed.tel}}" id="call">
+                    <ion-icon name="call-outline"></ion-icon>
+                    <ion-label>Telefono</ion-label>
+                </ion-tab-button
+                >
+
+                <ion-tab-button id="whatsapp" href="https://wa.me/{{feed.whatsApp}}">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                    <ion-label>WhatsUp</ion-label>
+                </ion-tab-button
+                >
+
+
+                <ion-tab-button id="messages" href="#">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <ion-label>Dergo mesazh</ion-label>
+                </ion-tab-button
+                >
+
+            </ion-card-content>
+            <ion-button *ngIf="shfaqu(feed)" fill="none" style="color:blue " size="small"
+                        (click)="editFeed(feed)"> Edito
+            </ion-button>
+
+
+        </ion-card>
+    </ion-row>
+
+</ion-grid>
 
 
 

@@ -24,11 +24,15 @@ import {SwiperModule} from "swiper/angular";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FeedComponent} from "./components/feed/feed.component";
 import {AddFeedComponent} from "./components/add-feed/add-feed.component";
+import {MyFeedsComponent} from "./components/my-feeds/my-feeds.component";
+import {ForgotPasswordComponent} from "./components/forgotpassword/forgot-password.component";
+import {EmptyScreenComponent} from "./components/empty-screen/empty-screen.component";
 
 @NgModule({
     declarations: [
         AppComponent,
-        AddFeedComponent,
+
+
 
     ],
     imports: [
@@ -60,6 +64,7 @@ import {AddFeedComponent} from "./components/add-feed/add-feed.component";
     ],
     bootstrap: [AppComponent],
     exports: [
+
     ]
 })
 export class AppModule {

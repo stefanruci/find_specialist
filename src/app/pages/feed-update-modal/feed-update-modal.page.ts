@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from "@ionic/angular";
 import {Feed} from "../../model/feed/feed.model";
 import {ApiService} from "../../services/api/api.service";
+import {RouterService} from "../../services/routerService/router.service";
 
 @Component({
     selector: 'app-feed-update-modal',
@@ -11,7 +12,7 @@ import {ApiService} from "../../services/api/api.service";
 export class FeedUpdateModalPage implements OnInit {
     @Input() feed: Feed;
 
-    constructor(private modalController: ModalController, private apiService: ApiService) {
+    constructor(private modalController: ModalController, private apiService: ApiService, private ruterService: RouterService) {
     }
 
     dismiss() {
@@ -31,6 +32,8 @@ export class FeedUpdateModalPage implements OnInit {
     deleteFeed() {
         return this.apiService.deleteFeed(this.feed.id).then(re => {
             this.dismiss()
+            this.ruterService.navigate("/");
+
         })
     }
 }

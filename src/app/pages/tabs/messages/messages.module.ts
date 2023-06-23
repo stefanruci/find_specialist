@@ -9,15 +9,17 @@ import { MessagesPageRoutingModule } from "./messages-routing.module";
 import { MessagesPage } from "./messages.page";
 import { EmptyScreenComponent } from "src/app/components/empty-screen/empty-screen.component";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
+import {SidebarModule} from "ng-sidebar";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MessagesPageRoutingModule,
-    NgbCollapseModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        MessagesPageRoutingModule,
+        NgbCollapseModule,
+        SidebarModule,
+    ],
   declarations: [MessagesPage, EmptyScreenComponent],
 })
 export class MessagesPageModule {}

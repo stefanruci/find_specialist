@@ -1,23 +1,18 @@
 import {Injectable} from "@angular/core";
-import {Auth, user} from "@angular/fire/auth";
+import {Auth} from "@angular/fire/auth";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {rejects} from "assert";
-import {resolve} from "dns";
 import {
     createUserWithEmailAndPassword,
-    EmailAuthCredential,
     getAuth,
     onAuthStateChanged,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
 } from "firebase/auth";
-import {BehaviorSubject, first, map, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {User} from "src/app/model/user/user.model";
 import {ApiService} from "../api/api.service";
 import {AlertController} from "@ionic/angular";
-import {Router} from "@angular/router";
 import {RouterService} from "../routerService/router.service";
-import {isLogin} from "ionic";
 
 @Injectable({
     providedIn: "root",
@@ -29,7 +24,7 @@ export class AuthService {
     correctUser: any;
     userType: string = 'U';
     currentUserId: string = "";
-    isLogin: boolean;
+    isLogin: boolean = false;
 
     constructor(
         private routerService: RouterService,
@@ -65,9 +60,11 @@ export class AuthService {
 
     getCurrentUser() {
         this.getUserId()
+        if (this.auth.currentUser.uid.length > 0) {
+            console.log(this.currentUserId, "id on authService", this.auth.currentUser.uid);
+            return this.apiService.getUser(this.auth.currentUser.uid);
+        } else return;
 
-        console.log(this.currentUserId, "id on authService", this.auth.currentUser.uid);
-        return this.apiService.getUser(this.auth.currentUser.uid);
 
     }
 
@@ -75,12 +72,19 @@ export class AuthService {
         this.afAuth.authState.subscribe((user) => {
             if (user) {
                 // User is signed in.
-                console.log(user.uid);
+                console.log(user.uid, "aush");
+
                 this.currentUserId = user.uid;
             }
         });
+        setTimeout(() => {
 
+        }, 2500)
         return this.currentUserId;
+    }
+
+    getAuthState(): any {
+        return this.afAuth;
     }
 
     async login(email: string, password: string): Promise<any> {
@@ -224,6 +228,7 @@ export class AuthService {
         })
 
     }
+
     async showAlert(msg) {
         const alert = await this.alertController.create({
             header: "Alert?",

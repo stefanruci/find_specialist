@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Feed} from "../../model/feed/feed.model";
 import {FeedService} from "../../services/feed-service/feed.service";
 import {User} from "../../model/user/user.model";
-import moment from "moment";
 import {FeedUpdateModalPage} from "../../pages/feed-update-modal/feed-update-modal.page";
 import {ModalController} from "@ionic/angular";
 
@@ -52,7 +51,6 @@ export class MyFeedsComponent implements OnInit {
                     this.feedList = list.filter(feed => feed.userName = this.userName);
 
                     console.log(this.feedListLen)
-                    this.convertFeedsTime();
 
                 })
         } else if (this.userType == 'P') {
@@ -62,7 +60,6 @@ export class MyFeedsComponent implements OnInit {
                     this.feedList = list.filter(feed => feed.userName = this.userName);
                     console.log(this.feedListLen)
 
-                    this.convertFeedsTime();
 
 
                 })
@@ -98,15 +95,15 @@ export class MyFeedsComponent implements OnInit {
 
     }
 
-    convertFeedsTime() {
-        this.feedList.forEach(feed => {
-            feed.time = this.covertDateToMoment(feed.time);
-        })
+    // convertFeedsTime() {
+    //     this.feedList.forEach(feed => {
+    //         feed.time = feed.time;
+    //     })
+    //
+    // }
 
-    }
-
-    private covertDateToMoment(time: any) {
-        return moment(time.toDate());
+     covertDateToMoment(time: any) {
+        return this.feedService.covertDate(time);
         ;
     }
 

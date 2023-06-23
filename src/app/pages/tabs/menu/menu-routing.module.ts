@@ -6,7 +6,7 @@ import {MenuPage} from './menu.page';
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         canActivate: [AuthGuard],
         component: MenuPage,
 

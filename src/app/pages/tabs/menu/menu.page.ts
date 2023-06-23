@@ -7,7 +7,6 @@ import {Feed} from "../../../model/feed/feed.model";
 import {ApiService} from "../../../services/api/api.service";
 import {FeedUpdateModalPage} from "../../feed-update-modal/feed-update-modal.page";
 import {RouterService} from "../../../services/routerService/router.service";
-import * as moment from "moment/moment";
 import {AddFeedComponent} from "../../../components/add-feed/add-feed.component";
 
 
@@ -90,8 +89,6 @@ export class MenuPage implements OnInit {
     }
 
 
-
-
     async logout() {
         try {
             console.log("logout");
@@ -140,7 +137,7 @@ export class MenuPage implements OnInit {
     setUser() {
 
         this.authService._uid.subscribe(s => {
-            console.log(s,"menu")
+            console.log(s, "menu")
 
         })
 
@@ -209,14 +206,8 @@ export class MenuPage implements OnInit {
         return await modal.present();
     }
 
-    covertDate(date: any) {
-        return moment(date.toDate());
-
-    }
 
     getUsername() {
-
-
         return new Promise<string>((resolve, reject) => {
             if (this.user && this.user.username) {
                 resolve(this.user.username);

@@ -3,10 +3,7 @@ import {User} from "../../model/user/user.model";
 import {Feed} from "../../model/feed/feed.model";
 import {AuthService} from "../auth/auth.service";
 import {ApiService} from "../api/api.service";
-import {RouterOutlet} from "@angular/router";
-import firebase from "firebase/compat";
-import {timestamp} from "rxjs";
-import * as moment from "moment/moment";
+import {format} from "date-fns";
 
 
 @Injectable({
@@ -63,7 +60,7 @@ export class FeedService {
         userName: "username",
         tittle: "tittle",
         pershkrim: "decr",
-        time: moment(new Date()),
+        time: new Date(),
         userType: "type"
     };
 
@@ -116,10 +113,7 @@ export class FeedService {
     }
 
     covertDate(date) {
-
-
-        return moment(date.toDate());
-
+        return format(date.toDate(), 'dd/MM');
     }
 
     getCurrentUser() {

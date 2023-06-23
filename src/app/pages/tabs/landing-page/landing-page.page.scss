@@ -85,13 +85,35 @@ h3 {
   overflow: hidden;
 }
 
-.add-feed-button {
+.addFeedButton {
   float: right;
-  border-radius: 30px;
-  width: 200px;
-  height: 80px;
-  margin-bottom: 100px;
-  background-color: #0a53be;
+  margin-left: 20px;
+  background-color: transparent;
+
+}
+
+.shadow {
+  box-shadow: none !important;
+}
+
+.addFeedButton {
+
+  ion-icon {
+
+    background-color: transparent;
+    //color: transparent;
+  }
+
+}
+
+.addFeedButton {
+
+  ion-button {
+
+    background-color: transparent;
+    //color: transparent;
+  }
+
 }
 
 @media only screen and (min-height: 0px) and (max-width: 800px) {
@@ -110,8 +132,36 @@ h3 {
     margin: 0px;
     width: 100%;
   }
+  .addFeedButton {
+    display: block;
+    width: fit-content;
+    height: 50px;
+    border-radius: 10px;
+    background-color: transparent;
+    margin-bottom: 40px;
 
+
+  }
+  .addFeedButton ion-button {
+    text-align: center;
+    color: #428cff;
+  }
+
+  .shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+
+  }
 }
+
+
+.see-all-button {
+
+  .button-native {
+background-color:#3880ff;
+  color: white;}
+}
+
+
 
 
 

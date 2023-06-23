@@ -1,20 +1,35 @@
-.content-grid{
-    width: max-content;
-    display:flex;
-    justify-content:center;
-    align-items: center;
+
+.toolbar * {
+  width: 100%;
+  height: 55.3px;
+  background-color: #226EF2 !important;
+  color: white;
 }
-.container{
-    height: 500px;
+
+.toolbar > ion-icon {
+
+  height: 55.3px;
+
+}
+
+.toolbar > h3 {
+
+  height: 55.3px;
+
+}
+
+.toolbar > ion-button {
+
+  height: 55.3px;
+
+}
+
+ion-header {
+  div * {
     width: 100%;
-}
-.in-item{
-    width: max-content;
-    height: max-content;
-}
-ion-row{
-height: fit-content;
-width: fit-content;
+    background-color: #226EF2 !important;
+    color: white;
+  }
 }
 
 

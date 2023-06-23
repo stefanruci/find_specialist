@@ -10,6 +10,7 @@ import {LandingPagePage} from './landing-page.page';
 import {AppModule} from "../../../app.module";
 import {RouterModule} from "@angular/router";
 import {FeedComponent} from "../../../components/feed/feed.component";
+import {AddFeedComponent} from "../../../components/add-feed/add-feed.component";
 
 @NgModule({
     imports: [
@@ -18,7 +19,10 @@ import {FeedComponent} from "../../../components/feed/feed.component";
         IonicModule,
         LandingPagePageRoutingModule,
     ],
-    declarations: [LandingPagePage,FeedComponent]
+    exports: [
+        FeedComponent
+    ],
+    declarations: [LandingPagePage, FeedComponent, AddFeedComponent]
 })
 export class LandingPagePageModule {
 }

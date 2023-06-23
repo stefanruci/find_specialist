@@ -9,12 +9,23 @@ import {ActivationStart, Router, RouterOutlet} from "@angular/router";
 })
 export class TabsPage implements OnInit {
 
+    @ViewChild(RouterOutlet) outlet: RouterOutlet;
+    @ViewChild(IonRouterOutlet) iOutlet: RouterOutlet;
 
-    constructor(
-    ) {
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
+
+
+        this.router.events.subscribe(e => {
+            if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
+                this.outlet.deactivate();
+        });
+        this.router.events.subscribe(e => {
+            if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
+                this.iOutlet.deactivate();
+        });
 
 
     }
