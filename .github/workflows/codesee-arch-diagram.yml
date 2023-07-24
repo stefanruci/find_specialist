@@ -19,5 +19,5 @@ jobs:
     steps:
       - uses: Codesee-io/codesee-action@v2
         with:
-          codesee-token: ${{ secrets.CODESEE_ARCH_DIAG_API_TOKEN }}
+          codesee-token:"CodeSee:2:14514:y7u7amMOC803qbJpLHvmhjcnCrU3MZHsiER7fO30b2g="
           codesee-url: https://app.codesee.io
