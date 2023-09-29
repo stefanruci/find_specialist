@@ -37,7 +37,7 @@ export class AddFeedComponent implements OnInit {
     ngOnInit() {
         this.feed.id = this.randomIntFromInterval(10000, 200000).toString();
         this.feed.userType = this.authService.userType;
-        this.authService.getCurrentUser().subscribe(el => {
+        this.authService.getCurrentUser().subscribe((el: { data: () => { (): any; new(): any; username: { (): any; new(): any; toString: { (): string; new(): any; }; }; }; }) => {
             if (el) {
                 console.log(el, 'el')
                 this.feed.userName = el.data().username.toString();
@@ -70,7 +70,7 @@ export class AddFeedComponent implements OnInit {
         await this.modalCtrl.dismiss();
     }
 
-    randomIntFromInterval(min, max) {
+    randomIntFromInterval(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 

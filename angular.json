@@ -31,13 +31,7 @@
                 "output": "./svg"
               }
             ],
-            "styles": [
-              "src/theme/variables.scss",
-              "src/global.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
-
-
-            ],
+            "styles": ["src/theme/variables.scss", "src/global.scss"],
             "scripts": []
           },
           "configurations": {
@@ -117,10 +111,7 @@
                 "output": "./svg"
               }
             ],
-            "styles": [
-              "src/theme/variables.scss",
-              "src/global.scss"
-            ],
+            "styles": ["src/theme/variables.scss", "src/global.scss"],
             "scripts": []
           },
           "configurations": {
@@ -138,40 +129,6 @@
               "src/**/*.html"
             ]
           }
-        },
-        "deploy": {
-          "builder": "@angular/fire:deploy",
-          "options": {
-            "prerender": false,
-            "ssr": false,
-            "browserTarget": "app:build:production",
-            "firebaseProject": "findspecialist-a5e75",
-            "firebaseHostingSite": "findspecialist-a5e75"
-          }
-        },
-        "ionic-cordova-serve": {
-          "builder": "@ionic/cordova-builders:cordova-serve",
-          "options": {
-            "cordovaBuildTarget": "app:ionic-cordova-build",
-            "devServerTarget": "app:serve"
-          },
-          "configurations": {
-            "production": {
-              "cordovaBuildTarget": "app:ionic-cordova-build:production",
-              "devServerTarget": "app:serve:production"
-            }
-          }
-        },
-        "ionic-cordova-build": {
-          "builder": "@ionic/cordova-builders:cordova-build",
-          "options": {
-            "browserTarget": "app:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "app:build:production"
-            }
-          }
         }
       }
     }
@@ -180,7 +137,7 @@
     "schematicCollections": [
       "@ionic/angular-toolkit"
     ],
-    "analytics": "e57d9f11-d78c-4c25-8dad-12c2a388ae7b"
+    "analytics": "4de63289-f52c-4fc8-90e6-a6babbae2562"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

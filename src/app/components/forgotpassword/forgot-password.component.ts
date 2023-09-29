@@ -32,11 +32,12 @@ export class ForgotPasswordComponent implements OnInit {
                 console;
             }
         } catch (e) {
+            // @ts-ignore
             this.showAlert(e.code);
         }
     }
 
-    async showAlert(msg) {
+    async showAlert(msg: any) {
         const alert = await this.alertController.create({
             header: "Alert?",
             cssClass: "custom-alert",

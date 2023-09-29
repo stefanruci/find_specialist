@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Feed} from "../../model/feed/feed.model";
 import {FeedService} from "../../services/feed-service/feed.service";
 import {User} from "../../model/user/user.model";
-import moment from "moment";
 import {FeedUpdateModalPage} from "../../pages/feed-update-modal/feed-update-modal.page";
 import {ModalController} from "@ionic/angular";
+import * as moment from "moment/moment";
 
 @Component({
     selector: 'app-my-feeds',

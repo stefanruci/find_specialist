@@ -4,10 +4,8 @@ import {ApiService} from "../../services/api/api.service";
 import {FeedService} from "../../services/feed-service/feed.service";
 import * as moment from "moment";
 import {RouterService} from "../../services/routerService/router.service";
-import {AddFeedComponent} from "../add-feed/add-feed.component";
 import {FeedUpdateModalPage} from "../../pages/feed-update-modal/feed-update-modal.page";
 import {ModalController} from "@ionic/angular";
-import {user} from "@angular/fire/auth";
 import {AuthService} from "../../services/auth/auth.service";
 import {User} from "../../model/user/user.model";
 
@@ -34,8 +32,6 @@ export class FeedComponent implements OnInit {
     elementsToShow: any = 0;
     @Input()
     userType: string = "A";
-    private shfaq: boolean;
-
     currentUser: User = {
         email: "",
         id: "",
@@ -111,7 +107,7 @@ export class FeedComponent implements OnInit {
         // })
     }
 
-    randomIntFromInterval(min, max) {
+    randomIntFromInterval(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
@@ -150,7 +146,7 @@ export class FeedComponent implements OnInit {
 
     setUser() {
 
-        this.feedService.getCurrentUser().subscribe((user) => {
+        this.feedService.getCurrentUser().subscribe((user: { data: () => User; }) => {
 
                 this.currentUser = user.data();
                 console.log(this.currentUser, "feed comp")

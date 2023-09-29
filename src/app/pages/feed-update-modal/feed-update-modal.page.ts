@@ -9,7 +9,7 @@ import {ApiService} from "../../services/api/api.service";
     styleUrls: ['./feed-update-modal.page.scss'],
 })
 export class FeedUpdateModalPage implements OnInit {
-    @Input() feed: Feed;
+    @Input() feed: Feed ;
 
     constructor(private modalController: ModalController, private apiService: ApiService) {
     }

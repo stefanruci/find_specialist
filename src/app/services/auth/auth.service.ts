@@ -1,8 +1,6 @@
 import {Injectable} from "@angular/core";
-import {Auth, user} from "@angular/fire/auth";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {rejects} from "assert";
-import {resolve} from "dns";
+import {AngularFireAuth} from "@firebase/auth/dist/auth-public";
+
 import {
     createUserWithEmailAndPassword,
     EmailAuthCredential,
@@ -15,9 +13,9 @@ import {BehaviorSubject, first, map, Observable} from "rxjs";
 import {User} from "src/app/model/user/user.model";
 import {ApiService} from "../api/api.service";
 import {AlertController} from "@ionic/angular";
-import {Router} from "@angular/router";
 import {RouterService} from "../routerService/router.service";
-import {isLogin} from "ionic";
+import firebase from "firebase/compat";
+import Auth = firebase.auth.Auth;
 
 @Injectable({
     providedIn: "root",
@@ -40,7 +38,7 @@ export class AuthService {
     ) {
         if (this.isLogin == true) {
 
-            this.getCurrentUser().subscribe(el => {
+            this.getCurrentUser().subscribe((el: { data: () => { (): any; new(): any; userType: string; }; }) => {
                 this.userType = el.data().userType.charAt(0).toUpperCase();
                 console.log(this.userType, '=usertype')
 
